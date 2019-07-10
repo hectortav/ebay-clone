@@ -1,0 +1,23 @@
+Download GlassFish: 
+https://idroot.us/install-glassfish-ubuntu-18-04-lts/
+
+To install GlassFish you need Java 8:
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java8-installer
+
+To switch between java versions:
+update-java-alternatives --list
+sudo update-java-alternatives --set /path/to/java/version
+(change /path/to/java/version to the java 8 path)
+
+Start glassfish:
+sudo ./asadmin start-domain
+(asadmin is in /glassfish5/bin)
+
+Website will be on: localhost:8080
+Admin page will be on: localhost:4848
+
+To install Intellij IDEA:
+sudo apt install snapd
+sudo snap install intellij-idea-community --classic
