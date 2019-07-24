@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/hectortav/Ebay_Clone/issues"
   },
-  "homepage": "https://github.com/hectortav/Ebay_Clone#readme"
+  "homepage": "https://github.com/hectortav/Ebay_Clone#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
