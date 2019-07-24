@@ -1,0 +1,24 @@
+{
+  "name": "ebay_clone",
+  "version": "1.0.0",
+  "description": "A Ebay RESTful API clone",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hectortav/Ebay_Clone.git"
+  },
+  "keywords": [
+    "restful",
+    "api",
+    "ebay"
+  ],
+  "author": "Paschopoulos - Tavoularis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hectortav/Ebay_Clone/issues"
+  },
+  "homepage": "https://github.com/hectortav/Ebay_Clone#readme"
+}
