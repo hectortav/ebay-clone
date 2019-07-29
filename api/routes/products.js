@@ -6,16 +6,22 @@ const Product = require('../models/product');
 
 router.get('/', (req, res, next) => {
 	Product.find()
-	.select('name price _id')
+	.select('_id name category currently first_bid no_bids rating location country')
 	.exec()
 	.then(docs => {
 		const response = {
 			count: docs.length,
 			products: docs.map(doc => {
 				return {
-					name: doc.name,
-					price: doc.price,
 					_id: doc._id,
+					name: doc.name,
+					category: doc.category,
+					currently: doc.currently,
+					first_bid: doc.first_bid,
+					no_bids: doc.no_bids,
+					rating: doc.rating,
+					location: doc.location,
+					country: doc.country,
 					request: {
 						type: 'GET',
 						url: 'http://localhost:3000/products/' + doc._id
@@ -37,7 +43,13 @@ router.post('/', (req, res, next) => {
 	const product = new Product({
 		_id: new mongoose.Types.ObjectId(),
 		name: req.body.name,
-		price: req.body.price
+		category: req.body.category,
+		currently: req.body.currently,
+		first_bid: req.body.first_bid,
+		no_bids: req.body.no_bids,
+		rating: req.body.bidder.rating,
+		location: req.body.bidder.location,
+		country: req.body.bidder.country
 	});
 	product
 	.save()
@@ -46,8 +58,15 @@ router.post('/', (req, res, next) => {
 		res.status(201).json({
 			message: 'Product Created',
 			createdProduct: {
+				_id: result._id,
 				name: result.name,
-				price: result.price,_id:result._id,
+				category: result.category,
+				currently: result.currently,
+				first_bid: result.first_bid,
+				no_bids: result.no_bids,
+				rating: result.rating,
+				location: result.location,
+				country: result.country,
 				request: {
 						type: 'GET',
 						url: 'http://localhost:3000/products/' + result._id
@@ -65,7 +84,7 @@ router.post('/', (req, res, next) => {
 router.get('/:productId', (req, res, next) => {
 	const id = req.params.productId;
 	Product.findById(id)
-	.select('name price _id')
+	.select('_id name category currently first_bid no_bids')
 	.exec()
 	.then(doc => {
 		console.log("From database", doc);
