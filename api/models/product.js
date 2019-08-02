@@ -14,10 +14,7 @@ const bidSchema = mongoose.Schema({
 const productSchema = mongoose.Schema({
 	_id: mongoose.Schema.Types.ObjectId,
 	name: { type: String, required: true },
-	category: { type: String, required: true },
-	currently: { type: Number, required: true },
-	first_bid: { type: Number, required: true },
-	no_bids: { type: Number, required: true },
+	category: { type: String, required: true }
 	//bids: [bidderSchema]
 	/*bids: {
 		type: Map,

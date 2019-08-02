@@ -6,7 +6,7 @@ const Product = require('../models/product');
 
 router.get('/', (req, res, next) => {
 	Product.find()
-	.select('_id name category currently first_bid no_bids')
+	.select('_id name category')
 	.exec()
 	.then(docs => {
 		const response = {
@@ -16,9 +16,6 @@ router.get('/', (req, res, next) => {
 					_id: doc._id,
 					name: doc.name,
 					category: doc.category,
-					currently: doc.currently,
-					first_bid: doc.first_bid,
-					no_bids: doc.no_bids,
 					request: {
 						type: 'GET',
 						url: 'http://localhost:3000/products/' + doc._id
@@ -40,10 +37,7 @@ router.post('/', (req, res, next) => {
 	const product = new Product({
 		_id: new mongoose.Types.ObjectId(),
 		name: req.body.name,
-		category: req.body.category,
-		currently: req.body.currently,
-		first_bid: req.body.first_bid,
-		no_bids: req.body.no_bids,
+		category: req.body.category
 	});
 	product
 	.save()
@@ -55,9 +49,6 @@ router.post('/', (req, res, next) => {
 				_id: result._id,
 				name: result.name,
 				category: result.category,
-				currently: result.currently,
-				first_bid: result.first_bid,
-				no_bids: result.no_bids,
 				request: {
 						type: 'GET',
 						url: 'http://localhost:3000/products/' + result._id
@@ -75,7 +66,7 @@ router.post('/', (req, res, next) => {
 router.get('/:productId', (req, res, next) => {
 	const id = req.params.productId;
 	Product.findById(id)
-	.select('_id name category currently first_bid no_bids')
+	.select('_id name category')
 	.exec()
 	.then(doc => {
 		console.log("From database", doc);
@@ -103,7 +94,7 @@ router.get('/:productId', (req, res, next) => {
 router.patch('/:productId', (req, res, next) => {
 	const id = req.params.productId;
 	const updateOps = {};
-	for (const ops of req.body) 
+	for (const ops of req.body)
 	{
 		updateOps[ops.propName] = ops.value;
 	}
