@@ -6,7 +6,7 @@ const Product = require('../models/product');
 
 router.get('/', (req, res, next) => {
 	Product.find()
-	.select('_id name category currently first_bid no_bids rating location country')
+	.select('_id name category currently first_bid no_bids')
 	.exec()
 	.then(docs => {
 		const response = {
@@ -19,9 +19,6 @@ router.get('/', (req, res, next) => {
 					currently: doc.currently,
 					first_bid: doc.first_bid,
 					no_bids: doc.no_bids,
-					rating: doc.rating,
-					location: doc.location,
-					country: doc.country,
 					request: {
 						type: 'GET',
 						url: 'http://localhost:3000/products/' + doc._id
@@ -47,9 +44,6 @@ router.post('/', (req, res, next) => {
 		currently: req.body.currently,
 		first_bid: req.body.first_bid,
 		no_bids: req.body.no_bids,
-		rating: req.body.bidder.rating,
-		location: req.body.bidder.location,
-		country: req.body.bidder.country
 	});
 	product
 	.save()
@@ -64,9 +58,6 @@ router.post('/', (req, res, next) => {
 				currently: result.currently,
 				first_bid: result.first_bid,
 				no_bids: result.no_bids,
-				rating: result.rating,
-				location: result.location,
-				country: result.country,
 				request: {
 						type: 'GET',
 						url: 'http://localhost:3000/products/' + result._id

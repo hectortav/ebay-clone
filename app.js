@@ -5,9 +5,9 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const productRoutes = require('./api/routes/products');
-const orderRoutes = require('./api/routes/orders');
+const auctionRoutes = require('./api/routes/auctions');
 
-mongoose.connect('mongodb+srv://admin:' + process.env.MONGO_ATLAS_PW + '@cluster0-9xgg4.mongodb.net/test?retryWrites=true&w=majority', 
+mongoose.connect('mongodb+srv://admin:' + process.env.MONGO_ATLAS_PW + '@cluster0-9xgg4.mongodb.net/test?retryWrites=true&w=majority',
 {
 	useNewUrlParser: true
 });
@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.use((req, res, next) => {
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header(
-		"Access-Controll-Allow-Headers", 
+		"Access-Controll-Allow-Headers",
 		"Origin, X-Requested-Woth, Content-Type, Accept, Authorization"
 	);
 	if (req.method === 'OPTIONS')
@@ -32,7 +32,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/products', productRoutes);
-app.use('/orders', orderRoutes);
+app.use('/auctions', auctionRoutes);
 
 app.use((req, res, next) => {
 	const error = new Error('Not Found');
