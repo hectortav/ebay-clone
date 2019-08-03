@@ -1,0 +1,45 @@
+img{
+  width: 150px;
+  height: 140px;
+  padding-left: 90px;
+}
+
+body{
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: #011730;
+}
+
+.box{
+  width: 800px;
+  padding: 40px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #030608;
+  text-align: center;
+  border-radius: 10px;
+}
+
+h1{
+  color: white;
+  font-weight: 500;
+}
+
+h4{
+  color: gray;
+}
+
+button{
+  background-color: #388108;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 18px;
+  border-radius: 25px;
+}
