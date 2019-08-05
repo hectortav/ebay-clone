@@ -1,77 +1,61 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+var crypto = require('crypto');
+
 //const bodyParser = require('body-parser');
 
+const User = require('../models/user');
+
+
 router.post('/', (req, res, next) => {
-	var signup_username = req.body.signup_username;
-	var signup_password =req.body.signup_password;
-	var signup_password_confirm = req.body.signup_password_confirm;
-	var signup_firstname =req.body.signup_firstname;
-	var signup_lastname = req.body.signup_lastname;
-	var signup_email =req.body.signup_email;
-	var signup_phone = req.body.signup_phone;
-	var signup_address =req.body.signup_address;
-	var signup_city = req.body.signup_city;
-	var signup_afm =req.body.signup_afm;
+	const user = new User({
 
-	var data = {
-		"signup_username": signup_username,
-		"signup_password":signup_password,
-		"signup_password_confirm":signup_password_confirm,
-		"signup_firstname":signup_firstname,
-		"signup_lastname": signup_lastname,
-		"signup_email":signup_email,
-		"signup_phone":signup_phone,
-		"signup_address":signup_address,
-		"signup_city":signup_city,
-		"signup_afm":signup_afm
-	}
-});
-/*
-db.on('error', console.log.bind(console, "connection error"));
-db.once('open', function(callback){
-	console.log("connection succeeded");
-})
-
-var app=express()
-
-
-app.use(bodyParser.json());
-app.use(express.static('public'));
-app.use(bodyParser.urlencoded({
-	extended: true
-}));
-
-app.post('/signup', function(req,res){
-	var name = req.body.name;
-	var email =req.body.email;
-	var pass = req.body.password;
-	var phone =req.body.phone;
-
-	var data = {
-		"name": name,
-		"email":email,
-		"password":pass,
-		"phone":phone
-	}
-db.collection('details').insertOne(data,function(err, collection){
-		if (err) throw err;
-		console.log("Record inserted Successfully");
-
+		if (checkPassword(req.body.password, req.body.password_confirm) === false) {
+			console.log(err);
+			res.status(500).json({
+				error: err
+			});
+		}
+		else {
+			_id: new mongoose.Types.ObjectId(),
+			username: req.body.username,
+			//password: req.body.password,
+			//password_confirm: req.body.password_confirm,
+			setPassword(req.body.password); //password encryption
+			firstname: req.body.firstname,
+			lastname: req.body.lastname,
+			email: req.body.email,
+			phone: req.body.phone,
+			address: req.body.address,
+			city: req.body.city,
+			afm: req.body.afm
+		}
+	});
+	user.save()
+	.then(result = > {
+		console log(result);
+		res.status(201).json({
+			message: 'User Created',
+			createdUser: {
+				_id: result._id,
+				username: result.username,
+				password: result.password,
+				firstname: result.firstname,
+				lastname: result.lastname,
+				email: result.email,
+				phone: result.phone,
+				address: result.address,
+				city: result.city,
+				afm: result.afm
+			}
+		});
+		return res.redirect('/pages/thanks_signup.html');
+	}).catch(err => {
+		console.log(err);
+		res.status(500).json({
+			error: err
+		});
 	});
 
-	return res.redirect('signup_success.html');
-})
-
-
-app.get('/',function(req,res){
-res.set({
-	'Access-control-Allow-Origin': '*'
-	});
-return res.redirect('index.html');
-}).listen(3000)
-
-
-console.log("server listening at port 3000");*/
 module.exports = router;
