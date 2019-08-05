@@ -7,13 +7,13 @@ const Product = require('../models/product');
 
 
 router.get('/', (req, res, next) => {
-	Auction.find().select('product _id currently first_bid no_bids').exec().then(docs => {
+	Auction.find().select('name _id currently first_bid no_bids').exec().then(docs => {
 		res.status(200).json({
 			count: docs.length,
 			auctions: docs.map(doc => {
 				return {
 					_id: doc._id,
-					product: doc.product,
+					name: doc.name,
 					currently: doc.currently,
 					first_bid: doc.first_bid,
 					no_bids: doc.no_bids,
@@ -33,16 +33,16 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-	Product.findById(req.body.productId)
-	.then(product => {
-		if (!product) {
+	Product.findById(req.body.nameId)
+	.then(name => {
+		if (!name) {
 			return res.status(404).json({
 				message: "Product Not Found"
 			});
 		}
 		const auction = new Auction({
 			_id: mongoose.Types.ObjectId(),
-			product: req.body.productId,
+			name: req.body.nameId,
 			currently: req.body.currently,
 			first_bid: req.body.first_bid,
 			no_bids: req.body.no_bids
@@ -55,7 +55,7 @@ router.post('/', (req, res, next) => {
 			message: 'Auction Saved',
 			createdAuction: {
 				_id: result._id,
-				product: result.product,
+				name: result.name,
 				currently: result.currently,
 				first_bid: result.first_bid,
 				no_bids: result.no_bids
@@ -107,7 +107,7 @@ router.delete('/:auctionId', (req, res, next) => {
 			request: {
 				type: "POST",
 				url: 'http://localhost:3000/auctions/',
-				body: { productId: 'ID', currently: 'NUMBER', first_bid: 'NUMBER', no_bids: 'NUMBER' }
+				body: { nameId: 'ID', currently: 'NUMBER', first_bid: 'NUMBER', no_bids: 'NUMBER' }
 			}
 		});
 	})
