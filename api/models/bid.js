@@ -4,12 +4,7 @@ const bidSchema = mongoose.Schema({
 	_id: mongoose.Schema.Types.ObjectId,
 	bidder: { type: mongoose.Schema.Types.ObjectId, red: 'Bidder' , required: true},
 	time: {type: Date, required: true },
-	amount: {type: Number, required: true },
-	started: {type: Date, required: true },
-	ends: {type: Date, required: true }.
-	description: { type: String },
-	seller: { type: mongoose.Schema.Types.ObjectId, red: 'Bidder' , required: true}
-
+	amount: {type: Number, required: true }
 });
 
 module.exports = mongoose.model('Bid', productSchema);

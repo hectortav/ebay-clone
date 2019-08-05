@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
+const signupRoutes = require('./api/routes/signup');
 const productRoutes = require('./api/routes/products');
 const auctionRoutes = require('./api/routes/auctions');
 
@@ -33,6 +34,7 @@ app.use((req, res, next) => {
 
 app.use('/products', productRoutes);
 app.use('/auctions', auctionRoutes);
+app.use('/signup', signupRoutes);
 
 app.use((req, res, next) => {
 	const error = new Error('Not Found');
