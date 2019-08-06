@@ -37,7 +37,9 @@ router.post('/', (req, res, next) => {
 	const product = new Product({
 		_id: new mongoose.Types.ObjectId(),
 		name: req.body.name,
-		category: req.body.category
+		category: req.body.category,
+		location: req.body.location,
+		country: req.body.country
 	});
 	product
 	.save()
@@ -49,6 +51,8 @@ router.post('/', (req, res, next) => {
 				_id: result._id,
 				name: result.name,
 				category: result.category,
+				location: result.location,
+				country: result.country,
 				request: {
 						type: 'GET',
 						url: 'http://localhost:3000/products/' + result._id

@@ -23,10 +23,4 @@ userSchema.methods.validPassword = function(password) {
   return this.hash === hash;
 };
 
-userSchema.methods.checkPassword = function(password1, password2) {
-  if(password1 != password2) {
-    return false;
-  }
-};
-
 module.exports = mongoose.model('User', userSchema);

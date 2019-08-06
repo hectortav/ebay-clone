@@ -9,14 +9,14 @@ const auctionSchema = mongoose.Schema({
 	started: {type: Date, required: true },
 	ends: {type: Date, required: true },
 	description: { type: String },
-	seller: { type: mongoose.Schema.Types.ObjectId, red: 'Bidder' , required: true},
+	//seller: { type: mongoose.Schema.Types.ObjectId, red: 'Bidder' , required: true},
 
 	buy_price: { type: Number},
-	bids: {
+	/*bids: {
 		type: Map,
 		of: mongoose.Schema.Types.ObjectId,
 		red: 'Bid'
-	}
+	}*/
 
 });
 
