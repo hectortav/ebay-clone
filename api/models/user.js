@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-var crypto = require('crypto');
 
 const userSchema = mongoose.Schema({
 	_id: mongoose.Schema.Types.ObjectId,
@@ -13,15 +12,5 @@ const userSchema = mongoose.Schema({
   city: { type: String, required: true },
   afm:{ type: String, required: true , unique: true}
 });
-
-userSchema.methods.setPassword = function(password){
-  this.salt = crypto.randomBytes(16).toString('hex');
-  this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
-};
-
-userSchema.methods.validPassword = function(password) {
-  var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
-  return this.hash === hash;
-};
 
 module.exports = mongoose.model('User', userSchema);
