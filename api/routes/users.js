@@ -1,50 +1,71 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 //const bodyParser = require('body-parser');
 
 const User = require('../models/user');
 
-router.post('/', (req, res, next) => {
-	const user = new User({
-
-		_id: new mongoose.Types.ObjectId(),
-		username: req.body.username,
-		//password_confirm: req.body.password_confirm,
-		firstname: req.body.firstname,
-		lastname: req.body.lastname,
-		email: req.body.email,
-		phone: req.body.phone,
-		address: req.body.address,
-		city: req.body.city,
-		afm: req.body.afm
+router.post('/signup', (req, res, next) => {
+	User.find({ username: req.body.username}) //add more checks
+	.exec()
+	.then( user => {
+		if (user.length >= 1) {
+			return res.status(409).json({
+				message: 'Username Exists'
+			});
+		} else {
+			bcrypt.hash(req.body.password, 10, (err, hash) => {
+					if (err) {
+						return res.status(500).json({
+							error: err
+						});
+					} else {
+						const user = new User({
+						_id: new mongoose.Types.ObjectId(),
+						username: req.body.username,
+						password: hash, 	//add check for confirm pass
+						firstname: req.body.firstname,
+						lastname: req.body.lastname,
+						email: req.body.email,
+						phone: req.body.phone,
+						address: req.body.address,
+						city: req.body.city,
+						afm: req.body.afm
+						});
+						user.save()
+						.then(result => {
+							console.log(result);
+							res.status(201).json({
+								message: 'User Created'
+							});
+							return res.redirect('/pages/thanks_signup.html');
+						}).catch(err => {
+							console.log(err);
+							res.status(500).json({
+								error: err
+							});
+						});
+					}
+			});
+		}
 	});
-	user.setPassword(req.body.password)
-	user.save()
+});
+
+router.delete('/:userId', (req, res, next) => {
+	User.remove({ _id: req.params.userId})
+	.exec()
 	.then(result => {
-		console.log(result);
-		res.status(201).json({
-			message: 'User Created',
-			createdUser: {
-				_id: result._id,
-				username: result.username,
-				password: result.password,
-				firstname: result.firstname,
-				lastname: result.lastname,
-				email: result.email,
-				phone: result.phone,
-				address: result.address,
-				city: result.city,
-				afm: result.afm
-			}
-		});
-		return res.redirect('/pages/thanks_signup.html');
-	}).catch(err => {
+		res.status(200).json({
+			message: 'User Deleted'
+		})
+	})
+	.catch(err => {
 		console.log(err);
 		res.status(500).json({
 			error: err
 		});
 	});
-});
+})
 module.exports = router;

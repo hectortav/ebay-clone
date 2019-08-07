@@ -54,3 +54,16 @@ password: RMxNfD&7~3x"^*HY$3A'?R/uP4cgq~^?
 
 user: admin
 password: admin
+
+to add new user send POST request under /users/signup:
+{
+	"username": "username",
+	"password": "password",
+	"firstname": "firstname",
+	"lastname": "lastname",
+	"email": "email",
+	"phone": "phone",
+	"address": "address",
+	"city": "city",
+	"afm": "afm"
+}
