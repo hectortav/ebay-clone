@@ -67,3 +67,6 @@ to add new user send POST request under /users/signup:
 	"city": "city",
 	"afm": "afm"
 }
+
+to see web token contents:
+https://jwt.io/

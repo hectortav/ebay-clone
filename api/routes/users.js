@@ -16,41 +16,64 @@ router.post('/signup', (req, res, next) => {
 			return res.status(409).json({
 				message: 'Username Exists'
 			});
-		} else {
-			bcrypt.hash(req.body.password, 10, (err, hash) => {
-					if (err) {
-						return res.status(500).json({
-							error: err
-						});
-					} else {
-						const user = new User({
-						_id: new mongoose.Types.ObjectId(),
-						username: req.body.username,
-						password: hash, 	//add check for confirm pass
-						firstname: req.body.firstname,
-						lastname: req.body.lastname,
-						email: req.body.email,
-						phone: req.body.phone,
-						address: req.body.address,
-						city: req.body.city,
-						afm: req.body.afm
-						});
-						user.save()
-						.then(result => {
-							console.log(result);
-							res.status(201).json({
-								message: 'User Created'
-							});
-							return res.redirect('/pages/thanks_signup.html');
-						}).catch(err => {
-							console.log(err);
-							res.status(500).json({
-								error: err
-							});
-						});
-					}
+		}
+	User.find({ email: req.body.email}) //add more checks
+	.exec()
+	.then( user => {
+		if (user.length >= 1) {
+			return res.status(409).json({
+				message: 'Email Exists'
 			});
 		}
+	User.find({ phone: req.body.phone}) //add more checks
+	.exec()
+	.then( user => {
+		if (user.length >= 1) {
+			return res.status(409).json({
+				message: 'Phone Exists'
+			});
+		}
+	User.find({ afm: req.body.afm}) //add more checks
+	.exec()
+	.then( user => {
+		if (user.length >= 1) {
+			return res.status(409).json({
+				message: 'Afm Exists'
+				});
+			}
+	bcrypt.hash(req.body.password, 10, (err, hash) => {
+			if (err) {
+				return res.status(500).json({
+					error: err
+				});
+			} else {
+				const user = new User({
+				_id: new mongoose.Types.ObjectId(),
+				username: req.body.username,
+				password: hash, 	//add check for confirm pass
+				firstname: req.body.firstname,
+				lastname: req.body.lastname,
+				email: req.body.email,
+				phone: req.body.phone,
+				address: req.body.address,
+				city: req.body.city,
+				afm: req.body.afm
+				});
+				user.save()
+				.then(result => {
+					console.log(result);
+					res.status(201).json({
+						message: 'User Created'
+					});
+					return res.redirect('/pages/thanks_signup.html');
+				}).catch(err => {
+					console.log(err);
+					res.status(500).json({
+						error: err
+					});
+				});
+			}
+		});
 	});
 });
 
