@@ -1,4 +1,4 @@
-Download GlassFish: 
+Download GlassFish:
 https://idroot.us/install-glassfish-ubuntu-18-04-lts/
 
 To install GlassFish you need Java 8:
@@ -43,7 +43,7 @@ Eclipse Java Web Developer Tools
 Eclipse Web Developer Tools
 Eclipse XML Editors and Tools
 JST Server Adapters
-JST Server Adapters 
+JST Server Adapters
 
 Youtube tutorial:
 https://www.youtube.com/watch?v=5jQSat1cKMo&t=841s
@@ -70,3 +70,11 @@ to add new user send POST request under /users/signup:
 
 to see web token contents:
 https://jwt.io/
+
+Front-end prerequisites:
+node.js (run node -v to check version)
+npm install -g @angular/cli 
+
+To run front-end:
+cd frontend
+ng serve -o (it should open the app in a new window in the browser)
