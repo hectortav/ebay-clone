@@ -8,13 +8,13 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { AboutPageComponent } from './about-page/about-page.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'about-page', component: AboutPageComponent },
+  { path: '', component: HomeComponent, data: {title: 'Welcome to eLagoon!'} },
+  { path: 'login', component: LoginComponent, data: {title: 'Log In'} },
+  { path: 'register', component: RegisterComponent, data: {title: 'Sign Up'} },
+  { path: 'about-page', component: AboutPageComponent, data: {title: 'About Us'} },
 
   // Should be the last route
-  { path: '**', component: PageNotFoundComponent }
+  { path: '**', component: PageNotFoundComponent, data: {title: 'Error :('} }
 ];
 
 @NgModule({
