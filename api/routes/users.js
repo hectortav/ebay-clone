@@ -17,6 +17,7 @@ router.post('/signup', (req, res, next) => {
 				message: 'Username Exists'
 			});
 		}
+		});
 	User.find({ email: req.body.email}) //add more checks
 	.exec()
 	.then( user => {
@@ -25,6 +26,7 @@ router.post('/signup', (req, res, next) => {
 				message: 'Email Exists'
 			});
 		}
+		});
 	User.find({ phone: req.body.phone}) //add more checks
 	.exec()
 	.then( user => {
@@ -33,6 +35,7 @@ router.post('/signup', (req, res, next) => {
 				message: 'Phone Exists'
 			});
 		}
+		});
 	User.find({ afm: req.body.afm}) //add more checks
 	.exec()
 	.then( user => {
@@ -41,6 +44,7 @@ router.post('/signup', (req, res, next) => {
 				message: 'Afm Exists'
 				});
 			}
+			});
 	bcrypt.hash(req.body.password, 10, (err, hash) => {
 			if (err) {
 				return res.status(500).json({
@@ -75,7 +79,6 @@ router.post('/signup', (req, res, next) => {
 			}
 		});
 	});
-});
 
 router.post('/login', (req, res, next) => {
 	User.find({ email: req.body.email})
