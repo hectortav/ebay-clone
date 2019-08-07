@@ -10,7 +10,8 @@ const auctionRoutes = require('./api/routes/auctions');
 
 mongoose.connect('mongodb+srv://admin:' + process.env.MONGO_ATLAS_PW + '@cluster0-9xgg4.mongodb.net/test?retryWrites=true&w=majority',
 {
-	useNewUrlParser: true
+	useNewUrlParser: true,
+	useCreateIndex: true
 });
 mongoose.Promise = global.Promise;
 

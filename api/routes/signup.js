@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-var crypto = require('crypto');
 
 //const bodyParser = require('body-parser');
 

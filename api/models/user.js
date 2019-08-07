@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+var crypto = require('crypto');
 
 const userSchema = mongoose.Schema({
 	_id: mongoose.Schema.Types.ObjectId,
