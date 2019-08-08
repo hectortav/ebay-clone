@@ -17,10 +17,13 @@ export class RegisterComponent implements OnInit {
   }
 
   register(form) {
-    console.log(form.value);
+    let serializedForm = JSON.stringify(form.value);
+    console.log(serializedForm);
+
     this.enrollmentService.register(form.value).subscribe((res) => {
       console.log("Signed Up!");
-      this.router.navigateByUrl('/home');
+      this.router.navigateByUrl('/');
+      console.log(res);
     });
   }
 
