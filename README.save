@@ -1,0 +1,82 @@
+Download GlassFish:
+https://idroot.us/install-glassfish-ubuntu-18-04-lts/
+
+To install GlassFish you need Java 8:
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java8-installer
+
+To switch between java versions:
+update-java-alternatives --list
+sudo update-java-alternatives --set /path/to/java/version
+(change /path/to/java/version to the java 8 path)
+
+Start glassfish:
+sudo ./asadmin start-domain
+(asadmin is in /glassfish5/bin)
+
+Website will be on: localhost:8080
+Admin page will be on: localhost:4848
+
+To install Intellij IDEA:
+sudo apt install snapd
+sudo snap install intellij-idea-community --classic
+
+https://www.jetbrains.com/help/idea/creating-and-running-your-first-java-ee-application.html
+
+////////////
+NEW PLAN LOL
+////////////
+Install Tomcat:
+https://linuxize.com/post/how-to-install-tomcat-9-on-ubuntu-18-04/#step-4-create-a-systemd-unit-file
+
+Install Eclipse:
+sudo apt install snapd
+sudo snap install eclipse --classic
+
+In Eclipse:
+Help->Install New Software
+Work with: https://projects.eclipse.org/releases/2019-03
+In "Web, XML, Java EE and OSGi Enterprise Development" install:
+Eclipse Java EE Developer Tools
+Eclipse Java Web Developer Tools
+Eclipse Web Developer Tools
+Eclipse XML Editors and Tools
+JST Server Adapters
+JST Server Adapters
+
+Youtube tutorial:
+https://www.youtube.com/watch?v=5jQSat1cKMo&t=841s
+
+MongoDB Atlas:
+email: di.secret.project@gmail.com
+password: RMxNfD&7~3x"^*HY$3A'?R/uP4cgq~^?
+
+user: admin
+password: admin
+
+to add new user send POST request under /users/signup:
+{
+	"username": "username",
+	"password": "password",
+	"firstname": "firstname",
+	"lastname": "lastname",
+	"email": "email",
+	"phone": "phone",
+	"address": "address",
+	"city": "city",
+	"afm": "afm"
+}
+
+to see web token contents:
+https://jwt.io/
+
+Front-end prerequisites:
+node.js (run node -v to check version)
+npm install -g @angular/cli 
+
+To run front-end:
+cd frontend
+ng serve -o (it should open the app in a new window in the browser)
+npm install -g @angular/cli
+

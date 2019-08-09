@@ -7,6 +7,49 @@ const jwt = require('jsonwebtoken');
 //const bodyParser = require('body-parser');
 
 const User = require('../models/user');
+/*
+_id: mongoose.Schema.Types.ObjectId,
+username: { type: String, required: true , unique: true},
+password: { type: String, required: true },
+firstname: { type: String, required: true },
+lastname: { type: String, required: true },
+email: { type: String, required: true , unique: true},
+phone: { type: String, required: true , unique: true},
+address: { type: String, required: true },
+city: { type: String, required: true },
+afm:{ type: String, required: true , unique: true}
+*/
+
+router.get('/', (req, res, next) => {
+	User.find()
+	.select('_id username firstname lastname email phone address city afm')
+	.exec()
+	.then(docs => {
+		const response = {
+			count: docs.length,
+			users: docs.map(doc => {
+				return {
+					_id: doc._id,
+					username: doc.username,
+					firstname: doc.firstname,
+					lastname: doc.lastname,
+					email: doc.email,
+					phone: doc.phone,
+					address: doc.address,
+					city: doc.city,
+					afm: doc.afm
+				}
+			})
+		};
+		res.status(200).json(response);
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(500).json({
+			error: err
+		});
+	})
+});
 
 router.post('/signup', (req, res, next) => {
 	User.find({ username: req.body.username}) //add more checks
