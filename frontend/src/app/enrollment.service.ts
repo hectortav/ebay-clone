@@ -10,15 +10,15 @@ import { Observable, BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class EnrollmentService {
-  // AUTH_SERVER = "http://localhost:3000";
-  AUTH_SERVER = "http://httpbin.org";
+  AUTH_SERVER = "http://localhost:3000";
+  // AUTH_SERVER = "http://httpbin.org";
   authSubject = new BehaviorSubject(false);
 
   constructor(private httpClient: HttpClient ) { }
 
   register(user: User): Observable<JwtResponse> {
-    return this.httpClient.post<JwtResponse>(`${this.AUTH_SERVER}/post`, user).pipe(
-    //return this.httpClient.post<JwtResponse>(`${this.AUTH_SERVER}/users/signup`, user).pipe(
+    // return this.httpClient.post<JwtResponse>(`${this.AUTH_SERVER}/post`, user).pipe(
+    return this.httpClient.post<JwtResponse>(`${this.AUTH_SERVER}/users/signup`, user).pipe(
         tap((res:  JwtResponse ) => {
 
         if (res.user) {
