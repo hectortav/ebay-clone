@@ -6,5 +6,8 @@
         <ul *ngIf="users">
             <li *ngFor="let user of users">{{ user.username }} {{ user.afm }}</li>
         </ul>
+        <ul *ngIf="products">
+            <li *ngFor="let product of products">{{ product._id }} {{ product.name }}</li>
+        </ul>
     </div>
 </div>
