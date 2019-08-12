@@ -73,7 +73,8 @@ https://jwt.io/
 
 Front-end prerequisites:
 node.js (run node -v to check version)
-npm install -g @angular/cli 
+npm install -g @angular/cli
+npm install ngx-pagination --save
 
 To run front-end:
 cd frontend

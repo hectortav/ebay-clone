@@ -11,12 +11,15 @@ import { HomeComponent } from './home';
 import { LoginComponent } from './login';;
 import { RegisterComponent } from './register/register.component'
 
+import { NgxPaginationModule } from 'ngx-pagination';
+
 @NgModule({
     imports: [
         BrowserModule,
         ReactiveFormsModule,
         HttpClientModule,
-        appRoutingModule
+        appRoutingModule,
+        NgxPaginationModule
     ],
     declarations: [
         AppComponent,

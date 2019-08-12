@@ -12,8 +12,17 @@ export class HomeComponent {
 
     products: Products[];
 
+    config: any;
+    count: any;
+
     constructor(private userService: UserService, private productsService: ProductsService) {
         this.loadAllProducts();
+
+        this.config = {
+            itemsPerPage: 1,
+            currentPage: 1,
+            totalItems: this.count
+        };
     }
 
     ngOnInit() {
@@ -38,6 +47,12 @@ export class HomeComponent {
             let newObj: any = res;
             this.loading = false;
             this.products = newObj.products;
+            this.count = newObj.count;
         });
+    }
+
+    // Pagination credits: https://www.freakyjolly.com/angular-7-6-pagination-implement-local-or-server-pagination-in-3-steps/
+    pageChanged(event) {
+        this.config.currentPage = event;
     }
 }
