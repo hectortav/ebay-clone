@@ -12,7 +12,9 @@ export class HomeComponent {
 
     products: Products[];
 
-    constructor(private userService: UserService, private productsService: ProductsService) { }
+    constructor(private userService: UserService, private productsService: ProductsService) {
+        this.loadAllProducts();
+    }
 
     ngOnInit() {
         this.loading = true;
@@ -22,6 +24,15 @@ export class HomeComponent {
             this.users = newObj.users;
         });
 
+        // this.loading = true;
+        // this.productsService.getAllProducts().pipe(first()).subscribe(res => {
+        //     let newObj: any = res;
+        //     this.loading = false;
+        //     this.products = newObj.products;
+        // });
+    }
+
+    private loadAllProducts() {
         this.loading = true;
         this.productsService.getAllProducts().pipe(first()).subscribe(res => {
             let newObj: any = res;

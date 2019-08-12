@@ -21,9 +21,9 @@ import { RegisterComponent } from './register/register.component'
     declarations: [
         AppComponent,
         HomeComponent,
-        LoginComponent
-,
-        RegisterComponent    ],
+        LoginComponent,
+        RegisterComponent
+    ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
