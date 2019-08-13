@@ -2,6 +2,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { appRoutingModule } from './app.routing';
@@ -13,8 +14,10 @@ import { RegisterComponent } from './register/register.component'
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 import { NgxPaginationModule } from 'ngx-pagination';
-import { AlertModule } from './_alert';;
-import { ThanksSignupComponent } from './thanks-signup/thanks-signup.component'
+import { AlertModule } from './_alert';
+import { ThanksSignupComponent } from './thanks-signup/thanks-signup.component';
+import { ManageAuctionsComponent } from './manage-auctions/manage-auctions.component';
+import { MustMatchDirective } from './_helpers/must-match.directive';
 
 @NgModule({
     imports: [
@@ -23,7 +26,8 @@ import { ThanksSignupComponent } from './thanks-signup/thanks-signup.component'
         HttpClientModule,
         appRoutingModule,
         NgxPaginationModule,
-        AlertModule
+        AlertModule,
+        FormsModule
     ],
     declarations: [
         AppComponent,
@@ -31,7 +35,9 @@ import { ThanksSignupComponent } from './thanks-signup/thanks-signup.component'
         LoginComponent,
         RegisterComponent,
         PageNotFoundComponent,
-        ThanksSignupComponent
+        ThanksSignupComponent,
+        ManageAuctionsComponent,
+        MustMatchDirective
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

@@ -1,0 +1,139 @@
+<div class="card mt-4">
+    <div>
+        <button (click)="onClickToggleForm()" value="Register" class="btn btn-secondary">Add new auction</button>
+    </div>
+
+    <div *ngIf="openform">
+        <!-- main app container -->
+        <div class="card m-3">
+            <h5 class="card-header">Angular 8 Template-Driven Form Validation</h5>
+            <div class="card-body">
+                <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm"
+                    [mustMatch]="['password', 'confirmPassword']" novalidate>
+                    <div class="form-row">
+                        <div class="form-group col-7">
+                            <label>Name</label>
+                            <input type="text" name="name" class="form-control" [(ngModel)]="model.name" #name="ngModel"
+                                [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" required>
+                            <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
+                                <div *ngIf="name.errors.required">Name is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col">
+                            <label>Category</label>
+                            <select name="category" class="form-control" [(ngModel)]="model.category"
+                                #category="ngModel" [ngClass]="{ 'is-invalid': f.submitted && category.invalid }"
+                                required>
+                                <option value=""></option>
+                                <option value="Mr">Mr</option>
+                                <option value="Mrs">Mrs</option>
+                                <option value="Miss">Miss</option>
+                                <option value="Ms">Ms</option>
+                            </select>
+                            <div *ngIf="f.submitted && category.invalid" class="invalid-feedback">
+                                <div *ngIf="category.errors.required">Category is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group col">
+                            <label>Category</label>
+                            <select name="category" class="form-control" [(ngModel)]="model.category"
+                                #category="ngModel" [ngClass]="{ 'is-invalid': f.submitted && category.invalid }"
+                                required>
+                                <option value=""></option>
+                                <option value="Mr">Mr</option>
+                                <option value="Mrs">Mrs</option>
+                                <option value="Miss">Miss</option>
+                                <option value="Ms">Ms</option>
+                            </select>
+                            <div *ngIf="f.submitted && category.invalid" class="invalid-feedback">
+                                <div *ngIf="category.errors.required">Category is required</div>
+                            </div>
+                        </div> -->
+                    <div class="form-row">
+                        <div class="form-group col-6">
+                            <label>Location</label>
+                            <input type="text" name="location" class="form-control" [(ngModel)]="model.location"
+                                #location="ngModel" [ngClass]="{ 'is-invalid': f.submitted && location.invalid }"
+                                required>
+                            <div *ngIf="f.submitted && location.invalid" class="invalid-feedback">
+                                <div *ngIf="location.errors.required">Location is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Country</label>
+                            <input type="text" name="country" class="form-control" [(ngModel)]="model.country"
+                                #country="ngModel" [ngClass]="{ 'is-invalid': f.submitted && country.invalid }"
+                                required>
+                            <div *ngIf="f.submitted && country.invalid" class="invalid-feedback">
+                                <div *ngIf="country.errors.required">Country is required</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-6">
+                            <label>Current Price</label>
+                            <input type="text" name="currently" class="form-control" [(ngModel)]="model.currently"
+                                #currently="ngModel" [ngClass]="{ 'is-invalid': f.submitted && currently.invalid }"
+                                required>
+                            <div *ngIf="f.submitted && currently.invalid" class="invalid-feedback">
+                                <div *ngIf="currently.errors.required">Currently Price is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>First Bid</label>
+                            <input type="text" name="first_bid" class="form-control" [(ngModel)]="model.first_bid"
+                                #first_bid="ngModel">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-6">
+                            <label>Starting Time</label>
+                            <input type="text" name="started" class="form-control" [(ngModel)]="model.started"
+                                #started="ngModel" [ngClass]="{ 'is-invalid': f.submitted && started.invalid }"
+                                required>
+                            <div *ngIf="f.submitted && started.invalid" class="invalid-feedback">
+                                <div *ngIf="started.errors.required">Starting Time is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Ending Time</label>
+                            <input type="text" name="ends" class="form-control" [(ngModel)]="model.ends" #ends="ngModel"
+                                [ngClass]="{ 'is-invalid': f.submitted && ends.invalid }" required>
+                            <div *ngIf="f.submitted && ends.invalid" class="invalid-feedback">
+                                <div *ngIf="ends.errors.required">Ending Time is required</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description</label>
+                        <input type="text" name="description" class="form-control" [(ngModel)]="model.description"
+                            #description="ngModel" [ngClass]="{ 'is-invalid': f.submitted && description.invalid }"
+                            required description>
+                        <div *ngIf="f.submitted && description.invalid" class="invalid-feedback">
+                            <div *ngIf="description.errors.required">Description is required</div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="form-group form-check">
+                        <input type="checkbox" name="acceptTerms" id="acceptTerms" class="form-check-input"
+                            [(ngModel)]="model.acceptTerms" #acceptTerms="ngModel"
+                            [ngClass]="{ 'is-invalid': f.submitted && acceptTerms.invalid }" required>
+                        <label for="acceptTerms" class="form-check-label">Accept Terms & Conditions</label>
+                        <div *ngIf="f.submitted && acceptTerms.invalid" class="invalid-feedback">Accept Ts & Cs is
+                            required
+                        </div>
+                    </div> -->
+
+                    <div class="text-center">
+                        <button class="btn btn-primary mr-1">Add</button>
+                        <button class="btn btn-secondary" type="reset">Reset</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
