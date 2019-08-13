@@ -12,6 +12,7 @@ import { LoginComponent } from './login';;
 import { RegisterComponent } from './register/register.component'
 
 import { NgxPaginationModule } from 'ngx-pagination';
+import { AlertModule } from './_alert';
 
 @NgModule({
     imports: [
@@ -19,7 +20,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
         ReactiveFormsModule,
         HttpClientModule,
         appRoutingModule,
-        NgxPaginationModule
+        NgxPaginationModule,
+        AlertModule
     ],
     declarations: [
         AppComponent,
