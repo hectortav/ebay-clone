@@ -13,7 +13,8 @@ import { RegisterComponent } from './register/register.component'
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 import { NgxPaginationModule } from 'ngx-pagination';
-import { AlertModule } from './_alert';
+import { AlertModule } from './_alert';;
+import { ThanksSignupComponent } from './thanks-signup/thanks-signup.component'
 
 @NgModule({
     imports: [
@@ -29,7 +30,8 @@ import { AlertModule } from './_alert';
         HomeComponent,
         LoginComponent,
         RegisterComponent,
-        PageNotFoundComponent
+        PageNotFoundComponent,
+        ThanksSignupComponent
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
