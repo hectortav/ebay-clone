@@ -63,10 +63,17 @@ router.post('/', (req, res, next) => {
 		}
 		const auction = new Auction({
 			_id: mongoose.Types.ObjectId(),
-			product: req.body.productId,
+			name: req.body.name,
+			category: req.body.category,
+			location: req.body.location,
+			country: req.body.country,
 			currently: req.body.currently,
 			first_bid: req.body.first_bid,
-			no_bids: req.body.no_bids
+			no_bids: req.body.no_bids,
+			started: req.body.started,
+			ends: req.body.ends,
+			decription: req.body.description,
+			seller: req.body.seller
 		});
 		return auction.save();
 	})
@@ -76,10 +83,17 @@ router.post('/', (req, res, next) => {
 			message: 'Auction Saved',
 			createdAuction: {
 				_id: result._id,
-				product: result.product,
+				name: result.name,
+				category: result.category,
+				location: result.location,
+				country: result.country,
 				currently: result.currently,
 				first_bid: result.first_bid,
-				no_bids: result.no_bids
+				no_bids: result.no_bids,
+				started: result.started,
+				ends: result.ends,
+				decription: result.description,
+				seller: result.seller
 			},
 			request: {
 				type: 'GET',
