@@ -10,6 +10,7 @@ import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { HomeComponent } from './home';
 import { LoginComponent } from './login';;
 import { RegisterComponent } from './register/register.component'
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AlertModule } from './_alert';
@@ -27,7 +28,8 @@ import { AlertModule } from './_alert';
         AppComponent,
         HomeComponent,
         LoginComponent,
-        RegisterComponent
+        RegisterComponent,
+        PageNotFoundComponent
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

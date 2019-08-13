@@ -26,12 +26,12 @@ export class HomeComponent {
     }
 
     ngOnInit() {
-        this.loading = true;
-        this.userService.getAll().pipe(first()).subscribe(res => {
-            let newObj: any = res;
-            this.loading = false;
-            this.users = newObj.users;
-        });
+        // this.loading = true;
+        // this.userService.getAll().pipe(first()).subscribe(res => {
+        //     let newObj: any = res;
+        //     this.loading = false;
+        //     this.users = newObj.users;
+        // });
 
         // this.loading = true;
         // this.productsService.getAllProducts().pipe(first()).subscribe(res => {
