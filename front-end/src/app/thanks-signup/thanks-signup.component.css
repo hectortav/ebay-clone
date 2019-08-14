@@ -1,0 +1,21 @@
+div {
+    padding-top: 200px;
+}
+
+
+img {
+    width: 14%;
+    padding-bottom: 70px;
+}
+  
+ h3 {
+    padding-top: -10px;
+    font-size: 2rem;
+}
+  
+a {
+    text-decoration: none;
+    letter-spacing: 2px;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }

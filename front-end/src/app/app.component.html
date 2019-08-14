@@ -2,6 +2,7 @@
 <nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="currentUser">
     <div class="navbar-nav">
         <a class="nav-item nav-link" routerLink="/">Home</a>
+        <a class="nav-item nav-link" routerLink="/manage-auctions">Manage Auctions</a>
         <a class="nav-item nav-link" (click)="logout()">Logout</a>
     </div>
 </nav>
@@ -13,7 +14,7 @@
 </div>
 
 <!-- credits -->
-<div class="text-center mt-4 fixed-bottom">
+<div style="padding-top: 120px;" class="text-center mt-4 relative-bottom">
     <p>
         <a href="https://www.instagram.com/deandodgers/" target="_blank">Front-end developer</a>
     </p>
