@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 
 const Auction = require('../models/auction');
 const Product = require('../models/product');
+const User = require('../models/user');
+
 
 /*
 	name: { type: String, required: true },
@@ -54,11 +56,11 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-	Product.findById(req.body.productId)
-	.then(product => {
-		if (!product) {
+	User.findById(req.body.seller)
+	.then(user => {
+		if (!user) {
 			return res.status(404).json({
-				message: "Product Not Found"
+				message: "User Not Found"
 			});
 		}
 		const auction = new Auction({

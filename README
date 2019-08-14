@@ -79,3 +79,16 @@ npm install ngx-pagination --save
 To run front-end:
 cd frontend
 ng serve -o (it should open the app in a new window in the browser)
+
+to post an auction: 
+{
+	"name": "blue bike",
+	"category": "vehicle",
+	"location": "Athens",
+	"country": "Greece",
+	"currently": "120",
+	"started": "3/4/19",
+	"ends": "3/6/19",
+	"description": "the bike is actually red",
+	"seller": "5d4a788e729c8410124f98de"
+}
