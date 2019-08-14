@@ -11,7 +11,8 @@ const userSchema = mongoose.Schema({
   address: { type: String, required: true },
   city: { type: String, required: true },
   afm: { type: String, required: true , unique: true},
-  rating: { type: Number, default: 0 }
+  rating: { type: Number, default: 0 },
+  role: { type: String, emum: ["user","admin"] , required: true }
 });
 
 module.exports = mongoose.model('User', userSchema);

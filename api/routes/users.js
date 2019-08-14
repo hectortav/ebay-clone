@@ -7,22 +7,10 @@ const jwt = require('jsonwebtoken');
 //const bodyParser = require('body-parser');
 
 const User = require('../models/user');
-/*
-_id: mongoose.Schema.Types.ObjectId,
-username: { type: String, required: true , unique: true},
-password: { type: String, required: true },
-firstname: { type: String, required: true },
-lastname: { type: String, required: true },
-email: { type: String, required: true , unique: true},
-phone: { type: String, required: true , unique: true},
-address: { type: String, required: true },
-city: { type: String, required: true },
-afm:{ type: String, required: true , unique: true}
-*/
 
 router.get('/', (req, res, next) => {
 	User.find()
-	.select('_id username firstname lastname email phone address city afm rating')
+	.select('_id username firstname lastname email phone address city afm rating role')
 	.exec()
 	.then(docs => {
 		const response = {
@@ -38,7 +26,8 @@ router.get('/', (req, res, next) => {
 					address: doc.address,
 					city: doc.city,
 					afm: doc.afm,
-					rating: doc.rating
+					rating: doc.rating,
+					role: doc.role
 				}
 			})
 		};
@@ -106,7 +95,8 @@ router.post('/signup', (req, res, next) => {
 				address: req.body.address,
 				city: req.body.city,
 				afm: req.body.afm,
-				rating: req.body.rating
+				rating: req.body.rating,
+				role: req.body.role
 				});
 				user.save()
 				.then(result => {
@@ -144,7 +134,8 @@ router.post('/login', (req, res, next) => {
 					const token = jwt.sign(
 					{
 						email: user[0].email,
-						userId: user[0]._id
+						userId: user[0]._id,
+						role: user[0].role
 					},
 					process.env.JWT_KEY,
 					{
