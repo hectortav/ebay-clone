@@ -1,25 +1,26 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
-import { User, Products } from '../_models';
+import { User, Products, Auction } from '../_models';
 import { UserService } from '../_services';
-
 import { ProductsService } from '../_services';
+import { AuctionsService } from '../_services';
 
 @Component({ templateUrl: 'home.component.html' })
-export class HomeComponent {
-    loading = false;
-    users: User[];
-
-    products: Products[];
+export class HomeComponent implements OnInit {
+    // loading = false;
+    // users: User[];
+    // products: Products[];
+    auctions: Auction[];
 
     config: any;
     count: any;
 
-    constructor(private userService: UserService, private productsService: ProductsService) {
-        this.loadAllProducts();
+    constructor(private userService: UserService, private productsService: ProductsService, private auctionsService: AuctionsService) {
+        // this.loadAllProducts();
+        this.loadAllAuctions();
 
         this.config = {
-            itemsPerPage: 1,
+            itemsPerPage: 5,
             currentPage: 1,
             totalItems: this.count
         };
@@ -41,12 +42,20 @@ export class HomeComponent {
         // });
     }
 
-    private loadAllProducts() {
-        this.loading = true;
-        this.productsService.getAllProducts().pipe(first()).subscribe(res => {
+    // private loadAllProducts() {
+    //     this.loading = true;
+    //     this.productsService.getAllProducts().pipe(first()).subscribe(res => {
+    //         let newObj: any = res;
+    //         this.loading = false;
+    //         this.products = newObj.products;
+    //         this.count = newObj.count;
+    //     });
+    // }
+
+    private loadAllAuctions() {
+        this.auctionsService.getAllAuctions().pipe(first()).subscribe(res => {
             let newObj: any = res;
-            this.loading = false;
-            this.products = newObj.products;
+            this.auctions = newObj.auctions;
             this.count = newObj.count;
         });
     }

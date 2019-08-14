@@ -1,14 +1,19 @@
 ﻿<div class="card mt-4">
     <h4 class="card-header">You're logged in with Angular 8 & JWT!!</h4>
     <div class="card-body">
-        <h6>Products</h6>
+        <h3>Auctions:</h3>
         <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
         <!-- <ul *ngIf="users">
             <li *ngFor="let user of users">{{ user.username }} {{ user.afm }}</li>
         </ul> -->
-        <ul *ngIf="products">
+        <!-- <ul *ngIf="products">
             <li *ngFor="let product of products | paginate: config">
                 {{ product._id }} {{ product.name }}</li>
+        </ul> -->
+        <ul *ngIf="auctions">
+            <li *ngFor="let auction of auctions | paginate: config">
+                {{ auction.name }} | {{ auction.category }}
+            </li>
         </ul>
     </div>
 
