@@ -4,7 +4,6 @@
     </div>
 
     <div *ngIf="openform">
-        <!-- main app container -->
         <div class="card m-3">
             <h5 class="card-header">Angular 8 Template-Driven Form Validation</h5>
             <div class="card-body">
@@ -59,7 +58,7 @@
                     <div class="form-group">
                         <label for="started">Starting Date</label>
                         <input type="text" formControlName="started" class="form-control"
-                            [ngClass]="{ 'is-invalid': submitted && f.started.errors }" placeholder="DD/MM/YY" />
+                            [ngClass]="{ 'is-invalid': submitted && f.started.errors }" placeholder="MM/DD/YY" />
                         <div *ngIf="submitted && f.started.errors" class="invalid-feedback">
                             <div *ngIf="f.started.errors.required">Starting Date is required</div>
                         </div>
@@ -68,7 +67,7 @@
                     <div class="form-group">
                         <label for="ends">Ending Date</label>
                         <input type="text" formControlName="ends" class="form-control"
-                            [ngClass]="{ 'is-invalid': submitted && f.ends.errors }" placeholder="DD/MM/YY" />
+                            [ngClass]="{ 'is-invalid': submitted && f.ends.errors }" placeholder="MM/DD/YY" />
                         <div *ngIf="submitted && f.ends.errors" class="invalid-feedback">
                             <div *ngIf="f.ends.errors.required">Ending Date is required</div>
                         </div>
@@ -86,12 +85,11 @@
                     <div class="form-group">
                         <button [disabled]="loading" class="btn btn-primary">
                             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                            Register
+                            Submit
                         </button>
-                        <a routerLink="/login" class="btn btn-link">Cancel</a>
+                        <button class="btn btn-secondary" type="reset">Reset</button>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>

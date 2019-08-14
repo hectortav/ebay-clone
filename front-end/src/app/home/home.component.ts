@@ -23,8 +23,6 @@ export class HomeComponent {
             currentPage: 1,
             totalItems: this.count
         };
-
-        console.log(JSON.parse(localStorage.getItem('currentUser')));
     }
 
     ngOnInit() {

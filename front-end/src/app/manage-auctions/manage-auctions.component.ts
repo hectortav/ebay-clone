@@ -30,7 +30,6 @@ export class ManageAuctionsComponent implements OnInit {
     let currentUserJSON = JSON.parse(localStorage.getItem('currentUser'));
     let tokenInfo = jwt_decode(currentUserJSON.token);
     this.userId = tokenInfo.userId;
-    console.log(tokenInfo.userId);
 
     this.auctionForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -64,8 +63,7 @@ export class ManageAuctionsComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          console.log(this.auctionForm.value);
-          // this.router.navigate(['/login']);
+          window.location.reload();
         },
         error => {
           this.alertService.error(error);
