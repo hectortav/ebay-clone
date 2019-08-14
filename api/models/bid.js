@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const bidSchema = mongoose.Schema({
 	_id: mongoose.Schema.Types.ObjectId,
-	bidder: { type: mongoose.Schema.Types.ObjectId, red: 'Bidder' , required: true},
+	bidder: { type: mongoose.Schema.Types.ObjectId, red: 'User' , required: true},
 	time: {type: Date, required: true },
 	amount: {type: Number, required: true }
 });

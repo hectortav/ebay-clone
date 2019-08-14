@@ -6,24 +6,8 @@ const Auction = require('../models/auction');
 const Product = require('../models/product');
 const User = require('../models/user');
 
-
-/*
-	name: { type: String, required: true },
-	category: { type: String, required: true },
-	location: { type: String, required: true },
-	country: { type: String, required: true },
-	currently: { type: Number, required: true },
-	first_bid: { type: Number},
-	no_bids: { type: Number, default: 0 },
-	started: {type: Date, required: true },
-	ends: {type: Date, required: true },
-	description: { type: String },
-	seller: { type: mongoose.Schema.Types.ObjectId, red: 'User' , required: true},
-	buy_price: { type: Number}
-*/
-
 router.get('/', (req, res, next) => {
-	Auction.find().select('_id name category location country currently first_bid no_bids started ends decription seller').exec().then(docs => {
+	Auction.find().select('_id name category location country currently first_bid no_bids started ends decription seller bids').exec().then(docs => {
 		res.status(200).json({
 			count: docs.length,
 			auctions: docs.map(doc => {
@@ -40,6 +24,7 @@ router.get('/', (req, res, next) => {
 					ends: doc.ends,
 					decription: doc.description,
 					seller: doc.seller,
+					bids: doc.bids,
 					request: {
 						type: 'GET',
 						url: 'http://localhost:3000/auctions/' + doc._id
@@ -75,7 +60,8 @@ router.post('/', (req, res, next) => {
 			started: req.body.started,
 			ends: req.body.ends,
 			decription: req.body.description,
-			seller: req.body.seller
+			seller: req.body.seller,
+			bids: req.body.bids
 		});
 		return auction.save();
 	})
@@ -95,7 +81,8 @@ router.post('/', (req, res, next) => {
 				started: result.started,
 				ends: result.ends,
 				decription: result.description,
-				seller: result.seller
+				seller: result.seller,
+				bids: result.bids
 			},
 			request: {
 				type: 'GET',

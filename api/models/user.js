@@ -10,7 +10,8 @@ const userSchema = mongoose.Schema({
   phone: { type: String, required: true , unique: true},
   address: { type: String, required: true },
   city: { type: String, required: true },
-  afm:{ type: String, required: true , unique: true}
+  afm: { type: String, required: true , unique: true},
+  rating: { type: Number, default: 0 }
 });
 
 module.exports = mongoose.model('User', userSchema);

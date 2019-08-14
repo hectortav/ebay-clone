@@ -22,7 +22,7 @@ afm:{ type: String, required: true , unique: true}
 
 router.get('/', (req, res, next) => {
 	User.find()
-	.select('_id username firstname lastname email phone address city afm')
+	.select('_id username firstname lastname email phone address city afm rating')
 	.exec()
 	.then(docs => {
 		const response = {
@@ -37,7 +37,8 @@ router.get('/', (req, res, next) => {
 					phone: doc.phone,
 					address: doc.address,
 					city: doc.city,
-					afm: doc.afm
+					afm: doc.afm,
+					rating: doc.rating
 				}
 			})
 		};
@@ -104,7 +105,8 @@ router.post('/signup', (req, res, next) => {
 				phone: req.body.phone,
 				address: req.body.address,
 				city: req.body.city,
-				afm: req.body.afm
+				afm: req.body.afm,
+				rating: req.body.rating
 				});
 				user.save()
 				.then(result => {
