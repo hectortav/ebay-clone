@@ -1,9 +1,17 @@
 <div *ngIf="auction">
     <h2>{{auction.name}} Details</h2>
-    <div><span>Category: </span>{{auction.category}}</div>
-    <div>
+    <div><span>Category:</span>{{ auction.category }}</div>
+    <div><span>Location:</span>{{ auction.location }}</div>
+    <div><span>Country:</span>{{ auction.country }}</div>
+    <div><span>Current Price:</span>{{ auction.currently }}</div>
+    <div><span>Auction Started:</span>{{ auction.started }}</div>
+    <div><span>Auction Ends:</span>{{ auction.ends }}</div>
+    <div><span>Description:</span>{{ auction.description }}</div>
+    <!-- <div>
         <label>name:
             <input [(ngModel)]="auction.name" placeholder="Name" />
         </label>
-    </div>
+    </div> -->
+
+    <button (click)="goBack()" class="btn btn-dark">Go back</button>
 </div>

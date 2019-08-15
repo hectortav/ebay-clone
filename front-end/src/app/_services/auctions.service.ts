@@ -10,4 +10,8 @@ export class AuctionsService {
     getAllAuctions() {
         return this.http.get<Auction[]>(`${environment.apiUrl}/auctions`);
     }
+
+    getAuction(id) {
+        return this.http.get<Auction>(`${environment.apiUrl}/auctions/${id}`);
+    }
 }

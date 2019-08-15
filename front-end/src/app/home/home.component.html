@@ -2,17 +2,9 @@
     <h4 class="card-header">Welcome to eLagoon. Here you can look at our latest auctions!</h4>
     <div class="card-body">
         <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
-        <!-- <ul *ngIf="users">
-            <li *ngFor="let user of users">{{ user.username }} {{ user.afm }}</li>
-        </ul> -->
-        <!-- <ul *ngIf="products">
-            <li *ngFor="let product of products | paginate: config">
-                {{ product._id }} {{ product.name }}</li>
-        </ul> -->
         <ul *ngIf="auctions" class="list-group">
-            <li *ngFor=" let auction of auctions | paginate: config" (click)="onSelect(auction)" class="list-group-item"
-                [class.active]="auction === selectedAuction">
-                <a routerLink="/auction-detail/{{auction._id}}">
+            <li *ngFor=" let auction of auctions | paginate: config" class="list-group-item">
+                <a [routerLink]="['/auction-detail', auction._id]">
                     <span class="badge badge-info">{{ auction.category }}</span> &nbsp; {{ auction.name }}
                 </a>
             </li>
