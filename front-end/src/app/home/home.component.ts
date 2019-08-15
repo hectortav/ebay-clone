@@ -1,22 +1,22 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
-import { User, Products, Auction } from '../_models';
-import { UserService } from '../_services';
-import { ProductsService } from '../_services';
+import { Auction } from '../_models';
 import { AuctionsService } from '../_services';
 
-@Component({ templateUrl: 'home.component.html' })
+@Component({
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.css']
+})
 export class HomeComponent implements OnInit {
-    // loading = false;
-    // users: User[];
-    // products: Products[];
     auctions: Auction[];
 
     config: any;
     count: any;
 
-    constructor(private userService: UserService, private productsService: ProductsService, private auctionsService: AuctionsService) {
-        // this.loadAllProducts();
+    constructor(private auctionsService: AuctionsService) { }
+
+    ngOnInit() {
         this.loadAllAuctions();
 
         this.config = {
@@ -25,32 +25,6 @@ export class HomeComponent implements OnInit {
             totalItems: this.count
         };
     }
-
-    ngOnInit() {
-        // this.loading = true;
-        // this.userService.getAll().pipe(first()).subscribe(res => {
-        //     let newObj: any = res;
-        //     this.loading = false;
-        //     this.users = newObj.users;
-        // });
-
-        // this.loading = true;
-        // this.productsService.getAllProducts().pipe(first()).subscribe(res => {
-        //     let newObj: any = res;
-        //     this.loading = false;
-        //     this.products = newObj.products;
-        // });
-    }
-
-    // private loadAllProducts() {
-    //     this.loading = true;
-    //     this.productsService.getAllProducts().pipe(first()).subscribe(res => {
-    //         let newObj: any = res;
-    //         this.loading = false;
-    //         this.products = newObj.products;
-    //         this.count = newObj.count;
-    //     });
-    // }
 
     private loadAllAuctions() {
         this.auctionsService.getAllAuctions().pipe(first()).subscribe(res => {

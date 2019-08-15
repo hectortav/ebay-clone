@@ -17,7 +17,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { AlertModule } from './_alert';
 import { ThanksSignupComponent } from './thanks-signup/thanks-signup.component';
 import { ManageAuctionsComponent } from './manage-auctions/manage-auctions.component';
-import { MustMatchDirective } from './_helpers/must-match.directive';
+import { MustMatchDirective } from './_helpers/must-match.directive';;
+import { AuctionDetailComponent } from './auction-detail/auction-detail.component'
 
 @NgModule({
     imports: [
@@ -38,7 +39,8 @@ import { MustMatchDirective } from './_helpers/must-match.directive';
         ThanksSignupComponent,
         ManageAuctionsComponent,
         MustMatchDirective
-    ],
+,
+        AuctionDetailComponent    ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }

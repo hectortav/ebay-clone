@@ -1,0 +1,9 @@
+<div *ngIf="auction">
+    <h2>{{auction.name}} Details</h2>
+    <div><span>Category: </span>{{auction.category}}</div>
+    <div>
+        <label>name:
+            <input [(ngModel)]="auction.name" placeholder="Name" />
+        </label>
+    </div>
+</div>
