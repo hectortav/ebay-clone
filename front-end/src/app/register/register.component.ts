@@ -34,7 +34,8 @@ export class RegisterComponent implements OnInit {
       phone: ['', Validators.required],
       address: ['', Validators.required],
       city: ['', Validators.required],
-      afm: ['', Validators.required]
+      afm: ['', Validators.required],
+      role: ['', Validators.required]
     });
   }
 
