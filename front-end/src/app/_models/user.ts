@@ -8,5 +8,6 @@
     address: string;
     city: string;
     afm: string;
+    role: string;
     token?: string;
 }
