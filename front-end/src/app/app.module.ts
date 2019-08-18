@@ -17,9 +17,10 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { AlertModule } from './_alert';
 import { ThanksSignupComponent } from './thanks-signup/thanks-signup.component';
 import { ManageAuctionsComponent } from './manage-auctions/manage-auctions.component';
-import { MustMatchDirective } from './_helpers/must-match.directive';;
+import { MustMatchDirective } from './_helpers/must-match.directive';
 import { AuctionDetailComponent } from './auction-detail/auction-detail.component';
 import { AuctionSearchComponent } from './auction-search/auction-search.component';
+import { LandingComponent } from './landing/landing.component';
 
 @NgModule({
     imports: [
@@ -42,6 +43,7 @@ import { AuctionSearchComponent } from './auction-search/auction-search.componen
         MustMatchDirective,
         AuctionDetailComponent,
         AuctionSearchComponent,
+        LandingComponent
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
