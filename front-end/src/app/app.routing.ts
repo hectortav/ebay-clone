@@ -10,6 +10,7 @@ import { AuctionDetailComponent } from './auction-detail/auction-detail.componen
 
 const routes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+    // { path: '', component: LandingComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'thanks-signup', component: ThanksSignupComponent },

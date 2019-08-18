@@ -1,5 +1,8 @@
 ﻿<div class="card mt-4">
     <h4 class="card-header">Welcome to eLagoon. Here you can look at our latest auctions!</h4>
+
+    <app-auction-search></app-auction-search>
+
     <div class="card-body">
         <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
         <ul *ngIf="auctions" class="list-group">
