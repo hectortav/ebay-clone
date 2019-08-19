@@ -21,6 +21,7 @@ import { MustMatchDirective } from './_helpers/must-match.directive';
 import { AuctionDetailComponent } from './auction-detail/auction-detail.component';
 import { AuctionSearchComponent } from './auction-search/auction-search.component';
 import { LandingComponent } from './landing/landing.component';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
     imports: [
@@ -43,7 +44,8 @@ import { LandingComponent } from './landing/landing.component';
         MustMatchDirective,
         AuctionDetailComponent,
         AuctionSearchComponent,
-        LandingComponent
+        LandingComponent,
+        AdminComponent
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

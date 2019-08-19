@@ -1,4 +1,6 @@
-﻿export class User {
+﻿import { Role } from "./role";
+
+export class User {
     _id: string;
     username: string;
     firstname: string;
@@ -8,6 +10,6 @@
     address: string;
     city: string;
     afm: string;
-    role: string;
+    role: Role;
     token?: string;
 }

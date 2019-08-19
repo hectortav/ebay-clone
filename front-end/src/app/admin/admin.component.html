@@ -1,0 +1,20 @@
+<div class="card mt-4">
+    <h4 class="card-header">Admin</h4>
+    <div class="card-body">
+        <p class="mb-1">New users:</p>
+        <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
+        <ul *ngIf="users">
+            <li *ngFor="let user of users">{{user.firstname}} {{user.lastname}}</li>
+        </ul>
+
+        <p>All users:</p>
+        <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
+        <ul *ngIf="users">
+            <li *ngFor="let user of users">{{user.firstname}} {{user.lastname}}</li>
+        </ul>
+
+        <p>Download auctions:</p>
+        <a href="#">JSON</a>
+        <a href="#">XML</a>
+    </div>
+</div>
