@@ -40,6 +40,48 @@ router.get('/', (req, res, next) => {
 	});
 });
 
+router.get('/user/:userId', (req, res, next) => {
+	Auction.find({ seller: req.params.userId })
+	.exec()
+	.then(auction => {
+		if (auction.length < 1) {
+			return res.status(404).json({
+				message: 'No Auctions Found'
+			});
+		}
+		res.status(200).json({
+			count: auction.length,
+			auctions: auction.map(doc => {
+				return {
+					_id: doc._id,
+					name: doc.name,
+					category: doc.category,
+					location: doc.location,
+					country: doc.country,
+					currently: doc.currently,
+					first_bid: doc.first_bid,
+					no_bids: doc.no_bids,
+					started: doc.started,
+					ends: doc.ends,
+					decription: doc.description,
+					seller: doc.seller,
+					bids: doc.bids,
+					request: {
+						type: 'GET',
+						url: 'http://localhost:3000/auctions/' + doc._id
+					}
+				}
+			})
+
+		});
+	})
+	.catch(err => {
+		res.status(500).json({
+			error: err
+		});
+	});
+});
+
 router.post('/', (req, res, next) => {
 	User.findById(req.body.seller)
 	.then(user => {
