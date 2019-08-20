@@ -16,6 +16,8 @@ export class ManageAuctionsComponent implements OnInit {
   auctionForm: FormGroup;
   loading = false;
   submitted = false;
+  public lat: any;
+  public lng: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -48,6 +50,13 @@ export class ManageAuctionsComponent implements OnInit {
   get f() { return this.auctionForm.controls; }
 
   formSubmit() {
+    // Setting the location based on the users actual location
+    // if (this.auctionForm.value.location === "") {
+    //   this.auctionForm.value.location = this.lng + " " + this.lat;
+    // }
+
+    // console.log(this.auctionForm.value.location);
+
     this.submitted = true;
 
     // reset alerts on submit
@@ -73,7 +82,23 @@ export class ManageAuctionsComponent implements OnInit {
 
   // Toggles the new auction form on click
   onClickToggleForm() {
+    this.getLocation();
+
     this.openform = !this.openform;
     return this.openform;
+  }
+
+  getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position: Position) => {
+        if (position) {
+          this.lat = position.coords.latitude;
+          this.lng = position.coords.longitude;
+        }
+      },
+        (error: PositionError) => console.log(error));
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
   }
 }
