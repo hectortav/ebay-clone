@@ -5,6 +5,9 @@ import { first } from 'rxjs/operators';
 import { AuthenticationService, UserService } from '../_services';
 import { AlertService } from '../_alert';
 
+// import custom validator to validate that password and confirm password fields match
+import { MustMatch } from '../_helpers/must-match.validator';
+
 @Component({ templateUrl: 'register.component.html' })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
@@ -30,13 +33,16 @@ export class RegisterComponent implements OnInit {
       lastname: ['', Validators.required],
       username: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      email: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       phone: ['', Validators.required],
       address: ['', Validators.required],
       city: ['', Validators.required],
       afm: ['', Validators.required],
       role: ['', Validators.required]
-    });
+    }, {
+        validator: MustMatch('password', 'confirmPassword')
+      });
   }
 
   // convenience getter for easy access to form fields
