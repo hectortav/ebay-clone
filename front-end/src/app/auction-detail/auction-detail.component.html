@@ -7,11 +7,8 @@
     <div><span>Auction Started:</span>{{ auction.started }}</div>
     <div><span>Auction Ends:</span>{{ auction.ends }}</div>
     <div><span>Description:</span>{{ auction.description }}</div>
-    <!-- <div>
-        <label>name:
-            <input [(ngModel)]="auction.name" placeholder="Name" />
-        </label>
-    </div> -->
+
+    <app-map-details [auction]="auction"></app-map-details>
 
     <button (click)="goBack()" class="btn btn-dark">Go back</button>
 </div>
