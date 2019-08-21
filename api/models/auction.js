@@ -13,6 +13,8 @@ const auctionSchema = mongoose.Schema({
 	started: {type: Date, required: true },
 	ends: {type: Date, required: true },
 	description: { type: String },
+	latitude: { type: String },
+	longitude: { type: String },
 	seller: { type: mongoose.Schema.Types.ObjectId, red: 'User' , required: true},
 	buy_price: { type: Number},
 	bids: {
