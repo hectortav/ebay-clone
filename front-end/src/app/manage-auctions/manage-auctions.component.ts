@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AuctionService } from '../_services';
 import { AlertService } from '../_alert';
+import { Auction } from '../_models';
 
 @Component({
   selector: 'app-manage-auctions',
@@ -18,6 +19,7 @@ export class ManageAuctionsComponent implements OnInit {
   submitted = false;
   public lat: any;
   public lng: any;
+  myAuctions: Auction[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,6 +46,8 @@ export class ManageAuctionsComponent implements OnInit {
       description: ['', Validators.required],
       seller: [this.userId]
     });
+
+    this.loadAllAuctions();
   }
 
   // convenience getter for easy access to form fields
@@ -100,5 +104,12 @@ export class ManageAuctionsComponent implements OnInit {
     } else {
       alert("Geolocation is not supported by this browser.");
     }
+  }
+
+  private loadAllAuctions() {
+    this.auctionService.getAll().pipe(first()).subscribe(res => {
+      let newObj: any = res;
+      this.myAuctions = newObj.auctions;
+    });
   }
 }

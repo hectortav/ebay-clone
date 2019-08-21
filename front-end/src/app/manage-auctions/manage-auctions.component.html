@@ -93,3 +93,12 @@
         </div>
     </div>
 </div>
+
+<div class="card mt-4">
+    <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
+    <ul *ngIf="myAuctions" class="list-group">
+        <li *ngFor=" let myAuction of myAuctions" class="list-group-item">
+            <span class="badge badge-info">{{ myAuction.category }}</span> &nbsp; {{ myAuction.name }}
+        </li>
+    </ul>
+</div>
