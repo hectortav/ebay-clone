@@ -20,7 +20,7 @@ export class AuctionService {
         return this.http.post(`${environment.apiUrl}/auctions`, auction);
     }
 
-    // delete(id: number) {
-    //     return this.http.delete(`${config.apiUrl}/users/${id}`);
-    // }
+    deleteAuction(id: string) {
+        return this.http.delete(`${environment.apiUrl}/auctions/${id}`);
+    }
 }

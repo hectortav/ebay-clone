@@ -34,4 +34,9 @@ export class ManageAuctionsComponent implements OnInit {
       this.myAuctions = newObj.auctions;
     });
   }
+
+  delete(auction: Auction): void {
+    this.myAuctions = this.myAuctions.filter(h => h !== auction);
+    this.auctionService.deleteAuction(auction._id).subscribe();
+  }
 }

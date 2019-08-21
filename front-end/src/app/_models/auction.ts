@@ -1,4 +1,5 @@
 export class Auction {
+    _id?: string;
     name: string;
     category: string;
     location: string;
