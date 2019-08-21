@@ -13,6 +13,22 @@
     <ul *ngIf="myAuctions" class="list-group">
         <li *ngFor=" let myAuction of myAuctions" class="list-group-item">
             {{ myAuction.name }}
+            <button [disabled]="loading" class="btn btn-primary">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Start
+            </button>
+            <button [disabled]="loading" class="btn btn-warning">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Edit
+            </button>
+            <button [disabled]="loading" class="btn btn-danger">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Delete
+            </button>
+            <button [disabled]="loading" class="btn btn-info">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Info
+            </button>
         </li>
     </ul>
 </div>
