@@ -159,6 +159,28 @@ router.post('/login', (req, res, next) => {
 	});
 });
 
+router.put('/:userId', (req, res, next) => {
+	const id = req.params.userId;
+	const updateOps = {};
+	for (const ops of req.body) {
+		updateOps[ops.property] = ops.value;
+		console.log(updateOps);
+	}
+	User.update({ _id: id }, { $set: updateOps })
+	.exec()
+	.then(result => {
+		res.status(200).json({
+			message: 'User updated'
+		});
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(500).json({
+			error: err
+		});
+	});
+});
+
 router.delete('/:userId', (req, res, next) => {
 	User.remove({ _id: req.params.userId})
 	.exec()
