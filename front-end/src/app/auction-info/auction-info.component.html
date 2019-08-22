@@ -1,0 +1,51 @@
+<div *ngIf="auction" class="card text-white bg-secondary mb-3">
+    <div class="card-header">{{auction.name | uppercase}} Details</div>
+    <div class="card-body">
+        <div><span>ID: </span>{{auction._id}}</div>
+        <div>
+            <label>Name:
+                <input [(ngModel)]="auction.name" placeholder="name" />
+            </label>
+        </div>
+        <div>
+            <label>Category:
+                <input [(ngModel)]="auction.category" placeholder="category" />
+            </label>
+        </div>
+        <div>
+            <label>Location:
+                <input [(ngModel)]="auction.location" placeholder="location" />
+            </label>
+        </div>
+        <div>
+            <label>Country:
+                <input [(ngModel)]="auction.country" placeholder="country" />
+            </label>
+        </div>
+        <div>
+            <label>Current Price:
+                <input [(ngModel)]="auction.currently" placeholder="currently" />
+            </label>
+        </div>
+        <div>
+            <label>Ending Date:
+                <input [(ngModel)]="auction.ends" placeholder="ends" />
+            </label>
+        </div>
+        <div>
+            <label>Description:
+                <input [(ngModel)]="auction.description" placeholder="description" />
+            </label>
+        </div>
+
+        <button [disabled]="loading" class="btn btn-primary">
+            Start
+        </button>
+        <button [disabled]="loading" class="btn btn-warning" (click)="save()">
+            Edit
+        </button>
+        <button [disabled]="loading" class="btn btn-danger" title="delete auction" (click)="delete(myAuction)">
+            Delete
+        </button>
+    </div>
+</div>

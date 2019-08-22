@@ -9,31 +9,11 @@
 </div>
 
 <div class="card mt-4">
-    <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
     <ul *ngIf="myAuctions" class="list-group">
-        <li *ngFor=" let myAuction of myAuctions" class="list-group-item">
+        <li *ngFor="let myAuction of myAuctions" class="list-group-item" (click)="onSelect(myAuction)"
+            [class.list-group-item-dark]="myAuction === selectedAuction">
             {{ myAuction.name }}
-
-            <button [disabled]="loading" class="btn btn-primary">
-                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                Start
-            </button>
-
-            <button [disabled]="loading" class="btn btn-warning">
-                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                Edit
-            </button>
-
-            <button [disabled]="loading" class="btn btn-danger" title="delete hero" (click)="delete(myAuction)">
-                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                Delete
-            </button>
-
-            <button [disabled]="loading" class="btn btn-info">
-                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                Info
-            </button>
-
         </li>
     </ul>
 </div>
+<app-auction-info [auction]="selectedAuction"></app-auction-info>

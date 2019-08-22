@@ -23,4 +23,8 @@ export class AuctionService {
     deleteAuction(id: string) {
         return this.http.delete(`${environment.apiUrl}/auctions/${id}`);
     }
+
+    updateAuction(auction: Auction) {
+        return this.http.put(`${environment.apiUrl}/auctions`, auction);
+    }
 }

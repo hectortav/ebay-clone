@@ -11,6 +11,7 @@ import { Auction } from '../_models';
 export class ManageAuctionsComponent implements OnInit {
   openform: boolean;
   myAuctions: Auction[];
+  selectedAuction: Auction;
 
   constructor(
     private auctionService: AuctionService
@@ -35,8 +36,7 @@ export class ManageAuctionsComponent implements OnInit {
     });
   }
 
-  delete(auction: Auction): void {
-    this.myAuctions = this.myAuctions.filter(h => h !== auction);
-    this.auctionService.deleteAuction(auction._id).subscribe();
+  onSelect(auction: Auction): void {
+    this.selectedAuction = auction;
   }
 }
