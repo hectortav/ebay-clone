@@ -25,6 +25,6 @@ export class AuctionService {
     }
 
     updateAuction(auction: Auction) {
-        return this.http.put(`${environment.apiUrl}/auctions`, auction);
+        return this.http.put(`${environment.apiUrl}/auctions/${auction._id}`, auction);
     }
 }

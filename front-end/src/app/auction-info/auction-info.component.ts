@@ -17,9 +17,13 @@ export class AuctionInfoComponent implements OnInit {
   ngOnInit() {
   }
 
-  delete(auction: Auction): void {
-    this.auctionService.deleteAuction(auction._id).subscribe();
+  delete(): void {
+    this.auctionService.deleteAuction(this.auction._id).subscribe();
     window.location.reload();
+  }
+
+  edit(): void {
+    this.auctionService.updateAuction(this.auction).subscribe();
   }
 
 }
