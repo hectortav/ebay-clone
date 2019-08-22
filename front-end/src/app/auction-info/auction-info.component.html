@@ -38,13 +38,13 @@
             </label>
         </div>
 
-        <button [disabled]="loading" class="btn btn-primary">
+        <button class="btn btn-primary">
             Start
         </button>
-        <button [disabled]="loading" class="btn btn-warning" (click)="save()">
+        <button class="btn btn-warning" title="edit auction" (click)="edit(auction)">
             Edit
         </button>
-        <button [disabled]="loading" class="btn btn-danger" title="delete auction" (click)="delete(myAuction)">
+        <button class="btn btn-danger" title="delete auction" (click)="delete(auction)">
             Delete
         </button>
     </div>

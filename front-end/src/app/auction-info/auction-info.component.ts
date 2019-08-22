@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Auction } from '../_models';
+import { AuctionService } from '../_services';
 
 @Component({
   selector: 'app-auction-info',
@@ -9,14 +10,16 @@ import { Auction } from '../_models';
 export class AuctionInfoComponent implements OnInit {
   @Input() auction: Auction;
 
-  constructor() { }
+  constructor(
+    private auctionService: AuctionService
+  ) { }
 
   ngOnInit() {
   }
 
   delete(auction: Auction): void {
-    // this.myAuctions = this.myAuctions.filter(h => h !== auction);
-    // this.auctionService.deleteAuction(auction._id).subscribe();
+    this.auctionService.deleteAuction(auction._id).subscribe();
+    window.location.reload();
   }
 
 }
