@@ -194,38 +194,102 @@ router.delete('/:auctionId', (req, res, next) => {
 
 router.put('/:auctionId', (req, res, next) => {
 	const id = req.params.auctionId;
-	Auction.update({ _id: id }, { $set: {
-		name: req.body.name,
-		category: req.body.category,
-		location: req.body.location,
-		country: req.body.country,
-		currently: req.body.currently,
-		first_bid: req.body.first_bid,
-		no_bids: req.body.no_bids,
-		started: req.body.started,
-		ends: req.body.ends,
-		description: req.body.description,
-		latitude: req.body.latitude,
-		longitude: req.body.longitude,
-		seller: req.body.seller,
-		bids: req.body.bids
-	} })
-		.exec()
-		.then(result => {
-			res.status(200).json({
-				message: 'Auction updated',
-				request: {
-					type: 'GET',
-					url: 'http://localhost:3000/auctions/' + id
-				}
+
+	Auction.findById(req.params.auctionId)
+	.exec()
+		.then(auction => {
+			if (!auction) {
+				return res.status(404).json({
+					message: 'Auction Not Found'
+				});
+			}
+			const temp_auction = new Auction({
+				_id: auction._id,
+				name: auction.name,
+				category: auction.category,
+				location: auction.location,
+				country: auction.country,
+				currently: auction.currently,
+				first_bid: auction.first_bid,
+				no_bids: auction.no_bids,
+				started: auction.started,
+				ends: auction.ends,
+				description: auction.description,
+				latitude: auction.latitude,
+				longitude: auction.longitude,
+				seller: auction.seller,
+				bids: auction.bids
 			});
-		})
-		.catch(err => {
-			console.log(err);
-			res.status(500).json({
-				error: err
-			});
-		});
+
+			if (req.body.name)
+				temp_auction.name = req.body.name;
+			if (req.body.category)
+				temp_auction.category = req.body.category;
+			if (req.body.location)
+				temp_auction.location = req.body.location;
+			if (req.body.country)
+				temp_auction.country = req.body.country;
+			if (req.body.currently)
+				temp_auction.currently = req.body.currently;
+			if (req.body.first_bid)
+				temp_auction.first_bid = req.body.first_bid;
+			if (req.body.no_bids)
+				temp_auction.no_bids = req.body.no_bids;
+			if (req.body.started)
+				temp_auction.started = req.body.started;
+			if (req.body.ends)
+				temp_auction.ends = req.body.ends;
+			if (req.body.description)
+				temp_auction.description = req.body.description;
+			if (req.body.latitude)
+				temp_auction.latitude = req.body.latitude;
+			if (req.body.longitude)
+				temp_auction.longitude = req.body.longitude;
+			if (req.body.seller)
+				temp_auction.seller = req.body.seller;
+			if (req.body.bids)
+				temp_auction.bids = req.body.bids;
+
+			Auction.update({ _id: id }, { $set: {
+				name: temp_auction.name,
+				category: temp_auction.category,
+				location: temp_auction.location,
+				country: temp_auction.country,
+				currently: temp_auction.currently,
+				first_bid: temp_auction.first_bid,
+				no_bids: temp_auction.no_bids,
+				started: temp_auction.started,
+				ends: temp_auction.ends,
+				description: temp_auction.description,
+				latitude: temp_auction.latitude,
+				longitude: temp_auction.longitude,
+				seller: temp_auction.seller,
+				bids: temp_auction.bids
+			} })
+				.exec()
+				.then(result => {
+					res.status(200).json({
+						message: 'Auction updated',
+						request: {
+							type: 'GET',
+							url: 'http://localhost:3000/auctions/' + id
+						}
+					});
+				})
+				.catch(err => {
+					console.log(err);
+					res.status(500).json({
+						error: err
+					});
+				});
+	});
+/*
+	const updateOps = {};
+	for (const ops of req.body) {
+		updateOps[ops.property] = ops.value;
+	}
+	Auction.update({ _id: id }, { $set: updateOps })
+*/
 });
 
 module.exports = router;
