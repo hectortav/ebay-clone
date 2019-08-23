@@ -189,7 +189,6 @@ router.put('/:auctionId', (req, res, next) => {
 	const updateOps = {};
 	for (const ops of req.body) {
 		updateOps[ops.property] = ops.value;
-		console.log(updateOps);
 	}
 	Auction.update({ _id: id }, { $set: updateOps })
 	.exec()
