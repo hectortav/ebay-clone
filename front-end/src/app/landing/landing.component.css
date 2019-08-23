@@ -25,7 +25,7 @@ p {
 .landing-main {
     position: relative;
     height: 100vh;
-    background: url('https://www.ncapschool.org/wp-content/uploads/2019/01/auction-bidding-ss-1920_zmdrak.png') no-repeat center/cover;
+    background: url('../../assets/auction-bidding-ss-1920_zmdrak.png') no-repeat center/cover;
 }
 
 .landing-main::after {
