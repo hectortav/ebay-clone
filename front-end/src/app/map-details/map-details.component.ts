@@ -33,8 +33,8 @@ export class MapDetailsComponent implements AfterViewInit {
     });
 
     this.view = new OlView({
-      center: fromLonLat([23.727539, 37.983810]),
-      zoom: 14
+      center: fromLonLat([this.auction.longitude, this.auction.latitude]),
+      zoom: 15
     });
 
     this.map = new OlMap({

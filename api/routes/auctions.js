@@ -7,7 +7,7 @@ const Product = require('../models/product');
 const User = require('../models/user');
 
 router.get('/', (req, res, next) => {
-	Auction.find().select('_id name category location country currently first_bid no_bids started ends description seller bids').exec().then(docs => {
+	Auction.find().select('_id name category location country currently first_bid no_bids started ends description latitude longitude seller bids').exec().then(docs => {
 		res.status(200).json({
 			count: docs.length,
 			auctions: docs.map(doc => {
@@ -23,6 +23,8 @@ router.get('/', (req, res, next) => {
 					started: doc.started,
 					ends: doc.ends,
 					description: doc.description,
+					latitude: doc.latitude,
+					longitude: doc.longitude,
 					seller: doc.seller,
 					bids: doc.bids,
 					request: {
@@ -64,6 +66,8 @@ router.get('/user/:userId', (req, res, next) => {
 						started: doc.started,
 						ends: doc.ends,
 						description: doc.description,
+						latitude: doc.latitude,
+						longitude: doc.longitude,
 						seller: doc.seller,
 						bids: doc.bids,
 						request: {
@@ -102,6 +106,8 @@ router.post('/', (req, res, next) => {
 				started: req.body.started,
 				ends: req.body.ends,
 				description: req.body.description,
+				latitude: req.body.latitude,
+				longitude: req.body.longitude,
 				seller: req.body.seller,
 				bids: req.body.bids
 			});
@@ -123,6 +129,8 @@ router.post('/', (req, res, next) => {
 					started: result.started,
 					ends: result.ends,
 					description: result.description,
+					latitude: result.latitude,
+					longitude: result.longitude,
 					seller: result.seller,
 					bids: result.bids
 				},

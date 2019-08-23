@@ -40,7 +40,9 @@ export class AuctionformComponent implements OnInit {
       started: ['', Validators.required],
       ends: ['', Validators.required],
       description: ['', Validators.required],
-      seller: [this.userId]
+      seller: [this.userId],
+      latitude: [-1],
+      longitude: [-1]
     });
   }
 
@@ -48,12 +50,12 @@ export class AuctionformComponent implements OnInit {
   get f() { return this.auctionForm.controls; }
 
   formSubmit() {
-    // Setting the location based on the users actual location
-    // if (this.auctionForm.value.location === "") {
-    //   this.auctionForm.value.location = this.lng + " " + this.lat;
-    // }
-
-    // console.log(this.auctionForm.value.location);
+    if ((this.lng == undefined) || (this.lat == undefined)) {
+      alert("Your exact location will not be shown");
+    } else {
+      this.auctionForm.value.longitude = this.lng;
+      this.auctionForm.value.latitude = this.lat;
+    }
 
     this.submitted = true;
 

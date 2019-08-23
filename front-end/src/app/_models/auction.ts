@@ -8,5 +8,7 @@ export class Auction {
     started: string;
     ends: string;
     description: string;
+    latitude?: number;
+    longitude?: number;
     seller: string;
 }

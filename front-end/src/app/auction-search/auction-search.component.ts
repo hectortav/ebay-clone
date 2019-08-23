@@ -6,6 +6,7 @@ import {
 
 import { Auction } from '../_models';
 import { AuctionsService } from '../_services';
+import { formatDate } from '@angular/common';
 
 
 @Component({
@@ -17,7 +18,13 @@ export class AuctionSearchComponent implements OnInit {
   auctions$: Observable<Auction[]>;
   private searchTerms = new Subject<string>();
 
-  constructor(private auctionsService: AuctionsService) { }
+  today = new Date();
+  jstoday = '';
+
+  constructor(private auctionsService: AuctionsService) {
+    this.jstoday = formatDate(this.today, 'MM/dd/yyyy hh:mm:ss a', 'en-US', '+0530');
+    console.log(this.jstoday);
+  }
 
   // Push a search term into the observable stream.
   search(term: string): void {
