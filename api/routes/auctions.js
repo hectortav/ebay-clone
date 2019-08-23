@@ -194,11 +194,22 @@ router.delete('/:auctionId', (req, res, next) => {
 
 router.put('/:auctionId', (req, res, next) => {
 	const id = req.params.auctionId;
-	const updateOps = {};
-	for (const ops of req.body) {
-		updateOps[ops.property] = ops.value;
-	}
-	Auction.update({ _id: id }, { $set: updateOps })
+	Auction.update({ _id: id }, { $set: {
+		name: req.body.name,
+		category: req.body.category,
+		location: req.body.location,
+		country: req.body.country,
+		currently: req.body.currently,
+		first_bid: req.body.first_bid,
+		no_bids: req.body.no_bids,
+		started: req.body.started,
+		ends: req.body.ends,
+		description: req.body.description,
+		latitude: req.body.latitude,
+		longitude: req.body.longitude,
+		seller: req.body.seller,
+		bids: req.body.bids
+	} })
 		.exec()
 		.then(result => {
 			res.status(200).json({
