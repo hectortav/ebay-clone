@@ -7,6 +7,11 @@ import OlView from 'ol/View';
 
 import { fromLonLat } from 'ol/proj';
 
+import OlVectorSource from 'ol/source/Vector';
+import OlVectorLayer from 'ol/layer/Vector';
+import OlFeature from 'ol/Feature';
+import OlPoint from 'ol/geom/Point';
+
 @Component({
   selector: 'app-map-details',
   templateUrl: './map-details.component.html',
@@ -20,9 +25,27 @@ export class MapDetailsComponent implements AfterViewInit {
   layer: OlTileLayer;
   view: OlView;
 
+  vectorSource: OlVectorSource;
+  vectorLayer: OlVectorLayer;
+  marker: OlFeature;
+
   constructor() { }
 
   ngAfterViewInit() {
+    // Marker and feature
+    this.marker = new OlFeature({
+      // Added fromLonLat
+      geometry: new OlPoint(fromLonLat([this.auction.longitude, this.auction.latitude]))
+    });
+
+    this.vectorSource = new OlVectorSource({
+      features: [this.marker]
+    });
+
+    this.vectorLayer = new OlVectorLayer({
+      source: this.vectorSource
+    });
+
     console.log(this.auction);
     this.source = new OlXYZ({
       url: 'http://tile.osm.org/{z}/{x}/{y}.png'
@@ -34,12 +57,12 @@ export class MapDetailsComponent implements AfterViewInit {
 
     this.view = new OlView({
       center: fromLonLat([this.auction.longitude, this.auction.latitude]),
-      zoom: 15
+      zoom: 14
     });
 
     this.map = new OlMap({
       target: 'map',
-      layers: [this.layer],
+      layers: [this.layer, this.vectorLayer],
       view: this.view
     });
   }

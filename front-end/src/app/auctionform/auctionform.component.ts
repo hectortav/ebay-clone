@@ -81,6 +81,7 @@ export class AuctionformComponent implements OnInit {
   }
 
   getLocation() {
+    // When on pc it returns a position based on the ISP, not exact GPS data :(
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position: Position) => {
         if (position) {

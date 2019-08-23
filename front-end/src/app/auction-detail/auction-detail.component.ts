@@ -12,6 +12,7 @@ import { first } from 'rxjs/operators';
 })
 export class AuctionDetailComponent implements OnInit {
   @Input() auction: Auction;
+  coords: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,6 +32,9 @@ export class AuctionDetailComponent implements OnInit {
     this.auctionsService.getAuction(id).pipe(first()).subscribe(res => {
       let newObj: any = res;
       this.auction = newObj.auction;
+      if ((this.auction.longitude != -1) && (this.auction.latitude != -1)) {
+        this.coords = true
+      }
     });
   }
 

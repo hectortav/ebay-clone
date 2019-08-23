@@ -8,7 +8,14 @@
     <div><span>Auction Ends:</span>{{ auction.ends }}</div>
     <div><span>Description:</span>{{ auction.description }}</div>
 
-    <app-map-details [auction]="auction"></app-map-details>
+    <!-- If else block to show the map -->
+    <div *ngIf="coords; then thenBlock else elseBlock"></div>
+    <ng-template #thenBlock>
+        <app-map-details [auction]="auction"></app-map-details>
+    </ng-template>
+    <ng-template #elseBlock>
+        <p>Unfortunately the user has not provided us with their exact coordinates.</p>
+    </ng-template>
 
     <button (click)="goBack()" class="btn btn-dark">Go back</button>
 </div>
