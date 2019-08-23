@@ -161,6 +161,133 @@ router.post('/login', (req, res, next) => {
 
 router.put('/:userId', (req, res, next) => {
 	const id = req.params.userId;
+
+	User.findById(req.params.userId)
+	.exec()
+		.then(user => {
+			if (!user) {
+				return res.status(404).json({
+					message: 'User Not Found'
+				});
+			}
+			const temp_user = new User({
+				_id: user._id,
+				username: user.username,
+				password: user.password,
+				firstname: user.firstname,
+				lastname: user.lastname,
+				email: user.email,
+				phone: user.phone,
+				address: user.address,
+				city: user.city,
+				afm: user.afm,
+				rating: user.rating,
+				role: user.role
+			});
+
+			User.find({ username: req.body.username}) //add more checks
+			.exec()
+			.then( user2 => {
+				if (user2.length >= 1 && req.body.username != user.username) {
+					return res.status(409).json({
+						message: 'Username Exists'
+					});
+				}
+				});
+			User.find({ email: req.body.email}) //add more checks
+			.exec()
+			.then( user2 => {
+				if (user2.length >= 1 && req.body.email != user.email) {
+					return res.status(409).json({
+						message: 'Email Exists'
+					});
+				}
+				});
+			User.find({ phone: req.body.phone}) //add more checks
+			.exec()
+			.then( user2 => {
+				if (user2.length >= 1 && req.body.phone != user.phone) {
+					return res.status(409).json({
+						message: 'Phone Exists'
+					});
+				}
+				});
+			User.find({ afm: req.body.afm}) //add more checks
+			.exec()
+			.then( user2 => {
+				if (user2.length >= 1 && req.body.afm != user.afm) {
+					return res.status(409).json({
+						message: 'Afm Exists'
+					});
+				}
+				});
+
+			if (req.body.name)
+				temp_user.name = req.body.name;
+			if (req.body.username)
+				temp_user.username = req.body.username;
+			if (req.body.password)
+			{
+				bcrypt.hash(req.body.password, 10, (err, hash));
+				temp_user.password = hash;
+			}
+			if (req.body.firstname)
+				temp_user.firstname = req.body.firstname;
+			if (req.body.lastname)
+				temp_user.lastname = req.body.lastname;
+			if (req.body.email)
+				temp_user.email = req.body.email;
+			if (req.body.phone)
+				temp_user.phone = req.body.phone;
+			if (req.body.address)
+				temp_user.address = req.body.address;
+			if (req.body.city)
+				temp_user.city = req.body.city;
+			if (req.body.afm)
+				temp_user.afm = req.body.afm;
+			if (req.body.rating)
+				temp_user.rating = req.body.rating;
+			if (req.body.role)
+				temp_user.role = req.body.role;
+
+			User.update({ _id: id }, { $set: {
+				username: temp_user.username,
+				password: temp_user.password,
+				firstname: temp_user.firstname,
+				lastname: temp_user.lastname,
+				email: temp_user.email,
+				phone: temp_user.phone,
+				address: temp_user.address,
+				city: temp_user.city,
+				afm: temp_user.afm,
+				rating: temp_user.rating,
+				role: temp_user.role
+			} })
+				.exec()
+				.then(result => {
+					res.status(200).json({
+						message: 'User updated',
+						request: {
+							type: 'GET',
+							url: 'http://localhost:3000/auctions/' + id
+						}
+					});
+				})
+				.catch(err => {
+					console.log(err);
+					res.status(500).json({
+						error: err
+					});
+				});
+	});
+/*
+	const updateOps = {};
+	for (const ops of req.body) {
+		updateOps[ops.property] = ops.value;
+	}
+	Auction.update({ _id: id }, { $set: updateOps })
+*/
+	/*const id = req.params.userId;
 	const updateOps = {};
 	for (const ops of req.body) {
 		updateOps[ops.property] = ops.value;
@@ -177,7 +304,7 @@ router.put('/:userId', (req, res, next) => {
 		res.status(500).json({
 			error: err
 		});
-	});
+	});*/
 });
 
 router.delete('/:userId', (req, res, next) => {
