@@ -5,8 +5,8 @@ export class Auction {
     location: string;
     country: string;
     currently: string;
-    started: string;
-    ends: string;
+    started: Date;
+    ends: Date;
     description: string;
     latitude?: number;
     longitude?: number;

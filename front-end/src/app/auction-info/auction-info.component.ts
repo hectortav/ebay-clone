@@ -27,9 +27,7 @@ export class AuctionInfoComponent implements OnInit {
   }
 
   start(): void {
-    // Getting the time and date in UTC format and updating the auction
-    let myDate = new Date();
-    this.auction.started = myDate.toUTCString();
+    this.auction.started = new Date();
     this.auctionService.updateAuction(this.auction).subscribe();
     window.location.reload();
   }

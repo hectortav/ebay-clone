@@ -1,12 +1,11 @@
 <div *ngIf="auction">
     <h2>{{auction.name}} Details</h2>
     <div><span>Category:</span>{{ auction.category }}</div>
-    <div><span>Location:</span>{{ auction.location }}</div>
-    <div><span>Country:</span>{{ auction.country }}</div>
     <div><span>Current Price:</span>{{ auction.currently }}</div>
-    <div><span>Auction Started:</span>{{ auction.started }}</div>
     <div><span>Auction Ends:</span>{{ auction.ends }}</div>
     <div><span>Description:</span>{{ auction.description }}</div>
+    <div><span>Country:</span>{{ auction.country }}</div>
+    <div><span>Location:</span>{{ auction.location }}</div>
 
     <!-- If else block to show the map -->
     <div *ngIf="coords; then thenBlock else elseBlock"></div>
