@@ -51,4 +51,12 @@ export class AuctionInfoComponent implements OnInit {
       window.location.reload();
     }
   }
+
+  disableEdit(auction: Auction): boolean {
+    let state: boolean = false;
+    if (this.auction.started != null) {
+      state = true;
+    }
+    return state;
+  }
 }

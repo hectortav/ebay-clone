@@ -4,37 +4,37 @@
         <div><span>ID: </span>{{auction._id}}</div>
         <div>
             <label>Name:
-                <input [(ngModel)]="auction.name" placeholder="name" />
+                <input [(ngModel)]="auction.name" placeholder="name" [disabled]="disableEdit(auction)" />
             </label>
         </div>
         <div>
             <label>Category:
-                <input [(ngModel)]="auction.category" placeholder="category" />
+                <input [(ngModel)]="auction.category" placeholder="category" [disabled]="disableEdit(auction)" />
             </label>
         </div>
         <div>
             <label>Location:
-                <input [(ngModel)]="auction.location" placeholder="location" />
+                <input [(ngModel)]="auction.location" placeholder="location" [disabled]="disableEdit(auction)" />
             </label>
         </div>
         <div>
             <label>Country:
-                <input [(ngModel)]="auction.country" placeholder="country" />
+                <input [(ngModel)]="auction.country" placeholder="country" [disabled]="disableEdit(auction)" />
             </label>
         </div>
         <div>
             <label>Current Price:
-                <input [(ngModel)]="auction.currently" placeholder="currently" />
+                <input [(ngModel)]="auction.currently" placeholder="currently" [disabled]="disableEdit(auction)" />
             </label>
         </div>
         <div>
             <label>Ending Date:
-                <input [(ngModel)]="auction.ends" placeholder="ends" />
+                <input [(ngModel)]="auction.ends" placeholder="ends" [disabled]="disableEdit(auction)" />
             </label>
         </div>
         <div>
             <label>Description:
-                <input [(ngModel)]="auction.description" placeholder="description" />
+                <input [(ngModel)]="auction.description" placeholder="description" [disabled]="disableEdit(auction)" />
             </label>
         </div>
 
