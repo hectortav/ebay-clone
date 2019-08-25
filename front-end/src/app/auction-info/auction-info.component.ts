@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Auction } from '../_models';
 import { AuctionService } from '../_services';
+import { AlertService } from '../_alert';
 
 @Component({
   selector: 'app-auction-info',
@@ -11,19 +12,33 @@ export class AuctionInfoComponent implements OnInit {
   @Input() auction: Auction;
 
   constructor(
-    private auctionService: AuctionService
+    private auctionService: AuctionService,
+    private alertService: AlertService
   ) { }
 
   ngOnInit() {
   }
 
   delete(): void {
-    this.auctionService.deleteAuction(this.auction._id).subscribe();
-    window.location.reload();
+    if (this.auction.no_bids != 0) {
+      this.alertService.error("You cannot delete an auction after the first bid has been placed");
+    }
+    else {
+      this.auctionService.deleteAuction(this.auction._id).subscribe();
+      window.location.reload();
+    }
   }
 
   edit(): void {
-    this.auctionService.updateAuction(this.auction).subscribe();
+    let corrStarted = new Date(this.auction.started);
+    let currDate = new Date();
+    if (corrStarted < currDate) {
+      this.alertService.error("You cannot edit an auction after it has started");
+    }
+    else {
+      this.auctionService.updateAuction(this.auction).subscribe();
+      this.alertService.success("Auciton edited");
+    }
   }
 
   start(): void {
@@ -31,5 +46,4 @@ export class AuctionInfoComponent implements OnInit {
     this.auctionService.updateAuction(this.auction).subscribe();
     window.location.reload();
   }
-
 }

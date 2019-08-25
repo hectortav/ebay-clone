@@ -5,6 +5,7 @@ export class Auction {
     location: string;
     country: string;
     currently: string;
+    no_bids?: number;
     started: Date;
     ends: Date;
     description: string;

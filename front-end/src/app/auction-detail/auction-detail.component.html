@@ -2,7 +2,7 @@
     <h2>{{auction.name}} Details</h2>
     <div><span>Category:</span>{{ auction.category }}</div>
     <div><span>Current Price:</span>{{ auction.currently }}</div>
-    <div><span>Auction Ends:</span>{{ auction.ends }}</div>
+    <div><span>Auction Ends:</span>{{ corrEnds | date:'medium' }}</div>
     <div><span>Description:</span>{{ auction.description }}</div>
     <div><span>Country:</span>{{ auction.country }}</div>
     <div><span>Location:</span>{{ auction.location }}</div>

@@ -11,7 +11,7 @@
 <div class="card mt-4">
     <ul *ngIf="myAuctions" class="list-group">
         <li *ngFor="let myAuction of myAuctions" class="list-group-item" (click)="onSelect(myAuction)"
-            [class.list-group-item-dark]="myAuction === selectedAuction">
+            [class.selectedAuction]="myAuction === selectedAuction" [ngClass]="calculateClasses(myAuction)">
             {{ myAuction.name }}
         </li>
     </ul>

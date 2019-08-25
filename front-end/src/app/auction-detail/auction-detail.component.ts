@@ -13,6 +13,7 @@ import { first } from 'rxjs/operators';
 export class AuctionDetailComponent implements OnInit {
   @Input() auction: Auction;
   coords: boolean = false;
+  corrEnds: Date;
 
   constructor(
     private route: ActivatedRoute,
@@ -35,6 +36,8 @@ export class AuctionDetailComponent implements OnInit {
       if ((this.auction.longitude != -1) && (this.auction.latitude != -1)) {
         this.coords = true
       }
+
+      this.corrEnds = new Date(this.auction.ends);
     });
   }
 
