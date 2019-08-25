@@ -37,13 +37,18 @@ export class AuctionInfoComponent implements OnInit {
     }
     else {
       this.auctionService.updateAuction(this.auction).subscribe();
-      this.alertService.success("Auciton edited");
+      this.alertService.success("Auction edited");
     }
   }
 
   start(): void {
-    this.auction.started = new Date();
-    this.auctionService.updateAuction(this.auction).subscribe();
-    window.location.reload();
+    if (this.auction.started != null) {
+      this.alertService.error("The auction has already started")
+    }
+    else {
+      this.auction.started = new Date();
+      this.auctionService.updateAuction(this.auction).subscribe();
+      window.location.reload();
+    }
   }
 }

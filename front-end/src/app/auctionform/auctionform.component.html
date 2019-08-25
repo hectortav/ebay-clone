@@ -50,18 +50,9 @@
             </div>
 
             <div class="form-group">
-                <label for="started">Starting Date</label>
-                <input type="text" formControlName="started" class="form-control"
-                    [ngClass]="{ 'is-invalid': submitted && f.started.errors }" placeholder="MM/DD/YY" />
-                <div *ngIf="submitted && f.started.errors" class="invalid-feedback">
-                    <div *ngIf="f.started.errors.required">Starting Date is required</div>
-                </div>
-            </div>
-
-            <div class="form-group">
                 <label for="ends">Ending Date</label>
                 <input type="text" formControlName="ends" class="form-control"
-                    [ngClass]="{ 'is-invalid': submitted && f.ends.errors }" placeholder="MM/DD/YY" />
+                    [ngClass]="{ 'is-invalid': submitted && f.ends.errors }" placeholder="MM/DD/YY HH:SS" />
                 <div *ngIf="submitted && f.ends.errors" class="invalid-feedback">
                     <div *ngIf="f.ends.errors.required">Ending Date is required</div>
                 </div>

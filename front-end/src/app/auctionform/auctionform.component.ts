@@ -37,7 +37,6 @@ export class AuctionformComponent implements OnInit {
       location: ['', Validators.required],
       country: ['', Validators.required],
       currently: ['', Validators.required],
-      started: ['', Validators.required],
       ends: ['', Validators.required],
       description: ['', Validators.required],
       seller: [this.userId],

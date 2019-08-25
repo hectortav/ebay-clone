@@ -10,7 +10,7 @@ const auctionSchema = mongoose.Schema({
 	currently: { type: Number, required: true },
 	first_bid: { type: Number },
 	no_bids: { type: Number, default: 0 },
-	started: { type: Date, required: true },
+	started: { type: Date },
 	ends: { type: Date, required: true },
 	description: { type: String },
 	latitude: { type: Number },

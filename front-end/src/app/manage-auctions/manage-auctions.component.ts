@@ -46,11 +46,13 @@ export class ManageAuctionsComponent implements OnInit {
     let corrEnds = new Date(auction.ends);
     let currDate = new Date();
     let state: boolean;
-    if ((currDate > corrStarted) && (currDate < corrEnds)) {
-      state = true;
-    }
-    if (currDate > corrEnds) {
-      state = false;
+    if (auction.started != null) {
+      if ((currDate > corrStarted) && (currDate < corrEnds)) {
+        state = true;
+      }
+      if (currDate > corrEnds) {
+        state = false;
+      }
     }
 
     return {
