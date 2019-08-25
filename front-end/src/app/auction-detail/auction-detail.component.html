@@ -16,5 +16,19 @@
         <p>Unfortunately the user has not provided us with their exact coordinates.</p>
     </ng-template>
 
+    <div *ngIf="currentUser">
+        <div class="input-group" style="width: 340px;">
+            <div class="input-group-prepend">
+                <span class="input-group-text">€</span>
+            </div>
+            <input type="text" class="form-control">
+            <div class="input-group-append">
+                <a [routerLink]="['/confirm-bid', auction._id]">
+                    <span class="input-group-text">Place Bid</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
     <button (click)="goBack()" class="btn btn-dark">Go back</button>
 </div>
