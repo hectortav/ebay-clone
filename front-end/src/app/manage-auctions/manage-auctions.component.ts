@@ -42,17 +42,18 @@ export class ManageAuctionsComponent implements OnInit {
 
   calculateClasses(auction: Auction) {
     // Calculating the color of the list item based on the date
-    let corrStarted = new Date(auction.started);
     let corrEnds = new Date(auction.ends);
     let currDate = new Date();
     let state: boolean;
     if (auction.started != null) {
+      let corrStarted = new Date(auction.started);
       if ((currDate > corrStarted) && (currDate < corrEnds)) {
         state = true;
       }
-      if (currDate > corrEnds) {
-        state = false;
-      }
+    }
+
+    if (currDate > corrEnds) {
+      state = false;
     }
 
     return {

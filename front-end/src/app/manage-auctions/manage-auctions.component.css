@@ -1,4 +1,35 @@
 .selectedAuction {
     font-weight: bold;
+}
+
+.newForm {
+    padding-bottom: 30px;
+}
+
+.newForm button {
+    font-weight: bold;
+}
+
+.newForm img {
+    width: 16px;
+    transform: rotate(10deg);
+    margin-top: -4px;
+}
+
+.newForm span {
+    padding-left: 9px;
+}
+
+.auctionsContainer {
+    padding: 70px 0 0 50px;
+}
+
+.auctions {
+    width: 50em;
+}
+
+.auctions h5 {
     color: gray;
+    font-weight: bold;
+    letter-spacing: 1px;
 }

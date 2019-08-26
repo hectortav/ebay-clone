@@ -1,19 +1,26 @@
-<div class="card mt-4">
-    <div>
-        <button (click)="onClickToggleForm()" value="Register" class="btn btn-success">Add new auction</button>
+<div class="auctionsContainer">
+    <div class="newForm">
+        <button (click)="onClickToggleForm()" value="Register" class="btn btn-success">
+            <img src="../../assets/check-mark-xxl.png" alt="check">
+            <span>Add new auction</span>
+        </button>
+
+        <div *ngIf="openform">
+            <app-auctionform></app-auctionform>
+        </div>
     </div>
 
-    <div *ngIf="openform">
-        <app-auctionform></app-auctionform>
+    <div class="auctions">
+        <h5>My auctions</h5>
+        <ul *ngIf="myAuctions" class="list-group shadow-sm p-3 mb-5 bg-white rounded">
+            <li *ngFor="let myAuction of myAuctions" class="list-group-item border-left-0 border-right-0"
+                (click)="onSelect(myAuction)" [class.selectedAuction]="myAuction === selectedAuction"
+                [ngClass]="calculateClasses(myAuction)">
+                {{ myAuction.name }}
+                <div *ngIf="myAuction === selectedAuction">
+                    <app-auction-info [auction]="selectedAuction"></app-auction-info>
+                </div>
+            </li>
+        </ul>
     </div>
 </div>
-
-<div class="card mt-4">
-    <ul *ngIf="myAuctions" class="list-group">
-        <li *ngFor="let myAuction of myAuctions" class="list-group-item" (click)="onSelect(myAuction)"
-            [class.selectedAuction]="myAuction === selectedAuction" [ngClass]="calculateClasses(myAuction)">
-            {{ myAuction.name }}
-        </li>
-    </ul>
-</div>
-<app-auction-info [auction]="selectedAuction"></app-auction-info>
