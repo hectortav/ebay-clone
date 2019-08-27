@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 const Auction = require('../models/auction');
 const Product = require('../models/product');
 const User = require('../models/user');
+const Bid = require('../models/bid');
+
 
 router.get('/', (req, res, next) => {
 	Auction.find().select('_id name category location country currently first_bid no_bids started ends description latitude longitude seller bids').exec().then(docs => {
@@ -145,6 +147,35 @@ router.post('/', (req, res, next) => {
 			res.status(500).json({
 				error: err
 			});
+		});
+});
+
+router.post('/:auctionId/bids', (req, res, next) => {
+	User.findById(req.body.bidder)
+		.then(user => {
+			if (!user) {
+				return res.status(404).json({
+					message: "User Not Found"
+				});
+			}
+			const bid = new Bid({
+				_id: new mongoose.Types.ObjectId(),
+				bidder: req.body.bidder,
+				time: req.body.time,
+				amount: req.body.amount
+				});
+				user.save()
+				.then(result => {
+					console.log(result);
+					res.status(201).json({
+						message: 'Bid Created'
+					});
+				}).catch(err => {
+					console.log(err);
+					res.status(500).json({
+						error: err
+					});
+				});
 		});
 });
 
