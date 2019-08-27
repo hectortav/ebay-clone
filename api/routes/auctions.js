@@ -150,35 +150,6 @@ router.post('/', (req, res, next) => {
 		});
 });
 
-router.post('/:auctionId/bids', (req, res, next) => {
-	User.findById(req.body.bidder)
-		.then(user => {
-			if (!user) {
-				return res.status(404).json({
-					message: "User Not Found"
-				});
-			}
-			const bid = new Bid({
-				_id: new mongoose.Types.ObjectId(),
-				bidder: req.body.bidder,
-				time: req.body.time,
-				amount: req.body.amount
-				});
-				user.save()
-				.then(result => {
-					console.log(result);
-					res.status(201).json({
-						message: 'Bid Created'
-					});
-				}).catch(err => {
-					console.log(err);
-					res.status(500).json({
-						error: err
-					});
-				});
-		});
-});
-
 router.get('/:auctionId', (req, res, next) => {
 	Auction.findById(req.params.auctionId)
 		.exec()
