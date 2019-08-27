@@ -17,11 +17,7 @@ const auctionSchema = mongoose.Schema({
 	longitude: { type: Number },
 	seller: { type: mongoose.Schema.Types.ObjectId, red: 'User', required: true },
 	buy_price: { type: Number },
-	bids: {
-		type: Map,
-		of: mongoose.Schema.Types.ObjectId,
-		red: 'Bid'
-	}
+	bids: [ { type: mongoose.Schema.Types.ObjectId } ]
 
 });
 

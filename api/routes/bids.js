@@ -78,6 +78,8 @@ router.post('/', (req, res, next) => {
                             if (!auction.first_bid) {
                                 auction.first_bid = bid._id;
                             }
+                            auction.no_bids++;
+                            auction.bids = auction.bids || [];
                             auction.bids.push(bid._id);
                             auction.save();
                             res.status(201).json({
