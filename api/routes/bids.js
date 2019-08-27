@@ -33,6 +33,13 @@ router.get('/:bidId', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
+    const bid = new Bid({
+        _id: new mongoose.Types.ObjectId(),
+        auction: req.body.auction,
+        bidder: req.body.bidder,
+        time: req.body.time,
+        amount: req.body.amount
+        });
 	Auction.findById(req.body.auction)
 		.exec()
 		.then(auction => {
@@ -64,30 +71,17 @@ router.post('/', (req, res, next) => {
                             message: "Time > Auction End"
                         });
                     }
-                    const bid = new Bid({
-                        _id: new mongoose.Types.ObjectId(),
-                        bidder: req.body.bidder,
-                        time: req.body.time,
-                        amount: req.body.amount
-                        });
                         bid.save()
                         .then(result => {
                             console.log(result);
-                            res.status(201).json({
-                                message: 'Bid Created'
-                            });
                             auction.currently = req.body.amount;
                             if (!auction.first_bid) {
-                                auction.first_bid = _id;
+                                auction.first_bid = bid._id;
                             }
-                            auction.bids.push(_id);
+                            auction.bids.push(bid._id);
                             auction.save();
-                            res.status(200).json({
-                                auction: auction,
-                                request: {
-                                    type: 'GET',
-                                    url: 'http://localhost:3000/auctions/'
-                                }
+                            res.status(201).json({
+                                message: 'Bid Created'
                             });
                         }).catch(err => {
                             console.log(err);
