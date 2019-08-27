@@ -41,7 +41,11 @@ router.post('/', (req, res, next) => {
                             res.status(201).json({
                                 message: 'Bid Created'
                             });
-                            auction.bids.push(bid);
+                            auction.currently: req.body.amount;
+                            if (!auction.first_bid) {
+                                auction.first_bid: _id
+                            }
+                            auction.bids.push(_id);
                             auction.save();
                             res.status(200).json({
                                 auction: auction,
