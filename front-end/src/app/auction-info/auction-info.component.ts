@@ -30,9 +30,7 @@ export class AuctionInfoComponent implements OnInit {
   }
 
   edit(): void {
-    let corrStarted = new Date(this.auction.started);
-    let currDate = new Date();
-    if (corrStarted < currDate) {
+    if (this.auction.started != null) {
       this.alertService.error("You cannot edit an auction after it has started");
     }
     else {

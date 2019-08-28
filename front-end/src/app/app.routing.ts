@@ -9,7 +9,6 @@ import { ManageAuctionsComponent } from './manage-auctions/manage-auctions.compo
 import { AuctionDetailComponent } from './auction-detail/auction-detail.component';
 import { LandingComponent } from './landing/landing.component';
 import { AdminComponent } from './admin/admin.component';
-import { ConfirmBidComponent } from './confirm-bid/confirm-bid.component';
 
 const routes: Routes = [
     { path: '', component: LandingComponent },
@@ -20,8 +19,6 @@ const routes: Routes = [
     { path: 'manage-auctions', component: ManageAuctionsComponent, canActivate: [AuthGuard] },
     { path: 'auction-detail/:id', component: AuctionDetailComponent },
     { path: 'admin', component: AdminComponent, canActivate: [RoleGuard], data: { role: 'admin' } },
-    { path: 'confirm-bid', component: ConfirmBidComponent, canActivate: [AuthGuard] },
-
 
     // Should be the last route, in order to redirect to 404 page
     { path: '**', component: PageNotFoundComponent }

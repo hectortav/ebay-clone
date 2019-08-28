@@ -2,8 +2,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Auction, User } from '../_models';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { AuctionsService, AuthenticationService } from '../_services';
+import { AuctionsService, AuthenticationService, BidService } from '../_services';
 import { first } from 'rxjs/operators';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AlertService } from '../_alert';
+import * as jwt_decode from "jwt-decode";
 
 @Component({
   selector: 'app-auction-detail',
@@ -15,26 +18,42 @@ export class AuctionDetailComponent implements OnInit {
   coords: boolean = false;
   corrEnds: Date;
   currentUser: User;
+  bidForm: FormGroup;
+  loading = false;
+  submitted = false;
+  id: string;
 
   constructor(
     private route: ActivatedRoute,
     private auctionsService: AuctionsService,
     private location: Location,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private formBuilder: FormBuilder,
+    private bidService: BidService,
+    private alertService: AlertService
   ) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
 
   ngOnInit() {
     this.getAuction();
+
+    this.bidForm = this.formBuilder.group({
+      auction: [],
+      bidder: [],
+      time: [],
+      amount: ['', Validators.required]
+    });
   }
 
+  // convenience getter for easy access to form fields
+  get f() { return this.bidForm.controls; }
+
   getAuction(): void {
-    let id: string;
     this.route.paramMap.subscribe(params => {
-      id = params.get('id');
+      this.id = params.get('id');
     });
-    this.auctionsService.getAuction(id).pipe(first()).subscribe(res => {
+    this.auctionsService.getAuction(this.id).pipe(first()).subscribe(res => {
       let newObj: any = res;
       this.auction = newObj.auction;
       if ((this.auction.longitude != -1) && (this.auction.latitude != -1)) {
@@ -43,6 +62,40 @@ export class AuctionDetailComponent implements OnInit {
 
       this.corrEnds = new Date(this.auction.ends);
     });
+  }
+
+  formSubmit() {
+    this.submitted = true;
+
+    // reset alerts on submit
+    this.alertService.clear();
+
+    // stop here if form is invalid
+    if (this.bidForm.invalid) {
+      return;
+    }
+
+    // Asking the user to confirm the bid
+    if (confirm("Are you sure you want to place " + this.bidForm.value.amount + "€ on the auction?")) {
+      this.bidForm.value.auction = this.id;
+      this.bidForm.value.time = new Date();
+
+      let currentUserJSON = JSON.parse(localStorage.getItem('currentUser'));
+      let tokenInfo = jwt_decode(currentUserJSON.token);
+      this.bidForm.value.bidder = tokenInfo.userId
+
+      this.loading = true;
+      this.bidService.newBid(this.bidForm.value)
+        .pipe(first())
+        .subscribe(
+          data => {
+            window.location.reload();
+          },
+          error => {
+            this.alertService.error(error);
+            this.loading = false;
+          });
+    }
   }
 
   goBack(): void {

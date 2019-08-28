@@ -17,17 +17,23 @@
     </ng-template>
 
     <div *ngIf="currentUser">
-        <div class="input-group" style="width: 340px;">
-            <div class="input-group-prepend">
-                <span class="input-group-text">€</span>
+        <form [formGroup]="bidForm" (ngSubmit)="formSubmit()">
+            <div class="input-group" style="width: 340px;">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">€</span>
+                </div>
+                <input type="text" formControlName="amount" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.amount.errors }" />
+                <div class="input-group-append">
+                    <button class="btn btn-outline-dark">
+                        Place Bid
+                    </button>
+                </div>
+                <div *ngIf="submitted && f.amount.errors" class="invalid-feedback">
+                    <div *ngIf="f.amount.errors.required">A value is required</div>
+                </div>
             </div>
-            <input type="text" class="form-control">
-            <div class="input-group-append">
-                <a [routerLink]="['/confirm-bid', auction._id]">
-                    <span class="input-group-text">Place Bid</span>
-                </a>
-            </div>
-        </div>
+        </form>
     </div>
 
     <button (click)="goBack()" class="btn btn-dark">Go back</button>
