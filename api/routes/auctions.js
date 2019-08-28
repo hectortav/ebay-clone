@@ -184,6 +184,48 @@ router.get('/:auctionId', (req, res, next) => {
 		});
 });
 
+router.get('/:auctionId/bids', (req, res, next) => {
+	Auction.findById(req.params.auctionId)
+		.exec()
+		.then(auction => {
+			if (!auction) {
+				return res.status(404).json({
+					message: 'Auction Not Found'
+				});
+			}
+			var arrayLength = auction.bids.length;
+			for (var i = 0; i < arrayLength; i++) {
+			Bid.findById(auction.bids[i])
+			.select('_id auction bidder amount time')
+			.exec()
+			.then(bid => {
+				if (!bid) {
+					return res.status(404).json({
+						message: 'Bid Not Found'
+					});
+				}
+				res.status(200).json({
+					_id: bid._id,
+					auction: bid.auction,
+					bidder: bid.bidder,
+					amount: bid.amount,
+					time: bid.time
+				});
+			})
+			.catch(err => {
+				res.status(500).json({
+					error: err
+				});
+			});
+			}
+		})
+		.catch(err => {
+			res.status(500).json({
+				error: err
+			});
+		});
+});
+
 router.delete('/:auctionId', (req, res, next) => {
 	Auction.remove({ _id: req.params.auctionId })
 		.exec()
