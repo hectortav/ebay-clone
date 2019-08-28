@@ -14,4 +14,8 @@ export class BidService {
     newBid(bid: Bid) {
         return this.http.post(`${environment.apiUrl}/bids`, bid);
     }
+
+    getAllBids(id: string) {
+        return this.http.get<Bid[]>(`${environment.apiUrl}/auctions/${id}/bids`);
+    }
 }

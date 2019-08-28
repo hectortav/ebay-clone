@@ -1,7 +1,8 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { Auction, Bid } from '../_models';
-import { AuctionService } from '../_services';
+import { AuctionService, BidService } from '../_services';
 import { AlertService } from '../_alert';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-auction-info',
@@ -14,13 +15,13 @@ export class AuctionInfoComponent implements OnChanges {
 
   constructor(
     private auctionService: AuctionService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private bidService: BidService
   ) { }
 
   ngOnChanges() {
-    console.log(this.auction)
     if (this.auction.no_bids != 0) {
-      this.getBids();
+      this.loadAllBids();
     }
   }
 
@@ -63,9 +64,11 @@ export class AuctionInfoComponent implements OnChanges {
     return state;
   }
 
-  getBids() {
-    for (var bid of this.auction.bids) {
-      console.log(bid);
-    }
+  private loadAllBids() {
+    this.bidService.getAllBids(this.auction._id).pipe(first()).subscribe(res => {
+      console.log(res);
+      let newObj: any = res;
+      this.bidsArray = newObj.auctions;
+    });
   }
 }
