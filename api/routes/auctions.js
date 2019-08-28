@@ -6,6 +6,8 @@ const Auction = require('../models/auction');
 const Product = require('../models/product');
 const User = require('../models/user');
 const Bid = require('../models/bid');
+const Category = require('../models/category');
+
 
 
 router.get('/', (req, res, next) => {
@@ -96,22 +98,30 @@ router.post('/', (req, res, next) => {
 					message: "User Not Found"
 				});
 			}
-			const auction = new Auction({
-				_id: mongoose.Types.ObjectId(),
-				name: req.body.name,
-				category: req.body.category,
-				location: req.body.location,
-				country: req.body.country,
-				currently: req.body.currently,
-				first_bid: req.body.first_bid,
-				no_bids: req.body.no_bids,
-				started: req.body.started,
-				ends: req.body.ends,
-				description: req.body.description,
-				latitude: req.body.latitude,
-				longitude: req.body.longitude,
-				seller: req.body.seller,
-				bids: req.body.bids
+			Category.find({ name: req.body.category })
+				.then(category => {
+					if (!category) {
+						return res.status(404).json({
+							message: "Category Not Found"
+						});
+					}
+					const auction = new Auction({
+						_id: mongoose.Types.ObjectId(),
+						name: req.body.name,
+						category: req.body.category,
+						location: req.body.location,
+						country: req.body.country,
+						currently: req.body.currently,
+						first_bid: req.body.first_bid,
+						no_bids: req.body.no_bids,
+						started: req.body.started,
+						ends: req.body.ends,
+						description: req.body.description,
+						latitude: req.body.latitude,
+						longitude: req.body.longitude,
+						seller: req.body.seller,
+						bids: req.body.bids
+				});
 			});
 			return auction.save();
 		})
@@ -225,8 +235,18 @@ router.put('/:auctionId', (req, res, next) => {
 
 			if (req.body.name)
 				temp_auction.name = req.body.name;
-			if (req.body.category)
-				temp_auction.category = req.body.category;
+
+			Category.find({ name: req.body.category })
+				.then(category => {
+					if (!category && req.body.category) {
+						return res.status(404).json({
+							message: "Category Not Found"
+						});
+					}
+					if (req.body.category)
+						temp_auction.category = req.body.category;
+			});
+			
 			if (req.body.location)
 				temp_auction.location = req.body.location;
 			if (req.body.country)
@@ -285,13 +305,6 @@ router.put('/:auctionId', (req, res, next) => {
 					});
 				});
 	});
-/*
-	const updateOps = {};
-	for (const ops of req.body) {
-		updateOps[ops.property] = ops.value;
-	}
-	Auction.update({ _id: id }, { $set: updateOps })
-*/
 });
 
 module.exports = router;

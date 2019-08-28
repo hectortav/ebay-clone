@@ -13,6 +13,8 @@ const userRoutes = require('./api/routes/users');
 const productRoutes = require('./api/routes/products');
 const auctionRoutes = require('./api/routes/auctions');
 const bidRoutes = require('./api/routes/bids');
+const categoryRoutes = require('./api/routes/categories');
+
 
 mongoose.connect('mongodb+srv://admin:' + process.env.MONGO_ATLAS_PW + '@cluster0-9xgg4.mongodb.net/test?retryWrites=true&w=majority',
 {
@@ -43,6 +45,8 @@ app.use('/products', productRoutes);
 app.use('/auctions', auctionRoutes);
 app.use('/users', userRoutes);
 app.use('/bids', bidRoutes);
+app.use('/categories', categoryRoutes);
+
 
 app.use((req, res, next) => {
 	const error = new Error('Not Found');
