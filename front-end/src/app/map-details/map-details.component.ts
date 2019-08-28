@@ -46,7 +46,6 @@ export class MapDetailsComponent implements AfterViewInit {
       source: this.vectorSource
     });
 
-    console.log(this.auction);
     this.source = new OlXYZ({
       url: 'http://tile.osm.org/{z}/{x}/{y}.png'
     });

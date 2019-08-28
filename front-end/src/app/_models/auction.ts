@@ -12,4 +12,6 @@ export class Auction {
     latitude?: number;
     longitude?: number;
     seller: string;
+    first_bid: string;
+    bids?: string[];
 }

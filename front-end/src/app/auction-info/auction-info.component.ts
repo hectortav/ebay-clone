@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Auction } from '../_models';
+import { Component, Input, OnChanges } from '@angular/core';
+import { Auction, Bid } from '../_models';
 import { AuctionService } from '../_services';
 import { AlertService } from '../_alert';
 
@@ -8,15 +8,20 @@ import { AlertService } from '../_alert';
   templateUrl: './auction-info.component.html',
   styleUrls: ['./auction-info.component.css']
 })
-export class AuctionInfoComponent implements OnInit {
+export class AuctionInfoComponent implements OnChanges {
   @Input() auction: Auction;
+  bidsArray: Bid[];
 
   constructor(
     private auctionService: AuctionService,
     private alertService: AlertService
   ) { }
 
-  ngOnInit() {
+  ngOnChanges() {
+    console.log(this.auction)
+    if (this.auction.no_bids != 0) {
+      this.getBids();
+    }
   }
 
   delete(): void {
@@ -56,5 +61,11 @@ export class AuctionInfoComponent implements OnInit {
       state = true;
     }
     return state;
+  }
+
+  getBids() {
+    for (var bid of this.auction.bids) {
+      console.log(bid);
+    }
   }
 }
