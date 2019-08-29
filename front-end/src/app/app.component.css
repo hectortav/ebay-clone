@@ -1,0 +1,9 @@
+.navbar .navbar-nav .nav-link {
+    color: black;
+    font-weight: 600;
+    margin-left: 20px;
+}
+
+.allButFooter {
+    min-height: calc(100vh - 40px);
+}

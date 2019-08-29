@@ -1,11 +1,11 @@
-<div class="card m-3">
-    <h5 class="card-header">Auction Details</h5>
+<div class="card m-3 border-0 shadow-sm p-3 mb-5 bg-white rounded" style="width: 45%">
+    <!-- <h5 class="card-header">Auction Details</h5> -->
     <div class="card-body">
 
         <form [formGroup]="auctionForm" (ngSubmit)="formSubmit()">
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" formControlName="name" class="form-control"
+                <input type="text" formControlName="name" class="form-control rounded-0"
                     [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
                 <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
                     <div *ngIf="f.name.errors.required">Name is required</div>
@@ -14,7 +14,7 @@
 
             <div class="form-group">
                 <label for="category">Category</label>
-                <input type="category" formControlName="category" class="form-control"
+                <input type="category" formControlName="category" class="form-control rounded-0"
                     [ngClass]="{ 'is-invalid': submitted && f.category.errors }" />
                 <div *ngIf="submitted && f.category.errors" class="invalid-feedback">
                     <div *ngIf="f.category.errors.required">Category is required</div>
@@ -23,7 +23,7 @@
 
             <div class="form-group">
                 <label for="location">Location</label>
-                <input type="text" formControlName="location" class="form-control"
+                <input type="text" formControlName="location" class="form-control rounded-0"
                     [ngClass]="{ 'is-invalid': submitted && f.location.errors }" />
                 <div *ngIf="submitted && f.location.errors" class="invalid-feedback">
                     <div *ngIf="f.location.errors.required">Location is required</div>
@@ -32,7 +32,7 @@
 
             <div class="form-group">
                 <label for="country">Country</label>
-                <input type="text" formControlName="country" class="form-control"
+                <input type="text" formControlName="country" class="form-control rounded-0"
                     [ngClass]="{ 'is-invalid': submitted && f.country.errors }" />
                 <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
                     <div *ngIf="f.country.errors.required">Country is required</div>
@@ -41,7 +41,7 @@
 
             <div class="form-group">
                 <label for="currently">Current Price</label>
-                <input type="text" formControlName="currently" class="form-control"
+                <input type="text" formControlName="currently" class="form-control rounded-0"
                     [ngClass]="{ 'is-invalid': submitted && f.currently.errors }"
                     placeholder="Enter a number in Euros" />
                 <div *ngIf="submitted && f.currently.errors" class="invalid-feedback">
@@ -51,7 +51,7 @@
 
             <div class="form-group">
                 <label for="ends">Ending Date</label>
-                <input type="text" formControlName="ends" class="form-control"
+                <input type="text" formControlName="ends" class="form-control rounded-0"
                     [ngClass]="{ 'is-invalid': submitted && f.ends.errors }" placeholder="MM/DD/YY HH:SS" />
                 <div *ngIf="submitted && f.ends.errors" class="invalid-feedback">
                     <div *ngIf="f.ends.errors.required">Ending Date is required</div>
@@ -60,7 +60,7 @@
 
             <div class="form-group">
                 <label for="description">Description</label>
-                <input type="text" formControlName="description" class="form-control"
+                <input type="text" formControlName="description" class="form-control rounded-0"
                     [ngClass]="{ 'is-invalid': submitted && f.description.errors }" />
                 <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
                     <div *ngIf="f.description.errors.required">Description is required</div>
@@ -68,7 +68,7 @@
             </div>
 
             <div class="form-group">
-                <button [disabled]="loading" class="btn btn-primary">
+                <button [disabled]="loading" class="btn btn-outline-dark">
                     <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                     Submit
                 </button>

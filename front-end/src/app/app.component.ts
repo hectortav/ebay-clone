@@ -6,7 +6,11 @@ import { User, Role } from './_models';
 
 import * as jwt_decode from "jwt-decode";
 
-@Component({ selector: 'app', templateUrl: 'app.component.html' })
+@Component({
+    selector: 'app',
+    templateUrl: 'app.component.html',
+    styleUrls: ['./app.component.css']
+})
 export class AppComponent {
     currentUser: User;
 

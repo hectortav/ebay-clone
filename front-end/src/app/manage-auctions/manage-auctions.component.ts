@@ -12,6 +12,7 @@ export class ManageAuctionsComponent implements OnInit {
   openform: boolean;
   myAuctions: Auction[];
   selectedAuction: Auction;
+  loading = false;
 
   constructor(
     private auctionService: AuctionService
@@ -30,7 +31,9 @@ export class ManageAuctionsComponent implements OnInit {
   }
 
   private loadAllAuctions() {
+    this.loading = true;
     this.auctionService.getAll().pipe(first()).subscribe(res => {
+      this.loading = false;
       let newObj: any = res;
       this.myAuctions = newObj.auctions;
     });

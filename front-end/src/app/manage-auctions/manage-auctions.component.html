@@ -12,6 +12,7 @@
 
     <div class="auctions">
         <h5>My auctions</h5>
+        <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
         <ul *ngIf="myAuctions" class="list-group shadow-sm p-3 mb-5 bg-white rounded">
             <li *ngFor="let myAuction of myAuctions" class="list-group-item border-left-0 border-right-0 rounded-0"
                 (click)="onSelect(myAuction)" [class.selectedAuction]="myAuction === selectedAuction"
