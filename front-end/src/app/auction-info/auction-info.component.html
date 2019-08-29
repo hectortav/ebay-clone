@@ -47,5 +47,13 @@
         <button class="btn btn-danger" title="delete auction" (click)="delete()">
             Delete
         </button>
+
+        <h5>Current Bids:</h5>
+        <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
+        <ul *ngIf="bidsArray" class="list-group">
+            <li *ngFor="let bid of bidsArray" class="list-group-item bg-secondary">
+                Amount: {{ bid.amount }} at: {{ bid.time | date:'medium' }}
+            </li>
+        </ul>
     </div>
 </div>

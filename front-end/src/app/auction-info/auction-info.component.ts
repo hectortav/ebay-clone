@@ -66,9 +66,8 @@ export class AuctionInfoComponent implements OnChanges {
 
   private loadAllBids() {
     this.bidService.getAllBids(this.auction._id).pipe(first()).subscribe(res => {
-      console.log(res);
       let newObj: any = res;
-      this.bidsArray = newObj.auctions;
+      this.bidsArray = newObj.bids;
     });
   }
 }
