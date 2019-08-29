@@ -185,6 +185,9 @@ router.get('/:auctionId', (req, res, next) => {
 });
 
 router.get('/:auctionId/bids', (req, res, next) => {
+	var return_array = [];
+	var return_bid;
+	
 	Auction.findById(req.params.auctionId)
 		.exec()
 		.then(auction => {
@@ -194,36 +197,50 @@ router.get('/:auctionId/bids', (req, res, next) => {
 				});
 			}
 			var arrayLength = auction.bids.length;
+			var last = auction.bids[arrayLength - 1]._id;
+			var length = 0;
 			for (var i = 0; i < arrayLength; i++) {
-			Bid.findById(auction.bids[i])
-			.select('_id auction bidder amount time')
-			.exec()
-			.then(bid => {
-				if (!bid) {
-					return res.status(404).json({
-						message: 'Bid Not Found'
+				Bid.findById(auction.bids[i])
+				.select('_id auction bidder amount time')
+				.exec()
+				.then(bid => {
+					if (!bid) {
+						return res.status(404).json({
+							message: 'Bid Not Found'
+						});
+					}
+					return_bid = {
+						_id: bid._id,
+						auction: bid.auction,
+						bidder: bid.bidder,
+						amount: bid.amount,
+						time: bid.time
+					};
+
+					return_array.push(return_bid);
+					length++;
+					if (length == arrayLength)
+					{
+						return res.status(200).json({
+							bids: return_array
+						});	
+					}
+
+					//console.log(return_array);
+				})
+				.catch(err => {
+					res.status(500).json({
+						error: err
 					});
-				}
-				res.status(200).json({
-					_id: bid._id,
-					auction: bid.auction,
-					bidder: bid.bidder,
-					amount: bid.amount,
-					time: bid.time
 				});
-			})
-			.catch(err => {
-				res.status(500).json({
-					error: err
-				});
-			});
-			}
+			}	
 		})
 		.catch(err => {
 			res.status(500).json({
 				error: err
 			});
 		});
+		
 });
 
 router.delete('/:auctionId', (req, res, next) => {
