@@ -105,26 +105,26 @@ router.post('/', (req, res, next) => {
 							message: "Category Not Found"
 						});
 					}
-					const auction = new Auction({
-						_id: mongoose.Types.ObjectId(),
-						name: req.body.name,
-						category: req.body.category,
-						location: req.body.location,
-						country: req.body.country,
-						currently: req.body.currently,
-						first_bid: req.body.first_bid,
-						no_bids: req.body.no_bids,
-						started: req.body.started,
-						ends: req.body.ends,
-						description: req.body.description,
-						latitude: req.body.latitude,
-						longitude: req.body.longitude,
-						seller: req.body.seller,
-						bids: req.body.bids
-				});
 			});
-			return auction.save();
 		})
+		const auction = new Auction({
+			_id: mongoose.Types.ObjectId(),
+			name: req.body.name,
+			category: req.body.category,
+			location: req.body.location,
+			country: req.body.country,
+			currently: req.body.currently,
+			first_bid: req.body.first_bid,
+			no_bids: req.body.no_bids,
+			started: req.body.started,
+			ends: req.body.ends,
+			description: req.body.description,
+			latitude: req.body.latitude,
+			longitude: req.body.longitude,
+			seller: req.body.seller,
+			bids: req.body.bids
+	});
+	auction.save()
 		.then(result => {
 			console.log(result);
 			res.status(201).json({
