@@ -6,7 +6,8 @@ const messageSchema = mongoose.Schema({
     receiver: { type: mongoose.Schema.Types.ObjectId, red: 'User' , required: true},
     subject: {type: String, required: true },   
     time: {type: Date},
-	text: {type: String, required: true }
+    text: {type: String, required: true },
+    read: {type: Boolean, deafult: false}    
 });
 
 module.exports = mongoose.model('Message', messageSchema);

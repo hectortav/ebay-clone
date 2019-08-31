@@ -21,7 +21,8 @@ router.get('/:userId/sent', (req, res, next) => {
                             receiver: doc.receiver,
                             subject: doc.subject,
                             time: doc.time,
-                            text: doc.text
+                            text: doc.text,
+                            read: doc.read
                     }
                 })
             };
@@ -49,7 +50,8 @@ router.get('/:userId/received', (req, res, next) => {
                             receiver: doc.receiver,
                             subject: doc.subject,
                             time: doc.time,
-                            text: doc.text
+                            text: doc.text,
+                            read: doc.read
                     }
                 })
             };
@@ -64,7 +66,27 @@ router.get('/:userId/received', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-	
+    const message = new Message({
+		_id: new mongoose.Types.ObjectId(),
+		sender: req.body.sender,
+		receiver: req.body.receiver,
+		subject: req.body.subject,
+		time: req.body.time,
+		text: req.body.text,
+		read: req.body.read
+	});
+	message.save()
+	.then(result => {
+		console.log(result);
+		res.status(201).json({
+			message: 'Message Created'
+		});
+	}).catch(err => {
+		console.log(err);
+		res.status(500).json({
+			error: err
+		});
+	});
 });
 
 router.delete('/:messageId', (req, res, next) => {
