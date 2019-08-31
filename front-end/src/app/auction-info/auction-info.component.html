@@ -56,7 +56,7 @@
 
         <!-- Bids -->
         <div class="bids-container">
-            <p style="font-weight: bold;">Current Bids:</p>
+            <h4>Current Bids</h4>
             <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
             <ul *ngIf="bidsArray" class="bids">
                 <li *ngFor="let bid of bidsArray" class="">
