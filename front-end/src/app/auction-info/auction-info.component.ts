@@ -12,6 +12,7 @@ import { first } from 'rxjs/operators';
 export class AuctionInfoComponent implements OnChanges {
   @Input() auction: Auction;
   bidsArray: Bid[];
+  loading = false;
 
   constructor(
     private auctionService: AuctionService,
@@ -65,7 +66,9 @@ export class AuctionInfoComponent implements OnChanges {
   }
 
   private loadAllBids() {
+    this.loading = true;
     this.bidService.getAllBids(this.auction._id).pipe(first()).subscribe(res => {
+      this.loading = false;
       let newObj: any = res;
       this.bidsArray = newObj.bids;
     });

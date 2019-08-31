@@ -1,6 +1,7 @@
 ﻿<div class="allButFooter">
+    <!-- nav bar -->
     <nav class="navbar navbar-expand-lg" *ngIf="currentUser"
-        style="background-color: white; height: 8vh; box-shadow: 0px -10px 30px #dedede;">
+        style="background-color: white; height: 8vh; box-shadow: 0px -10px 20px #dedede;">
         <img src="../assets/800px-EBay_logo.png" alt="logo" style="width: 6%;">
 
         <div class="collapse navbar-collapse">
@@ -14,10 +15,14 @@
                 <li class="nav-item">
                     <a class="nav-item nav-link" routerLink="/manage-auctions">Manage Auctions</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link" routerLink="/email"><img src="../assets/email-5-xxl.png" alt="email"
+                            style="width: 13%; margin-top: -6px;"></a>
+                </li>
             </ul>
             <ul class="navbar-nav my-2 my-lg-0">
                 <li class="nav-item">
-                    <a class="nav-item nav-link" (click)="logout()">Logout</a>
+                    <a class="nav-item nav-link active" (click)="logout()">Logout</a>
                 </li>
             </ul>
         </div>
@@ -31,15 +36,12 @@
 </div>
 
 <!-- credits -->
-<!-- <div style="padding-top: 120px;" class="text-center mt-4 relative-bottom"> -->
 <footer class="text-center mt-5">
 
     <p>
-        <a href="https://www.instagram.com/deandodgers/" target="_blank">Front-end developer</a>
+        <a href="mailto:sdi1500127@di.uoa.gr?Subject=eLagoon" target="_blank">Front-end developer</a>
     </p>
     <p>
-        <a href="https://www.instagram.com/ektorastav/" target="_blank">Back-end developer</a>
+        <a href="mailto:sdi1500154@di.uoa.gr?Subject=eLagoon" target="_blank">Back-end developer</a>
     </p>
 </footer>
-
-<!-- </div> -->

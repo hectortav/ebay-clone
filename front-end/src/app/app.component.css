@@ -1,7 +1,11 @@
 .navbar .navbar-nav .nav-link {
-    color: black;
+    color: rgb(98, 112, 124);
     font-weight: 600;
     margin-left: 20px;
+}
+
+.active {
+    color: black !important;
 }
 
 .allButFooter {

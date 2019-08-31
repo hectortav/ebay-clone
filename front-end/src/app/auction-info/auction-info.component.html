@@ -1,59 +1,68 @@
-<div *ngIf="auction" class="card text-white bg-secondary mb-3">
-    <div class="card-header">{{auction.name | uppercase}} Details</div>
-    <div class="card-body">
-        <div><span>ID: </span>{{auction._id}}</div>
+<div *ngIf="auction">
+    <div class="card-body" style="color: black;">
+        <!-- Details -->
         <div>
-            <label>Name:
-                <input [(ngModel)]="auction.name" placeholder="name" [disabled]="disableEdit(auction)" />
-            </label>
+            <label>ID</label>
+            <input class="form-control rounded-0" placeholder="{{ auction._id }}" disabled />
         </div>
         <div>
-            <label>Category:
-                <input [(ngModel)]="auction.category" placeholder="category" [disabled]="disableEdit(auction)" />
-            </label>
+            <label>Name</label>
+            <input class="form-control rounded-0" [(ngModel)]="auction.name" placeholder="Name"
+                [disabled]="disableEdit(auction)" />
         </div>
         <div>
-            <label>Location:
-                <input [(ngModel)]="auction.location" placeholder="location" [disabled]="disableEdit(auction)" />
-            </label>
+            <label>Category</label>
+            <input class="form-control rounded-0" [(ngModel)]="auction.category" placeholder="Category"
+                [disabled]="disableEdit(auction)" />
         </div>
         <div>
-            <label>Country:
-                <input [(ngModel)]="auction.country" placeholder="country" [disabled]="disableEdit(auction)" />
-            </label>
+            <label>Location</label>
+            <input class="form-control rounded-0" [(ngModel)]="auction.location" placeholder="Location"
+                [disabled]="disableEdit(auction)" />
         </div>
         <div>
-            <label>Current Price:
-                <input [(ngModel)]="auction.currently" placeholder="currently" [disabled]="disableEdit(auction)" />
-            </label>
+            <label>Country</label>
+            <input class="form-control rounded-0" [(ngModel)]="auction.country" placeholder="Country"
+                [disabled]="disableEdit(auction)" />
         </div>
         <div>
-            <label>Ending Date:
-                <input [(ngModel)]="auction.ends" placeholder="ends" [disabled]="disableEdit(auction)" />
-            </label>
+            <label>Current Price</label>
+            <input class="form-control rounded-0" [(ngModel)]="auction.currently" placeholder="Currently"
+                [disabled]="disableEdit(auction)" />
         </div>
         <div>
-            <label>Description:
-                <input [(ngModel)]="auction.description" placeholder="description" [disabled]="disableEdit(auction)" />
-            </label>
+            <label>Ending Date</label>
+            <input class="form-control rounded-0" [(ngModel)]="auction.ends" placeholder="Ends"
+                [disabled]="disableEdit(auction)" />
+        </div>
+        <div>
+            <label>Description</label>
+            <input class="form-control rounded-0" [(ngModel)]="auction.description" placeholder="Description"
+                [disabled]="disableEdit(auction)" />
         </div>
 
-        <button class="btn btn-primary" title="start auction" (click)="start()">
-            Start
-        </button>
-        <button class="btn btn-warning" title="edit auction" (click)="edit()">
-            Edit
-        </button>
-        <button class="btn btn-danger" title="delete auction" (click)="delete()">
-            Delete
-        </button>
+        <!-- Buttons -->
+        <div class="buttons-container">
+            <button class="btn btn-primary btn-sm" title="start auction" (click)="start()">
+                Start
+            </button>
+            <button class="btn btn-danger btn-sm" title="delete auction" (click)="delete()">
+                Delete
+            </button>
+            <button class="btn btn-warning btn-sm" title="edit auction" (click)="edit()">
+                Edit
+            </button>
+        </div>
 
-        <h5>Current Bids:</h5>
-        <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
-        <ul *ngIf="bidsArray" class="list-group">
-            <li *ngFor="let bid of bidsArray" class="list-group-item bg-secondary">
-                Amount: {{ bid.amount }} at: {{ bid.time | date:'medium' }}
-            </li>
-        </ul>
+        <!-- Bids -->
+        <div class="bids-container">
+            <p style="font-weight: bold;">Current Bids:</p>
+            <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
+            <ul *ngIf="bidsArray" class="bids">
+                <li *ngFor="let bid of bidsArray" class="">
+                    Amount: {{ bid.amount }} at: {{ bid.time | date:'medium' }}
+                </li>
+            </ul>
+        </div>
     </div>
 </div>

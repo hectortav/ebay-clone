@@ -24,7 +24,8 @@ import { LandingComponent } from './landing/landing.component';
 import { AdminComponent } from './admin/admin.component';
 import { MapDetailsComponent } from './map-details/map-details.component';
 import { AuctionformComponent } from './auctionform/auctionform.component';
-import { AuctionInfoComponent } from './auction-info/auction-info.component'
+import { AuctionInfoComponent } from './auction-info/auction-info.component';
+import { EmailComponent } from './email/email.component'
 
 @NgModule({
     imports: [
@@ -51,7 +52,8 @@ import { AuctionInfoComponent } from './auction-info/auction-info.component'
         AdminComponent,
         MapDetailsComponent,
         AuctionformComponent,
-        AuctionInfoComponent
+        AuctionInfoComponent,
+        EmailComponent
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

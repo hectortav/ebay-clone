@@ -1,0 +1,35 @@
+.bids {
+    margin: 0;
+    padding: 0;
+}
+
+.bids li {
+    padding: 10px 0;
+    border-bottom: 2px solid #fff;
+    display: flex;
+}
+
+.card-body {
+    font-weight: normal;
+}
+
+input {
+    margin-bottom: 10px;
+}
+
+.btn-warning {
+    float: right;
+}
+
+.btn-danger {
+    margin-left: 15px;
+    float: right;
+}
+
+.buttons-container {
+    margin-top: 35px;
+}
+
+.bids-container {
+    margin-top: 60px;
+}
