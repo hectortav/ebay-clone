@@ -10,7 +10,7 @@ import { AuctionsService } from '../_services';
 })
 export class HomeComponent implements OnInit {
     auctions: Auction[];
-
+    loading: boolean = false;
     config: any;
     count: any;
 
@@ -20,14 +20,16 @@ export class HomeComponent implements OnInit {
         this.loadAllAuctions();
 
         this.config = {
-            itemsPerPage: 5,
+            itemsPerPage: 25,
             currentPage: 1,
             totalItems: this.count
         };
     }
 
     private loadAllAuctions() {
+        this.loading = true;
         this.auctionsService.getAllAuctions().pipe(first()).subscribe(res => {
+            this.loading = false;
             let newObj: any = res;
             this.auctions = newObj.auctions;
             this.count = newObj.count;

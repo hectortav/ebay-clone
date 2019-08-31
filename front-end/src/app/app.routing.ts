@@ -26,4 +26,4 @@ const routes: Routes = [
     { path: '**', component: PageNotFoundComponent }
 ];
 
-export const appRoutingModule = RouterModule.forRoot(routes);
+export const appRoutingModule = RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' });

@@ -1,32 +1,58 @@
 ﻿<div class="allButFooter">
-    <!-- nav bar -->
-    <nav class="navbar navbar-expand-lg" *ngIf="currentUser"
-        style="background-color: white; height: 8vh; box-shadow: 0px -10px 20px #dedede;">
-        <img src="../assets/800px-EBay_logo.png" alt="logo" style="width: 6%;">
+    <ng-template [ngIf]="currentUser" [ngIfElse]="notLogged">
+        <nav class="navbar navbar-expand-lg"
+            style="background-color: white; height: 8vh; box-shadow: 0px -10px 20px #dedede;">
+            <img src="../assets/800px-EBay_logo.png" alt="logo" style="width: 6%;">
 
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-item nav-link" routerLink="/home">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-item nav-link" routerLink="/admin" *ngIf="isAdmin">Admin Page</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-item nav-link" routerLink="/manage-auctions">Manage Auctions</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-item nav-link" routerLink="/email"><img src="../assets/email-5-xxl.png" alt="email"
-                            style="width: 13%; margin-top: -6px;"></a>
-                </li>
-            </ul>
-            <ul class="navbar-nav my-2 my-lg-0">
-                <li class="nav-item">
-                    <a class="nav-item nav-link active" (click)="logout()">Logout</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" routerLink="/home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" routerLink="/admin" *ngIf="isAdmin">Admin Page</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" routerLink="/manage-auctions">Manage Auctions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" routerLink="/email"><img src="../assets/email-5-xxl.png"
+                                alt="email" style="width: 13%; margin-top: -6px;"></a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav my-2 my-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-item nav-link active" (click)="logout()">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </ng-template>
+
+
+    <ng-template #notLogged>
+        <nav class="navbar navbar-expand-lg"
+            *ngIf="router.url != '/login' && router.url != '/' && router.url != '/register' && router.url != '/thanks-signup'"
+            style="background-color: white; height: 8vh; box-shadow: 0px -10px 20px #dedede;">
+            <img src="../assets/800px-EBay_logo.png" alt="logo" style="width: 6%;">
+
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" routerLink="">Welcome!</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" routerLink="/home">Home</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav my-2 my-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-item nav-link active" routerLink="/login">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </ng-template>
 
     <!-- main app container -->
     <div>
