@@ -4,7 +4,7 @@ const auctionSchema = mongoose.Schema({
 	_id: mongoose.Schema.Types.ObjectId,
 	//product: { type: mongoose.Schema.Types.ObjectId, red: 'Product' , required: true},
 	name: { type: String, required: true },
-	category: { type: mongoose.Schema.Types.ObjectId, red: 'Category', required: true },
+	category: [ { type: String } ],
 	location: { type: String, required: true },
 	country: { type: String, required: true },
 	currently: { type: Number, required: true },
@@ -17,7 +17,7 @@ const auctionSchema = mongoose.Schema({
 	longitude: { type: Number },
 	seller: { type: mongoose.Schema.Types.ObjectId, red: 'User', required: true },
 	buy_price: { type: Number },
-	bids: [ { type: mongoose.Schema.Types.ObjectId } ]
+	bids: [ { type: mongoose.Schema.Types.ObjectId, red: 'Bid' } ]
 
 });
 

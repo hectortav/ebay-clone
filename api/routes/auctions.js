@@ -294,18 +294,26 @@ router.put('/:auctionId', (req, res, next) => {
 
 			if (req.body.name)
 				temp_auction.name = req.body.name;
-
-			Category.find({ name: req.body.category })
-				.then(category => {
-					if (!category && req.body.category) {
-						return res.status(404).json({
-							message: "Category Not Found"
-						});
-					}
-					if (req.body.category)
-						temp_auction.category = req.body.category;
-			});
-			
+			/*var arrayLength = req.body.category.length;
+			for (var i = 0; i < arrayLength; i++) {
+				Category.find({ name: req.body.category[i] })
+					.then(category => {
+						console.log(category);
+						if (!category) {
+							return res.status(404).json({
+								message: "Category Not Found"
+							});
+						}
+						temp_auction.category[i] = req.body.category[i];
+				});
+			}*/
+			if (req.body.category)
+			{
+				var i = req.body.category.length;
+				while(i--) temp_auction.category[i] = req.body.category[i];
+				//console.log(req.body.category);
+				//console.log(temp_auction.category);
+			}
 			if (req.body.location)
 				temp_auction.location = req.body.location;
 			if (req.body.country)
