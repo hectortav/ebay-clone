@@ -7,7 +7,7 @@ const messageSchema = mongoose.Schema({
     subject: {type: String, required: true },   
     time: {type: Date},
     text: {type: String, required: true },
-    read: {type: Boolean, deafult: false}    
+    read: {type: Boolean, default: false}    
 });
 
 module.exports = mongoose.model('Message', messageSchema);

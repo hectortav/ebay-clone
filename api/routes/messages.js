@@ -8,13 +8,13 @@ const User = require('../models/user');
 const Message = require('../models/message');
 
 router.get('/:userId/sent', (req, res, next) => {
-	User.find({ sender: userId})
-	.select('_id sender receiver time text')
+	Message.find({ sender: req.params.userId})
+	.select('_id sender receiver time subject text read')
 	.exec()
 	.then(docs => {
         const response = {
             count: docs.length,
-            users: docs.map(doc => {
+            messages: docs.map(doc => {
                     return {
                             _id: doc._id,
                             sender: doc.sender,
@@ -37,13 +37,13 @@ router.get('/:userId/sent', (req, res, next) => {
 });
 
 router.get('/:userId/received', (req, res, next) => {
-	User.find({ received: userId})
-	.select('_id sender receiver time text')
+	Message.find({ receiver: req.params.userId})
+	.select('_id sender receiver time subject text read')
 	.exec()
 	.then(docs => {
         const response = {
             count: docs.length,
-            users: docs.map(doc => {
+            messages: docs.map(doc => {
                     return {
                             _id: doc._id,
                             sender: doc.sender,
@@ -86,6 +86,53 @@ router.post('/', (req, res, next) => {
 		res.status(500).json({
 			error: err
 		});
+	});
+});
+
+router.put('/:messageId', (req, res, next) => {
+	const id = req.params.messageId;
+
+	Message.findById(req.params.messageId)
+	.exec()
+		.then(message => {
+			if (!message) {
+				return res.status(404).json({
+					message: 'Message Not Found'
+				});
+			}
+			const temp_message = new Message({
+				_id: message._id,
+				sender: message.sender,
+				receiver: message.receiver,
+				subject: message.subject,
+				time: message.time,
+				text: message.text,
+				read: message.read
+			});
+
+			if (req.body.read)
+				temp_message.read = req.body.read;
+
+			Message.update({ _id: id }, { $set: {
+				sender: temp_message.sender,
+				receiver: temp_message.receiver,
+				subject: temp_message.subject,
+				time: temp_message.time,
+				text: temp_message.text,
+				read: temp_message.read
+			} })
+				.exec()
+				.then(result => {
+					res.status(200).json({
+						message: 'Message updated'
+					});
+				})
+				.catch(err => {
+					console.log(err);
+					res.status(500).json({
+						error: err
+					});
+				});
 	});
 });
 
