@@ -25,7 +25,9 @@ import { AdminComponent } from './admin/admin.component';
 import { MapDetailsComponent } from './map-details/map-details.component';
 import { AuctionformComponent } from './auctionform/auctionform.component';
 import { AuctionInfoComponent } from './auction-info/auction-info.component';
-import { EmailComponent } from './email/email.component'
+import { EmailComponent } from './email/email.component';
+import { InboxComponent } from './inbox/inbox.component';
+import { SentComponent } from './sent/sent.component'
 
 @NgModule({
     imports: [
@@ -53,7 +55,9 @@ import { EmailComponent } from './email/email.component'
         MapDetailsComponent,
         AuctionformComponent,
         AuctionInfoComponent,
-        EmailComponent
+        EmailComponent,
+        InboxComponent,
+        SentComponent
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

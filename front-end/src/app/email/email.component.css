@@ -1,0 +1,27 @@
+.center {
+    padding-top: 25px; 
+    display: flex;
+    justify-content: center;
+    font-size: 1.13rem;
+  }
+
+.active {
+  background-color: #E8EAED;
+  border-radius: 30px;
+  width: 11%;
+  height: 5%;
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+}
+
+.active a {
+  font-weight: bold;
+  color: black;
+  display: flex;
+  justify-content: center;
+}
+
+a {
+  color: #6A6B6D;
+  text-decoration: none;
+}

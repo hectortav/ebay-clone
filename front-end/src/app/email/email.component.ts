@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { first } from 'rxjs/operators';
+import { MessagesService } from '../_services';
+import { Message } from '../_models';
 
 @Component({
   selector: 'app-email',
@@ -6,10 +9,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./email.component.css']
 })
 export class EmailComponent implements OnInit {
+  loading = false;
+  messages: Message[];
+  currentFolder: string;
 
-  constructor() { }
+  constructor(
+    private messagesService: MessagesService
+  ) { }
 
   ngOnInit() {
+    this.currentFolder = 'inbox';
   }
 
+  folderChoice(choice: string) {
+    this.currentFolder = choice;
+  }
 }

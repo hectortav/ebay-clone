@@ -1,1 +1,15 @@
-<p>email works!</p>
+<!-- Email Nav-bar -->
+<div class="center">
+    <div [ngClass]="{'active': currentFolder == 'inbox'}" style="margin-right: 20rem;">
+        <a [routerLink]="['inbox']" (click)="folderChoice('inbox')">Inbox</a>
+    </div>
+    <p>/</p>
+    <div [ngClass]="{'active': currentFolder == 'sent'}" style="margin-left: 20rem;">
+        <a [routerLink]="['sent']" (click)="folderChoice('sent')">Sent Mail</a>
+    </div>
+</div>
+
+<!-- Email Router -->
+<div class="center">
+    <router-outlet></router-outlet>
+</div>

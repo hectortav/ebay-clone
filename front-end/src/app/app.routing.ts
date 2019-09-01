@@ -10,6 +10,8 @@ import { AuctionDetailComponent } from './auction-detail/auction-detail.componen
 import { LandingComponent } from './landing/landing.component';
 import { AdminComponent } from './admin/admin.component';
 import { EmailComponent } from './email/email.component';
+import { InboxComponent } from './inbox/inbox.component';
+import { SentComponent } from './sent/sent.component';
 
 const routes: Routes = [
     { path: '', component: LandingComponent },
@@ -20,7 +22,14 @@ const routes: Routes = [
     { path: 'manage-auctions', component: ManageAuctionsComponent, canActivate: [AuthGuard] },
     { path: 'auction-detail/:id', component: AuctionDetailComponent },
     { path: 'admin', component: AdminComponent, canActivate: [RoleGuard], data: { role: 'admin' } },
-    { path: 'email', component: EmailComponent, canActivate: [AuthGuard] },
+    {
+        path: 'email', component: EmailComponent, canActivate: [AuthGuard],
+        children: [
+            { path: 'inbox', component: InboxComponent },
+            { path: 'sent', component: SentComponent },
+            { path: '', redirectTo: 'inbox', pathMatch: 'full' }
+        ]
+    },
 
     // Should be the last route, in order to redirect to 404 page
     { path: '**', component: PageNotFoundComponent }
