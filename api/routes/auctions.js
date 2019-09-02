@@ -310,7 +310,9 @@ router.put('/:auctionId', (req, res, next) => {
 			if (req.body.category)
 			{
 				var i = req.body.category.length;
+				temp_auction.category.length = 0
 				while(i--) temp_auction.category[i] = req.body.category[i];
+				
 				//console.log(req.body.category);
 				//console.log(temp_auction.category);
 			}

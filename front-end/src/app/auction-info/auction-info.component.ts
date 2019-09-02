@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { Auction, Bid } from '../_models';
-import { AuctionService, BidService } from '../_services';
+import { AuctionService, BidService, AuctionsService } from '../_services';
 import { AlertService } from '../_alert';
 import { first } from 'rxjs/operators';
 
@@ -13,17 +13,21 @@ export class AuctionInfoComponent implements OnChanges {
   @Input() auction: Auction;
   bidsArray: Bid[];
   loading = false;
+  categories: string[];
 
   constructor(
     private auctionService: AuctionService,
     private alertService: AlertService,
-    private bidService: BidService
+    private bidService: BidService,
+    private auctionsService: AuctionsService
   ) { }
 
   ngOnChanges() {
     if (this.auction.no_bids != 0) {
       this.loadAllBids();
     }
+
+    this.loadAllCategories();
   }
 
   delete(): void {
@@ -73,4 +77,12 @@ export class AuctionInfoComponent implements OnChanges {
       this.bidsArray = newObj.bids;
     });
   }
+
+  private loadAllCategories() {
+    this.auctionsService.getCategories().pipe(first()).subscribe(res => {
+      let newObj: any = res;
+      this.categories = newObj.categories;
+    });
+  }
+
 }

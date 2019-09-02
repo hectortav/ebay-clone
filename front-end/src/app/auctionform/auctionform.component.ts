@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as jwt_decode from "jwt-decode";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-import { AuctionService } from '../_services';
+import { AuctionService, AuctionsService } from '../_services';
 import { AlertService } from '../_alert';
 
 @Component({
@@ -17,15 +17,19 @@ export class AuctionformComponent implements OnInit {
   submitted = false;
   public lat: any;
   public lng: any;
+  categories: string[];
 
   constructor(
     private formBuilder: FormBuilder,
     private auctionService: AuctionService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private auctionsService: AuctionsService
   ) { }
 
   ngOnInit() {
     this.getLocation();
+
+    this.loadAllCategories();
 
     let currentUserJSON = JSON.parse(localStorage.getItem('currentUser'));
     let tokenInfo = jwt_decode(currentUserJSON.token);
@@ -33,7 +37,7 @@ export class AuctionformComponent implements OnInit {
 
     this.auctionForm = this.formBuilder.group({
       name: ['', Validators.required],
-      category: ['', Validators.required],
+      category: [[], Validators.required],
       location: ['', Validators.required],
       country: ['', Validators.required],
       currently: ['', Validators.required],
@@ -92,6 +96,13 @@ export class AuctionformComponent implements OnInit {
     } else {
       alert("Geolocation is not supported by this browser.");
     }
+  }
+
+  private loadAllCategories() {
+    this.auctionsService.getCategories().pipe(first()).subscribe(res => {
+      let newObj: any = res;
+      this.categories = newObj.categories;
+    });
   }
 
 }

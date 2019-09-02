@@ -27,6 +27,10 @@ export class AuctionsService {
         return this.http.get<Auction>(`${environment.apiUrl}/auctions/${id}`);
     }
 
+    getCategories() {
+        return this.http.get<string[]>(`${environment.apiUrl}/categories`);
+    }
+
     searchAuctions(term: string) {
         if (!term.trim()) {
             // if not search term, return empty array.

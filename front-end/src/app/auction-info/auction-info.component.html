@@ -11,9 +11,14 @@
                 [disabled]="disableEdit(auction)" />
         </div>
         <div>
-            <label>Category</label>
-            <input class="form-control rounded-0" [(ngModel)]="auction.category" placeholder="Category"
-                [disabled]="disableEdit(auction)" />
+            <label>Category (Press down ctrl to select multiple categories)</label>
+            <p class="form-control rounded-0"> {{auction.category}} </p>
+            <select multiple class="form-control rounded-0" [(ngModel)]="auction.category"
+                [disabled]="disableEdit(auction)">
+                <option *ngFor="let cat of categories">
+                    {{ cat.name }}
+                </option>
+            </select>
         </div>
         <div>
             <label>Location</label>

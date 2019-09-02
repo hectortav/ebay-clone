@@ -13,9 +13,13 @@
             </div>
 
             <div class="form-group">
-                <label for="category">Category</label>
-                <input type="category" formControlName="category" class="form-control rounded-0"
-                    [ngClass]="{ 'is-invalid': submitted && f.category.errors }" />
+                <label for="category">Category (Press down ctrl to select multiple categories)</label>
+                <select multiple formControlName="category" class="form-control rounded-0"
+                    [ngClass]="{ 'is-invalid': submitted && f.category.errors }">
+                    <option *ngFor="let cat of categories">
+                        {{ cat.name }}
+                    </option>
+                </select>
                 <div *ngIf="submitted && f.category.errors" class="invalid-feedback">
                     <div *ngIf="f.category.errors.required">Category is required</div>
                 </div>
