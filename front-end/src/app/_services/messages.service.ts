@@ -38,4 +38,12 @@ export class MessagesService {
   deleteMessage(message: Message) {
     return this.http.delete(`${environment.apiUrl}/messages/${message._id}`);
   }
+
+  getUnread() {
+    let currentUserJSON = JSON.parse(localStorage.getItem('currentUser'));
+    let tokenInfo = jwt_decode(currentUserJSON.token);
+    let id = tokenInfo.userId;
+
+    return this.http.get<any>(`${environment.apiUrl}/messages/${id}/received/unread`);
+  }
 }

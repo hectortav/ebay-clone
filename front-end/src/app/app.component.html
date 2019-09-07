@@ -17,7 +17,12 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-item nav-link" routerLink="/email"><img src="../assets/email-5-xxl.png"
-                                alt="email" style="width: 13%; margin-top: -6px;"></a>
+                                alt="email" style="width: 13%; margin-top: -6px;">
+                            <div *ngIf="count > 0" class="badge badge-warning"
+                                style="position: relative; top: -13px; left: -10px;">
+                                {{ count }}
+                            </div>
+                        </a>
                     </li>
                 </ul>
                 <ul class="navbar-nav my-2 my-lg-0">

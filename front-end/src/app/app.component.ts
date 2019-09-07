@@ -1,10 +1,11 @@
 ﻿import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthenticationService } from './_services';
+import { AuthenticationService, MessagesService } from './_services';
 import { User, Role } from './_models';
 
 import * as jwt_decode from "jwt-decode";
+import { first } from 'rxjs/internal/operators/first';
 
 @Component({
     selector: 'app',
@@ -13,12 +14,22 @@ import * as jwt_decode from "jwt-decode";
 })
 export class AppComponent {
     currentUser: User;
+    count: number;
 
     constructor(
         private router: Router,
-        private authenticationService: AuthenticationService
+        private authenticationService: AuthenticationService,
+        private messagesService: MessagesService
     ) {
+        this.unreadMessages();
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    }
+
+    unreadMessages() {
+        this.messagesService.getUnread().pipe(first()).subscribe(res => {
+            let newObj: any = res;
+            this.count = newObj.unread;
+        });
     }
 
     get isAdmin() {
