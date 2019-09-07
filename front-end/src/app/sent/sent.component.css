@@ -1,0 +1,8 @@
+.seen {
+    float: right;
+    font-size: 0.8rem;
+}
+
+.seen img {
+    width: 20px;
+}

@@ -1,0 +1,15 @@
+.buttons-container {
+    margin-top: 35px;
+    float: right;
+    display: flex;
+}
+
+.email-header {
+    font-weight: bold;
+}
+
+.email-header span {
+    font-weight: normal;
+    font-size: 0.85rem;
+    float: right;
+}

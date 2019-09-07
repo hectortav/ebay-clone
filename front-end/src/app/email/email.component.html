@@ -3,7 +3,7 @@
     <div [ngClass]="{'active': currentFolder == 'inbox'}" style="margin-right: 20rem;">
         <a [routerLink]="['inbox']" (click)="folderChoice('inbox')">Inbox</a>
     </div>
-    <p>/</p>
+    <p style="position: fixed;">/</p>
     <div [ngClass]="{'active': currentFolder == 'sent'}" style="margin-left: 20rem;">
         <a [routerLink]="['sent']" (click)="folderChoice('sent')">Sent Mail</a>
     </div>
