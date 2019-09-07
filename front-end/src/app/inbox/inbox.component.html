@@ -5,7 +5,7 @@
         [ngClass]="{'list-group-item-action list-group-item-dark': message.read}">
         <div class="email-header">
             {{ message.subject }}
-            <span>{{ message.date | date:'short' }}</span>
+            <span>{{ message.time | date:'short' }}</span>
         </div>
         <div *ngIf="message === selectedMessage">
             <p>{{ message.text }}</p>

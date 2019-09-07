@@ -6,3 +6,9 @@
 .seen img {
     width: 20px;
 }
+
+.email-header span {
+    font-weight: normal;
+    font-size: 0.85rem;
+    float: right;
+}

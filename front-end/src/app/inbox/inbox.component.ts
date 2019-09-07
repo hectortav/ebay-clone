@@ -31,7 +31,8 @@ export class InboxComponent implements OnInit {
       text: ['', Validators.required],
       subject: ['', Validators.required],
       sender: [''],
-      receiver: ['']
+      receiver: [''],
+      time: []
     });
   }
 
@@ -73,6 +74,7 @@ export class InboxComponent implements OnInit {
 
     this.messageForm.value.sender = this.selectedMessage.receiver;
     this.messageForm.value.receiver = this.selectedMessage.sender;
+    this.messageForm.value.time = new Date();
 
     this.loading = true;
     this.messagesService.newMessage(this.messageForm.value)

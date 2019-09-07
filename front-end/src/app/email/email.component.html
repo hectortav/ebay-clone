@@ -1,11 +1,13 @@
 <!-- Email Nav-bar -->
 <div class="center">
-    <div [ngClass]="{'active': currentFolder == 'inbox'}" style="margin-right: 20rem;">
-        <a [routerLink]="['inbox']" (click)="folderChoice('inbox')">Inbox</a>
+    <div style="margin-right: 20rem;">
+        <a [routerLink]="['inbox']" [routerLinkActive]="['active', 'active-second']"
+            (click)="folderChoice('inbox')">Inbox</a>
     </div>
     <p style="position: fixed;">/</p>
-    <div [ngClass]="{'active': currentFolder == 'sent'}" style="margin-left: 20rem;">
-        <a [routerLink]="['sent']" (click)="folderChoice('sent')">Sent Mail</a>
+    <div style="margin-left: 20rem;">
+        <a [routerLink]="['sent']" [routerLinkActive]="['active', 'active-second']" (click)="folderChoice('sent')">Sent
+            Mail</a>
     </div>
 </div>
 
