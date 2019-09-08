@@ -1,7 +1,8 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
-import { Auction } from '../_models';
-import { AuctionsService } from '../_services';
+import { Auction, User } from '../_models';
+import { AuctionsService, AuthenticationService, MessagesService } from '../_services';
+import { Subscription, interval } from 'rxjs';
 
 @Component({
     selector: 'app-home',
@@ -13,8 +14,18 @@ export class HomeComponent implements OnInit {
     loading: boolean = false;
     config: any;
     count: any;
+    currentUser: User;
+    unreadCount: number = 0;
+    unread: boolean = false;
+    subscription: Subscription;
 
-    constructor(private auctionsService: AuctionsService) { }
+    constructor(
+        private auctionsService: AuctionsService,
+        private authenticationService: AuthenticationService,
+        private messagesService: MessagesService
+    ) {
+        this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    }
 
     ngOnInit() {
         this.loadAllAuctions();
@@ -24,6 +35,24 @@ export class HomeComponent implements OnInit {
             currentPage: 1,
             totalItems: this.count
         };
+
+        const source = interval(10000);
+        this.subscription = source.subscribe(val => this.unreadMessages());
+    }
+
+    unreadMessages() {
+        if (this.currentUser) {
+            this.messagesService.getUnread().pipe(first()).subscribe(res => {
+                this.unreadCount = res.unread;
+            });
+
+            if (this.unreadCount == 0) {
+                this.unread = false;
+            }
+            else {
+                this.unread = true;
+            }
+        }
     }
 
     private loadAllAuctions() {
@@ -39,5 +68,9 @@ export class HomeComponent implements OnInit {
     // Pagination credits: https://www.freakyjolly.com/angular-7-6-pagination-implement-local-or-server-pagination-in-3-steps/
     pageChanged(event) {
         this.config.currentPage = event;
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 }
