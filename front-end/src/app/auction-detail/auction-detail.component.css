@@ -1,0 +1,118 @@
+.center-title {
+    width: 500px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 25px; 
+    border-bottom: 2px solid #CCCCCC;
+    text-align: center;
+}
+
+.center-title h3 {
+    font-weight: bold;
+}
+
+.center {
+    width: 600px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 25px; 
+    text-align: center;
+}
+
+.center-price {
+    width: 600px;
+    display: block;
+    margin-left: 540px;
+    margin-right: auto;
+    padding-top: 25px; 
+    text-align: center;
+}
+
+ #price {
+    font-weight: bold;
+    position: relative;
+    float: right;
+    top: -43px;
+    left: -170px;
+    font-size: 1.3rem;
+}
+
+#bids {
+    position: relative;
+    float: right;
+    top: -39px;
+    left: -40px;
+}
+
+.info {
+    border: 1px solid #CCCCCC;
+    width: 1500px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    padding-top: 25px; 
+    overflow: hidden
+}
+
+.info h5 {
+    padding-left: 20px;
+}
+
+.info p {
+    padding-left: 20px;
+    padding-top: 10px;
+    width: 1000px;
+}
+
+.info ul {
+    position: relative;
+    float: right;
+    list-style-type: none;
+    padding-right: 40px; 
+}
+
+.info label {
+    font-size: 1.2rem;
+}
+
+.location {
+    border: 10px solid #CCCCCC;
+    width: 700px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    padding-bottom: 10px;
+    padding-left: 20px; 
+    padding-right: 20px;
+    overflow: hidden
+}
+
+.location p {
+    position: relative;
+    top: 150px;
+}
+
+.no-location {
+    border: 10px solid #CCCCCC;
+    width: 700px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    padding-left: 20px; 
+    padding-right: 20px;
+    overflow: hidden
+}
+
+.centerbid {
+    width: 600px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 25px;
+    padding-left: 160px;  
+}

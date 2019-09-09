@@ -71,6 +71,16 @@
                 </div>
             </div>
 
+            <label class="custom-file-upload">
+                <input type="file" (change)="createFormData($event)" formControlName="img2" />
+                Upload Image (optional)
+            </label>
+
+            <label class="custom-file-upload">
+                <input type="file" (change)="createFormData($event)" formControlName="img2" />
+                Upload Image (optional)
+            </label>
+
             <div class="form-group">
                 <button [disabled]="loading" class="btn btn-outline-dark">
                     <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>

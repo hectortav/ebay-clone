@@ -18,6 +18,8 @@ export class AuctionformComponent implements OnInit {
   public lat: any;
   public lng: any;
   categories: string[];
+  img1: any;
+  img2: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -45,7 +47,9 @@ export class AuctionformComponent implements OnInit {
       description: ['', Validators.required],
       seller: [this.userId],
       latitude: [-1],
-      longitude: [-1]
+      longitude: [-1],
+      img1: [],
+      img2: []
     });
   }
 
@@ -81,6 +85,17 @@ export class AuctionformComponent implements OnInit {
           this.alertService.error(error);
           this.loading = false;
         });
+  }
+
+  addImg1(event) {
+    this.img1 = <File>event.target.files[0];
+    this.auctionForm.value.img1 = this.img1;
+    console.log(this.img1);
+  }
+
+  addImg2(event) {
+    this.img2 = <File>event.target.files[0];
+    this.auctionForm.value.img2 = this.img2;
   }
 
   getLocation() {

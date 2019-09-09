@@ -47,7 +47,7 @@ export class MapDetailsComponent implements AfterViewInit {
     });
 
     this.source = new OlXYZ({
-      url: 'http://tile.osm.org/{z}/{x}/{y}.png'
+      url: 'https://tile.osm.org/{z}/{x}/{y}.png'
     });
 
     this.layer = new OlTileLayer({

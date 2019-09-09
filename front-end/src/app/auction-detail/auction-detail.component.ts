@@ -22,6 +22,7 @@ export class AuctionDetailComponent implements OnInit {
   loading = false;
   submitted = false;
   id: string;
+  categories: string[];
 
   constructor(
     private route: ActivatedRoute,
@@ -56,6 +57,7 @@ export class AuctionDetailComponent implements OnInit {
     this.auctionsService.getAuction(this.id).pipe(first()).subscribe(res => {
       let newObj: any = res;
       this.auction = newObj.auction;
+      this.categories = this.auction.category;
       if ((this.auction.longitude != -1) && (this.auction.latitude != -1)) {
         this.coords = true
       }
@@ -98,7 +100,4 @@ export class AuctionDetailComponent implements OnInit {
     }
   }
 
-  goBack(): void {
-    this.location.back();
-  }
 }
