@@ -30,8 +30,11 @@ export class SentComponent implements OnInit {
 
   onSelect(message: Message): void {
     this.selectedMessage = message;
-    this.messagesService.updateMessage(message).subscribe();
-    console.log(message);
+  }
+
+  delete(message: Message): void {
+    this.messagesService.deleteMessage(message).subscribe();
+    window.location.reload();
   }
 
 }

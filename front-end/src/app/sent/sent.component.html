@@ -12,6 +12,9 @@
             <div *ngIf="message.read" class="seen">
                 Seen <img src="../../assets/seen.png" alt="Seen">
             </div>
+            <div title="Delete the message" (click)="delete(message)" style="flex: 1;">
+                <img src="../../assets/delete_icon.png" alt="Delete" style="width: 22px;">
+            </div>
         </div>
     </li>
 </ul>
