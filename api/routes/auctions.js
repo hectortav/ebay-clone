@@ -105,24 +105,24 @@ router.post('/', (req, res, next) => {
 							message: "Category Not Found"
 						});
 					}
-			});
+				});
 		})
-		const auction = new Auction({
-			_id: mongoose.Types.ObjectId(),
-			name: req.body.name,
-			category: req.body.category,
-			location: req.body.location,
-			country: req.body.country,
-			currently: req.body.currently,
-			first_bid: req.body.first_bid,
-			no_bids: req.body.no_bids,
-			started: req.body.started,
-			ends: req.body.ends,
-			description: req.body.description,
-			latitude: req.body.latitude,
-			longitude: req.body.longitude,
-			seller: req.body.seller,
-			bids: req.body.bids
+	const auction = new Auction({
+		_id: mongoose.Types.ObjectId(),
+		name: req.body.name,
+		category: req.body.category,
+		location: req.body.location,
+		country: req.body.country,
+		currently: req.body.currently,
+		first_bid: req.body.first_bid,
+		no_bids: req.body.no_bids,
+		started: req.body.started,
+		ends: req.body.ends,
+		description: req.body.description,
+		latitude: req.body.latitude,
+		longitude: req.body.longitude,
+		seller: req.body.seller,
+		bids: req.body.bids
 	});
 	auction.save()
 		.then(result => {
@@ -187,7 +187,7 @@ router.get('/:auctionId', (req, res, next) => {
 router.get('/:auctionId/bids', (req, res, next) => {
 	var return_array = [];
 	var return_bid;
-	
+
 	Auction.findById(req.params.auctionId)
 		.exec()
 		.then(auction => {
@@ -201,46 +201,50 @@ router.get('/:auctionId/bids', (req, res, next) => {
 			var length = 0;
 			for (var i = 0; i < arrayLength; i++) {
 				Bid.findById(auction.bids[i])
-				.select('_id auction bidder amount time')
-				.exec()
-				.then(bid => {
-					if (!bid) {
-						return res.status(404).json({
-							message: 'Bid Not Found'
+					.select('_id auction bidder amount time')
+					.exec()
+					.then(bid => {
+						if (!bid) {
+							return res.status(404).json({
+								message: 'Bid Not Found'
+							});
+						}
+						return_bid = {
+							_id: bid._id,
+							auction: bid.auction,
+							bidder: bid.bidder,
+							amount: bid.amount,
+							time: bid.time
+						};
+
+						return_array.push(return_bid);
+						length++;
+						if (length == arrayLength) {
+							return_array.sort(function (a, b) {
+								a = new Date(a.time);
+								b = new Date(b.time);
+								return a > b ? -1 : a < b ? 1 : 0;
+							});
+							return res.status(200).json({
+								bids: return_array
+							});
+						}
+
+						console.log(return_array);
+					})
+					.catch(err => {
+						res.status(500).json({
+							error: err
 						});
-					}
-					return_bid = {
-						_id: bid._id,
-						auction: bid.auction,
-						bidder: bid.bidder,
-						amount: bid.amount,
-						time: bid.time
-					};
-
-					return_array.push(return_bid);
-					length++;
-					if (length == arrayLength)
-					{
-						return res.status(200).json({
-							bids: return_array
-						});	
-					}
-
-					//console.log(return_array);
-				})
-				.catch(err => {
-					res.status(500).json({
-						error: err
 					});
-				});
-			}	
+			}
 		})
 		.catch(err => {
 			res.status(500).json({
 				error: err
 			});
 		});
-		
+
 });
 
 router.delete('/:auctionId', (req, res, next) => {
@@ -267,7 +271,7 @@ router.put('/:auctionId', (req, res, next) => {
 	const id = req.params.auctionId;
 
 	Auction.findById(req.params.auctionId)
-	.exec()
+		.exec()
 		.then(auction => {
 			if (!auction) {
 				return res.status(404).json({
@@ -307,12 +311,11 @@ router.put('/:auctionId', (req, res, next) => {
 						temp_auction.category[i] = req.body.category[i];
 				});
 			}*/
-			if (req.body.category)
-			{
+			if (req.body.category) {
 				var i = req.body.category.length;
 				temp_auction.category.length = 0
-				while(i--) temp_auction.category[i] = req.body.category[i];
-				
+				while (i--) temp_auction.category[i] = req.body.category[i];
+
 				//console.log(req.body.category);
 				//console.log(temp_auction.category);
 			}
@@ -341,22 +344,24 @@ router.put('/:auctionId', (req, res, next) => {
 			if (req.body.bids)
 				temp_auction.bids = req.body.bids;
 
-			Auction.update({ _id: id }, { $set: {
-				name: temp_auction.name,
-				category: temp_auction.category,
-				location: temp_auction.location,
-				country: temp_auction.country,
-				currently: temp_auction.currently,
-				first_bid: temp_auction.first_bid,
-				no_bids: temp_auction.no_bids,
-				started: temp_auction.started,
-				ends: temp_auction.ends,
-				description: temp_auction.description,
-				latitude: temp_auction.latitude,
-				longitude: temp_auction.longitude,
-				seller: temp_auction.seller,
-				bids: temp_auction.bids
-			} })
+			Auction.update({ _id: id }, {
+				$set: {
+					name: temp_auction.name,
+					category: temp_auction.category,
+					location: temp_auction.location,
+					country: temp_auction.country,
+					currently: temp_auction.currently,
+					first_bid: temp_auction.first_bid,
+					no_bids: temp_auction.no_bids,
+					started: temp_auction.started,
+					ends: temp_auction.ends,
+					description: temp_auction.description,
+					latitude: temp_auction.latitude,
+					longitude: temp_auction.longitude,
+					seller: temp_auction.seller,
+					bids: temp_auction.bids
+				}
+			})
 				.exec()
 				.then(result => {
 					res.status(200).json({
@@ -373,7 +378,7 @@ router.put('/:auctionId', (req, res, next) => {
 						error: err
 					});
 				});
-	});
+		});
 });
 
 module.exports = router;
