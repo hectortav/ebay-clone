@@ -61,6 +61,7 @@ export class HomeComponent implements OnInit {
             this.loading = false;
             let newObj: any = res;
             this.auctions = newObj.auctions;
+            console.log(this.auctions);
             this.count = newObj.count;
         });
     }

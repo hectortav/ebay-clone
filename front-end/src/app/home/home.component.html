@@ -18,14 +18,14 @@
     <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
     <tbody *ngIf="auctions" class="table-hover">
         <tr *ngFor="let auction of auctions | paginate: config">
-            <td>
+            <td *ngIf=auction>
                 <a [routerLink]="['/auction-detail', auction._id]">
                     {{auction.name}}
                 </a>
             </td>
-            <td class="text-center">{{auction.currently}}</td>
-            <td class="text-center">{{auction.no_bids}}</td>
-            <td class="text-right">{{auction.country}}</td>
+            <td *ngIf=auction class="text-center">{{auction.currently}}</td>
+            <td *ngIf=auction class="text-center">{{auction.no_bids}}</td>
+            <td *ngIf=auction class="text-right">{{auction.country}}</td>
     </tbody>
 </table>
 
