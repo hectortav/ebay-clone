@@ -7,38 +7,20 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const Message = require('../models/message');
 
-function getUser(id) {
-	User.findById(id)
-		.select('_id username')
-		.exec()
-		.then(user => {
-			if (!user) {
-				return res.status(404).json({
-					message: 'User Not Found'
-				});
-			}
-			return user.username;
-		});
-}
-
 router.get('/:userId/sent', (req, res, next) => {
-	var s_user, r_user;
 	Message.find({ sender: req.params.userId })
-		.select('_id sender receiver time subject text read')
+		.select('_id sender receiver sender_username receiver_username time subject text read')
 		.exec()
 		.then(docs => {
 			const response = {
 				count: docs.length,
 				messages: docs.map(doc => {
-					s_user = getUser(doc.sender);
-					r_user = getUser(doc.receiver);
-					console.log(s_user + "\n" + r_user);
 					return {
 						_id: doc._id,
 						sender: doc.sender,
 						receiver: doc.receiver,
-						sender_username: s_user,
-						receiver_username: r_user,
+						sender_username: doc.sender_username,
+						receiver_username: doc.receiver_username,
 						subject: doc.subject,
 						time: doc.time,
 						text: doc.text,
@@ -57,22 +39,19 @@ router.get('/:userId/sent', (req, res, next) => {
 });
 
 router.get('/:userId/received', (req, res, next) => {
-	var s_user, r_user;
 	Message.find({ receiver: req.params.userId })
-		.select('_id sender receiver time subject text read')
+		.select('_id sender receiver sender_username receiver_username time subject text read')
 		.exec()
 		.then(docs => {
 			const response = {
 				count: docs.length,
 				messages: docs.map(doc => {
-					s_user = getUser(doc.sender);
-					r_user = getUser(doc.receiver);
 					return {
 						_id: doc._id,
 						sender: doc.sender,
 						receiver: doc.receiver,
-						sender_username: s_user,
-						receiver_username: r_user,
+						sender_username: doc.sender_username,
+						receiver_username: doc.receiver_username,
 						subject: doc.subject,
 						time: doc.time,
 						text: doc.text,
@@ -124,14 +103,45 @@ router.post('/', (req, res, next) => {
 		text: req.body.text,
 		read: req.body.read
 	});
-	message.save()
-		.then(result => {
-			console.log(result);
-			res.status(201).json({
-				message: 'Message Created'
-			});
-		}).catch(err => {
-			console.log(err);
+	User.findById(req.body.sender)
+		.exec()
+		.then(user1 => {
+			if (!user1) {
+				return res.status(404).json({
+					message: 'Sender Not Found'
+				});
+			}
+			message.sender_username = user1.username;
+			User.findById(req.body.receiver)
+				.exec()
+				.then(user2 => {
+					if (!user2) {
+						return res.status(404).json({
+							message: 'Sender Not Found'
+						});
+					}
+					message.receiver_username = user2.username;
+					message.save()
+						.then(result => {
+							console.log(result);
+							res.status(201).json({
+								message: 'Message Created'
+							});
+						}).catch(err => {
+							console.log(err);
+							res.status(500).json({
+								error: err
+							});
+						});
+				})
+				.catch(err => {
+					console.log(result);
+					res.status(500).json({
+						error: err
+					});
+				});
+		})
+		.catch(err => {
 			res.status(500).json({
 				error: err
 			});
@@ -202,5 +212,4 @@ router.delete('/:messageId', (req, res, next) => {
 			});
 		});
 })
-
 module.exports = router;
