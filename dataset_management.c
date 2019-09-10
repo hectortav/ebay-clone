@@ -44,7 +44,9 @@ int main(int argc, char **argv)
     char * line = NULL;
     char * temp = NULL;
     char * buf = NULL;
+    char tmp[200];
     size_t len = 0;
+    int i, j;
 
     if (argc >= 2)
          fp = fopen(argv[1], "r");
@@ -64,7 +66,198 @@ int main(int argc, char **argv)
             temp = replaceWord(temp, "</Category>", "</name>");
             fputs(temp, catfp);
         }
-        fputs(line, fp2);        
+        if (strstr(line, "<Category>") != NULL)
+        {
+            temp = replaceWord(line, "<Category>", "<category>");
+            temp = replaceWord(temp, "</Category>", "</category>");
+            fputs(temp, fp2);
+        }
+        else if (strstr(line, "<Name>") != NULL)
+        {
+            temp = replaceWord(line, "<Name>", "<name>");
+            temp = replaceWord(temp, "</Name>", "</name>");
+            fputs(temp, fp2);
+        }
+        else if (strstr(line, "<Currently>") != NULL)
+        {
+            temp = replaceWord(line, "<Currently>", "<currently>");
+            temp = replaceWord(temp, "</Currently>", "</currently>");
+            fputs(temp, fp2);
+        }
+        else if (strstr(line, "<First_Bid>") != NULL)
+        {
+            temp = replaceWord(line, "<First_Bid>", "<first_bid>");
+            temp = replaceWord(temp, "</First_Bid>", "</first_bid>");
+            fputs(temp, fp2);
+        }
+        else if (strstr(line, "<Number_of_Bids>") != NULL)
+        {
+            temp = replaceWord(line, "<Number_of_Bids>", "<no_bids>");
+            temp = replaceWord(temp, "</Number_of_Bids>", "</no_bids>");
+            fputs(temp, fp2);
+        }
+        else if (strstr(line, "<Bids>") != NULL)
+        {
+            temp = replaceWord(line, "<Bids>", "<bids>");
+            temp = replaceWord(temp, "</Bids>", "</bids>");
+            fputs(temp, fp2);
+        }
+        else if (strstr(line, "<Location>") != NULL)
+        {
+            temp = replaceWord(line, "<Location>", "<location>");
+            temp = replaceWord(temp, "</Location>", "</location>");
+            fputs(temp, fp2);
+        }
+        else if (strstr(line, "<Country>") != NULL)
+        {
+            temp = replaceWord(line, "<Country>", "<country>");
+            temp = replaceWord(temp, "</Country>", "</country>");
+            fputs(temp, fp2);
+        }
+        else if (strstr(line, "<Started>") != NULL)
+        {
+            temp = replaceWord(line, "<Started>", "<started>");
+            temp = replaceWord(temp, "</Started>", "</started>");
+            fputs(temp, fp2);
+        }
+        else if (strstr(line, "<Ends>") != NULL)
+        {
+            temp = replaceWord(line, "<Ends>", "<ends>");
+            temp = replaceWord(temp, "</Ends>", "</ends>");
+            fputs(temp, fp2);
+        }
+        else if (strstr(line, "<Description>") != NULL)
+        {
+            temp = replaceWord(line, "<Description>", "<description>");
+            temp = replaceWord(temp, "</Description>", "</description>");
+            fputs(temp, fp2);
+        }
+        else if (strstr(line, "<Buy_Price>") != NULL)
+        {
+            temp = replaceWord(line, "<Buy_Price>", "<buy_price>");
+            temp = replaceWord(temp, "</Buy_Price>", "</buy_price>");
+            fputs(temp, fp2);
+        }
+        else if (strstr(line, "<Location ") != NULL)
+        {
+            tmp[0] = '<';
+            tmp[1] = 'l';
+            tmp[2] = 'o';
+            tmp[3] = 'c';
+            tmp[4] = 'a';
+            tmp[5] = 't';
+            tmp[6] = 'i';
+            tmp[7] = 'o';
+            tmp[8] = 'n';
+            tmp[9] = '>';
+            i = 9;
+            while (line[i] != '>')
+                i++;
+            i++;
+            j = 10;
+            while (line[i+1] != '<')
+            {
+                tmp[j] = line[i];
+                i++;
+                j++;
+            }
+            i = j;
+            tmp[i] = '<';i++;
+            tmp[i] = '/';i++;
+            tmp[i] = 'l';i++;
+            tmp[i] = 'o';i++;
+            tmp[i] = 'c';i++;
+            tmp[i] = 'a';i++;
+            tmp[i] = 't';i++;
+            tmp[i] = 'i';i++;
+            tmp[i] = 'o';i++;
+            tmp[i] = 'n';i++;
+            tmp[i] = '>';i++;
+            tmp[i] = '\n';i++;
+            tmp[i] = '<';i++;
+            tmp[i] = 'l';i++;
+            tmp[i] = 'a';i++;
+            tmp[i] = 't';i++;
+            tmp[i] = 'i';i++;
+            tmp[i] = 't';i++;
+            tmp[i] = 'u';i++;
+            tmp[i] = 'd';i++;
+            tmp[i] = 'e';i++;
+            tmp[i] = '>';i++;
+            
+            j = i;
+            i = 9;
+            while (line[i] != '"')
+                i++;
+            i++;
+            while (line[i+1] != '"')
+            {
+                tmp[j] = line[i];
+                i++;
+                j++;
+            }
+            i = j;
+            tmp[i] = '<';i++;
+            tmp[i] = '/';i++;
+            tmp[i] = 'l';i++;
+            tmp[i] = 'a';i++;
+            tmp[i] = 't';i++;
+            tmp[i] = 'i';i++;
+            tmp[i] = 't';i++;
+            tmp[i] = 'u';i++;
+            tmp[i] = 'd';i++;
+            tmp[i] = 'e';i++;
+            tmp[i] = '>';i++;
+            tmp[i] = '\n';i++;
+            tmp[i] = '<';i++;
+            tmp[i] = 'l';i++;
+            tmp[i] = 'o';i++;
+            tmp[i] = 'n';i++;
+            tmp[i] = 'g';i++;
+            tmp[i] = 'i';i++;
+            tmp[i] = 't';i++;
+            tmp[i] = 'u';i++;
+            tmp[i] = 'd';i++;
+            tmp[i] = 'e';i++;
+            tmp[i] = '>';i++;
+
+            j = i;
+            i = 9;
+            while (line[i] != '"')
+                i++;
+            i++;
+             while (line[i] != '"')
+                i++;
+            i++;
+             while (line[i] != '"')
+                i++;
+            i++;
+            while (line[i+1] != '"')
+            {
+                tmp[j] = line[i];
+                i++;
+                j++;
+            }
+            i = j;
+            tmp[i] = '<';i++;
+            tmp[i] = '/';i++;
+            tmp[i] = 'l';i++;
+            tmp[i] = 'o';i++;
+            tmp[i] = 'n';i++;
+            tmp[i] = 'g';i++;
+            tmp[i] = 'i';i++;
+            tmp[i] = 't';i++;
+            tmp[i] = 'u';i++;
+            tmp[i] = 'd';i++;
+            tmp[i] = 'e';i++;
+            tmp[i] = '>';i++;
+            tmp[i] = '\n';i++;
+
+
+            fputs(tmp, fp2);
+        }
+        else
+            fputs(line, fp2);        
     }
     fclose(fp);
     fclose(fp2);
