@@ -102,12 +102,8 @@ to update:
 	"value": "213"}
 ]
 
-todo:
-4
-7.3
-post seller id to get his auctions
-
-
+npm install xml2js
+npm install --save express body-parser body-parser-xml
 
 
 
