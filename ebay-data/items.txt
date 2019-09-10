@@ -1,0 +1,91 @@
+Δεδομένα δημοπρασιών στο eBay
+
+Τα δεδομένα έχουν συλλεχθεί από πραγματικές δημοπρασίες στο ebay.com από το αντίστοιχο μάθημα στο UCLA
+
+Τα δεδομένα οργανώνονται σε αρχεία με όνομα: items-?.xml με κάθε αρχείο να περιλαμβάνει πληροφορίες για περίπου
+500 δημοπρασίες. Κάθε δημοπρασία αντιστοιχεί σε ένα στοιχείο Item το οποίο περιλαμβάνει πλήρης πληροφορίες σχετικά
+με τη δημοπρασία. Πρόκειται περί αρχεία xml που συμμορφώνονται με το αρχείο DTD (Document Type Definition) που 
+ακολουθεί:
+
+
+<!ELEMENT Items            (Item*)>
+<!ELEMENT Item             (Name, Category+, Currently, Buy_Price?,
+                            First_Bid, Number_of_Bids,
+			    Bids, Location, Country, Started, Ends,
+			    Seller, Description)>
+<!ATTLIST Item             ItemID CDATA #REQUIRED>
+  <!ELEMENT Name	   (#PCDATA)>
+  <!ELEMENT Category	   (#PCDATA)> 
+  <!ELEMENT Currently	   (#PCDATA)> 
+  <!ELEMENT Buy_Price      (#PCDATA)>
+  <!ELEMENT First_Bid	   (#PCDATA)>
+  <!ELEMENT Number_of_Bids (#PCDATA)>
+  <!ELEMENT Bids           (Bid*)>
+    <!ELEMENT Bid          (Bidder, Time, Amount)>
+      <!ATTLIST Bidder     UserID CDATA #REQUIRED
+			   Rating CDATA #REQUIRED>    
+      <!ELEMENT Bidder     (Location?, Country?)>
+      <!ELEMENT Time	   (#PCDATA)>
+      <!ELEMENT Amount	   (#PCDATA)>
+  <!ELEMENT Location	   (#PCDATA)>
+    <!ATTLIST Location     Latitude  CDATA #IMPLIED
+                           Longitude CDATA #IMPLIED>
+  <!ELEMENT Country	   (#PCDATA)>
+  <!ELEMENT Started	   (#PCDATA)>
+  <!ELEMENT Ends	   (#PCDATA)>
+  <!ELEMENT Seller	   EMPTY>
+  <!ATTLIST Seller         UserID CDATA #REQUIRED
+			   Rating CDATA #REQUIRED>
+  <!ELEMENT Description	   (#PCDATA)>
+
+Τα στοιχεία και τα χαρακτηριστικά τους εξηγούνται ακολούθως:
+
+ItemID (attribute): Μοναδικό id για το αντικείμενο που τίθεται σε δημοπρασία
+
+Name: Μία σύντομη ονομασία που χρησιμοποιείται ως περιγραφή της δημοπρασίας
+
+Category: Η κατηγορία στην οποία ανήκει το αντικείμενο. Ένα αντικείμενο μπορεί να ανήκει σε πολλές κατηγορίες
+	  
+Currently: Η τρέχουσα καλύτερη προσφορά σε δολάρια. Είναι πάντοτε ίση με την υψηλότερη προσφορά ή 
+           με το First_Bid αν δεν έχουν υποβληθεί προσφορές
+	   
+Buy_Price: Η τιμή που επιλέγει ο πωλητής πριν την έναρξη της δημοπρασίας με την οποία
+           ένας πλειοδότης μπορεί να κερδίσει τη δημοπρασία άμεσα. Ο πωλητής μπορεί να επιλέξει
+           να μην υπάρχει τέτοια τιμή, οπότε σε αυτή την περίπτωση το στοιχείο δεν περιλαμβάνεται εντός της 
+           δημοπρασίας
+  
+First_Bid: Το ελάχιστο μέγεθος της πρώτης προσφοράς, το οποίο ορίζεται από τον πωλητή πριν την έναρξη της δημοπρασίας
+       
+  
+Number_of_Bids: Αριθμός των προσφορών / των στοιχείων προσφοράς καθένα εκ των οποίων αντιστοιχεί σε μία προσφορά
+
+Bids/Bid/Bidder: Το στοιχείο Bids περιλαμβάνει πολλά Bid. Κάθε στοιχείο Bid περιλαμβάνει 1 στοιχείο Bidder.
+				 Το Attribute UserID του στοιχείου Bidder ταυτοποιεί μοναδικά το χρήστη που κάνει την προσφορά. Το Attribute
+                 Rating του Bidder αποτελεί την αξιολόγηση του εν λόγω χρήστη. Τα στοιχεία-παιδιά του Bidder Location και Country παρέχουν
+				 πληροφορίες για την τοποθεσία του χρήστη που κάνει την προσφορά. Ένας χρήστης μπορεί να συμμετέχει
+                 σε πολλές δημοπρασίες. Σε αυτή την περίπτωση τα δεδομένα για την αξιολόγηση (Rating), Location και Country
+				 είναι ίδια σε όλες τις προσφορές
+
+Bids/Bid/Time: Το στοιχείο Time βρίσκεται εντός του Bid και αφορά το χρόνο υποβολής της προσφοράς. Πρέπει να είναι μεταγενέστερο
+               του χρόνου έναρξης της ψηφοφορίας και προγενέστερο του χρόνου λήξης της. Ένας χρήστης μπορεί να υποβάλλει πολλαπλές
+               προσφορές σε μια δημοπρασία αλλά σε διαφορετικό χρόνο.
+
+Bids/Bid/Amount: Το ποσό της προσφοράς
+
+Location/Country: Τα στοιχεία Location και Country εντός του Item περιλαμβάνουν τις γεωγραφικές πληροφορίες του αντικειμένου. 
+			Προαιρετικά τα attributes Latitude και Longitude του στοιχείου Location ορίζουν τις γεωγραφικές συντεταγμένες του
+            αντικειμένου. Όταν το στοιχείο Location βρίσκεται εντός του Bidder δεν έχει χαρακτηριστικά Latitude και Longitude
+
+Started: Χρόνος έναρξης της δημοπρασίας
+
+Ends: Χρόνος λήξης της δημοπρασίας.
+
+Seller: Τα Attributes UserID και Rating του στοιχείου Seller παρέχουν τα δεδομένα του πωλητή. Ένας χρήστης έχει διαφορετικό rating ως
+      πωλητής και ως bidder.
+
+Description: Η πλήρης περιγραφή του αντικειμένου. 
+
+Όλα τα χρηματικά ποσά είναι στη μορφή $x,xxx.xx και αναφέρονται σε δολάρια ΗΠΑ
+Οι ημερομηνίες είναι σε μορφότυπο 24 ωρών. Δείτε τα δεδομένα για τον ακριβή μορφότυπο της ημερομηνίας.
+
+

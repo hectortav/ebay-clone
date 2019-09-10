@@ -1,0 +1,29 @@
+<!ELEMENT Items            (Item*)>
+<!ELEMENT Item             (Name, Category+, Currently, Buy_Price?,
+                            First_Bid, Number_of_Bids,
+			    Bids, Location, Country, Started, Ends,
+			    Seller, Description)>
+<!ATTLIST Item             ItemID CDATA #REQUIRED>
+  <!ELEMENT Name	   (#PCDATA)>
+  <!ELEMENT Category	   (#PCDATA)> 
+  <!ELEMENT Currently	   (#PCDATA)> 
+  <!ELEMENT Buy_Price      (#PCDATA)>
+  <!ELEMENT First_Bid	   (#PCDATA)>
+  <!ELEMENT Number_of_Bids (#PCDATA)>
+  <!ELEMENT Bids           (Bid*)>
+    <!ELEMENT Bid          (Bidder, Time, Amount)>
+      <!ATTLIST Bidder     UserID CDATA #REQUIRED
+                           Rating CDATA #REQUIRED>    
+      <!ELEMENT Bidder     (Location?, Country?)>
+      <!ELEMENT Time	   (#PCDATA)>
+      <!ELEMENT Amount	   (#PCDATA)>
+  <!ELEMENT Location	   (#PCDATA)>
+    <!ATTLIST Location     Latitude  CDATA #IMPLIED
+                           Longitude CDATA #IMPLIED>    
+  <!ELEMENT Country	   (#PCDATA)>
+  <!ELEMENT Started	   (#PCDATA)>
+  <!ELEMENT Ends	   (#PCDATA)>
+  <!ELEMENT Seller	   EMPTY>
+  <!ATTLIST Seller         UserID CDATA #REQUIRED
+			   Rating CDATA #REQUIRED>
+  <!ELEMENT Description	   (#PCDATA)>
