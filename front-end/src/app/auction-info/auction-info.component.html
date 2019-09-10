@@ -62,6 +62,27 @@
         <!-- Bids -->
         <div class="bids-container">
             <h4>Current Bids</h4>
+
+            <!-- Message the winner -->
+            <div *ngIf="enableMessaging(auction)" style="padding-bottom: 25px;">
+                <form [formGroup]="messageForm" (ngSubmit)="sendMessage()" style="margin-top: 100px;">
+                    <div class="speech-bubble">
+                        <textarea cols="30" rows="5" formControlName="text" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.text.errors }"
+                            placeholder="Send a message to the winner!"></textarea>
+                        <div *ngIf="submitted && f.text.errors" class="invalid-feedback">
+                            <div *ngIf="f.text.errors.required">Body is required</div>
+                        </div>
+                    </div>
+
+                    <button [disabled]="loading" class="btn btn-outline-info"
+                        style="float: right; margin-top: 5px; border-color: #7EC9D2">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                        Send!
+                    </button>
+                </form>
+            </div>
+
             <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
             <ul *ngIf="bidsArray" class="bids">
                 <li *ngFor="let bid of bidsArray" class="">

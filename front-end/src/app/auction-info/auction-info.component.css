@@ -33,3 +33,34 @@ input {
 .bids-container {
     margin-top: 60px;
 }
+
+.speech-bubble {
+	position: relative;
+	background: #7ec9d1;
+	border-radius: .4em;
+}
+
+.speech-bubble:after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border: 28px solid transparent;
+	border-top-color: #7ec9d1;
+	border-bottom: 0;
+	margin-left: -28px;
+	margin-bottom: -28px;
+}
+
+textarea {
+    outline: none;
+    resize: none;
+    background: transparent;
+    border: 0 none;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    background-color: #7EC9D2;
+}
