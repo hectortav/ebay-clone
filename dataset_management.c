@@ -40,13 +40,15 @@ char *replaceWord(const char *s, const char *oldW, const char *newW) //https://w
 
 int main(int argc, char **argv)
 {
-    FILE *fp, *catfp, *fp2;
+    FILE *fp, *catfp, *fp2, *fptemp;
     char * line = NULL;
     char * temp = NULL;
-    char * buf = NULL;
+    char buf[50];
     char tmp[200];
     size_t len = 0;
-    int i, j;
+    ssize_t sz;
+    int i, j, flag;
+    char c;
 
     if (argc >= 2)
          fp = fopen(argv[1], "r");
@@ -58,8 +60,47 @@ int main(int argc, char **argv)
     catfp = fopen("./categories.txt", "w");
     fp2 = fopen("./new.xml", "w");
 
-    while (getline(&line, &len, fp) != -1)
-    {
+    fptemp = fopen("./file.xml", "w");
+
+    i = 0;
+    flag = 0;
+    while((c = fgetc(fp)) != EOF)
+	{
+        printf("%c", c);
+		if(c == ' ' || c == '\n' || c == '<' || c == '>')
+		{
+            for (j = i; j < 50; j++)
+                buf[j] = '\0';
+            if (strcmp(buf, "Description") == 0)
+                if (flag == 0)
+                    flag=1;
+                else
+                    flag=0;
+            j = 0;
+            while(j < i && flag == 0)
+            {
+                putc(buf[j], fptemp);
+                j++;
+            }
+            if (flag == 0)
+                putc(c, fptemp);
+            i = 0;
+
+		}
+		else
+		{
+            buf[i] = c;
+            i++;
+		}
+	}
+
+    fclose(fp);
+    fclose(fptemp);
+    return 0;
+    fp = fopen("./file.xml", "w");
+
+    while ((sz = getline(&line, &len, fp)) != -1)
+    {   
         if (strstr(line, "<Category>") != NULL)
         {
             temp = replaceWord(line, "<Category>", "<name>");
@@ -116,14 +157,16 @@ int main(int argc, char **argv)
         }
         else if (strstr(line, "<Started>") != NULL)
         {
-            temp = replaceWord(line, "<Started>", "<started>");
-            temp = replaceWord(temp, "</Started>", "</started>");
+            //temp = replaceWord(line, "<Started>", "<started>");
+            //temp = replaceWord(temp, "</Started>", "</started>");
+            strcpy(temp, "<started>2019-08-25T10:10:18.652Z</started>\n");
             fputs(temp, fp2);
         }
         else if (strstr(line, "<Ends>") != NULL)
         {
-            temp = replaceWord(line, "<Ends>", "<ends>");
-            temp = replaceWord(temp, "</Ends>", "</ends>");
+            //temp = replaceWord(line, "<Ends>", "<ends>");
+            //temp = replaceWord(temp, "</Ends>", "</ends>");
+            strcpy(temp, "<ends>2019-11-25T10:10:18.652Z</ends>\n");
             fputs(temp, fp2);
         }
         else if (strstr(line, "<Description>") != NULL)
@@ -257,7 +300,8 @@ int main(int argc, char **argv)
             fputs(tmp, fp2);
         }
         else
-            fputs(line, fp2);        
+            fputs(line, fp2);     
+
     }
     fclose(fp);
     fclose(fp2);
@@ -266,7 +310,5 @@ int main(int argc, char **argv)
         free(line);
     if (temp)
         free(temp);
-    if (buf)
-        free(buf);
     return 0;
 }
