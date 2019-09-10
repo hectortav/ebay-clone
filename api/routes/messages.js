@@ -7,144 +7,87 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const Message = require('../models/message');
 
+function getUser(id) {
+	User.findById(id)
+		.select('_id username')
+		.exec()
+		.then(user => {
+			if (!user) {
+				return res.status(404).json({
+					message: 'User Not Found'
+				});
+			}
+			return user.username;
+		});
+}
+
 router.get('/:userId/sent', (req, res, next) => {
 	var s_user, r_user;
-	var return_array = [];
-	var return_message;
-	
 	Message.find({ sender: req.params.userId })
 		.select('_id sender receiver time subject text read')
 		.exec()
 		.then(docs => {
-			var arrayLength = docs.length;
-			var length = 0;
-			for (var i = 0; i < arrayLength; i++) {
-				var doc = docs[i];
-				User.findById(doc.sender)
-					.select('_id username')
-					.exec()
-					.then(user1 => {
-						if (!user1) {
-							return res.status(404).json({
-								message: 'User Not Found'
-							});
-						}
-
-						User.findById(doc.receiver)
-							.select('_id username')
-							.exec()
-							.then(user2 => {
-								if (!user2) {
-									return res.status(404).json({
-										message: 'User Not Found'
-									});
-								}
-								s_user = user1.username;
-								r_user = user2.username;
-								//console.log(doc);
-								return_message = {
-									_id: doc._id,
-									sender_user: s_user,
-									receiver_user: r_user,
-									sender: doc.sender,
-									receiver: doc.receiver,
-									subject: doc.subject,
-									time: doc.time,
-									text: doc.text,
-									read: doc.read
-								};
-								console.log(return_message);
-								return_array.push(return_message);
-								length++;
-								if (length == arrayLength)
-								{
-									return res.status(200).json({
-										count: docs.length,
-										messages: return_array
-									});
-								}
-							});
-					})
-					.catch(err => {
-						res.status(500).json({
-							error: err
-						});
-					});
-			}
+			const response = {
+				count: docs.length,
+				messages: docs.map(doc => {
+					s_user = getUser(doc.sender);
+					r_user = getUser(doc.receiver);
+					console.log(s_user + "\n" + r_user);
+					return {
+						_id: doc._id,
+						sender: doc.sender,
+						receiver: doc.receiver,
+						sender_username: s_user,
+						receiver_username: r_user,
+						subject: doc.subject,
+						time: doc.time,
+						text: doc.text,
+						read: doc.read
+					}
+				})
+			};
+			res.status(200).json(response);
 		})
 		.catch(err => {
 			console.log(err);
 			res.status(500).json({
 				error: err
 			});
-		});
+		})
 });
 
 router.get('/:userId/received', (req, res, next) => {
+	var s_user, r_user;
 	Message.find({ receiver: req.params.userId })
 		.select('_id sender receiver time subject text read')
 		.exec()
 		.then(docs => {
-			var arrayLength = docs.length;
-			var length = 0;
-			for (var i = 0; i < arrayLength; i++) {
-				doc = docs[i];
-				User.findById(doc.sender)
-					.select('_id username')
-					.exec()
-					.then(user1 => {
-						if (!user1) {
-							return res.status(404).json({
-								message: 'User Not Found'
-							});
-						}
-						User.findById(doc.receiver)
-						.select('_id username')
-						.exec()
-						.then(user2 => {
-							if (!user2) {
-								return res.status(404).json({
-									message: 'User Not Found'
-								});
-							}
-							s_user = user1.username;
-							r_user = user2.username;
-							return_message = {
-								_id: doc._id,
-								sender_user: s_user,
-								receiver_user: r_user,
-								sender: doc.sender,
-								receiver: doc.receiver,
-								subject: doc.subject,
-								time: doc.time,
-								text: doc.text,
-								read: doc.read
-							};
-							console.log(return_message);
-							return_array.push(return_message);
-							length++;
-							if (length == arrayLength)
-							{
-								return res.status(200).json({
-									count: docs.length,
-									messages: return_array
-								});
-							}
-						});
-					})
-					.catch(err => {
-						res.status(500).json({
-							error: err
-						});
-					});
-			}
+			const response = {
+				count: docs.length,
+				messages: docs.map(doc => {
+					s_user = getUser(doc.sender);
+					r_user = getUser(doc.receiver);
+					return {
+						_id: doc._id,
+						sender: doc.sender,
+						receiver: doc.receiver,
+						sender_username: s_user,
+						receiver_username: r_user,
+						subject: doc.subject,
+						time: doc.time,
+						text: doc.text,
+						read: doc.read
+					}
+				})
+			};
+			res.status(200).json(response);
 		})
 		.catch(err => {
 			console.log(err);
 			res.status(500).json({
 				error: err
 			});
-		});
+		})
 });
 
 router.get('/:userId/received/unread', (req, res, next) => {
@@ -259,4 +202,5 @@ router.delete('/:messageId', (req, res, next) => {
 			});
 		});
 })
+
 module.exports = router;
