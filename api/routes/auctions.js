@@ -11,34 +11,53 @@ const Category = require('../models/category');
 
 
 router.get('/', (req, res, next) => {
-	Auction.find().select('_id name category location country currently first_bid no_bids started ends description latitude longitude seller bids').exec().then(docs => {
-		res.status(200).json({
-			count: docs.length,
+	var today = new Date();
+	var length;
+
+	Auction.find().select('_id name category location country currently first_bid no_bids started ends description latitude longitude seller bids')
+	.exec()
+	.then(docs => {
+		length = docs.length;
+		const response = {
+			count: length,
 			auctions: docs.map(doc => {
-				return {
-					_id: doc._id,
-					name: doc.name,
-					category: doc.category,
-					location: doc.location,
-					country: doc.country,
-					currently: doc.currently,
-					first_bid: doc.first_bid,
-					no_bids: doc.no_bids,
-					started: doc.started,
-					ends: doc.ends,
-					description: doc.description,
-					latitude: doc.latitude,
-					longitude: doc.longitude,
-					seller: doc.seller,
-					bids: doc.bids,
-					request: {
-						type: 'GET',
-						url: 'http://localhost:3000/auctions/' + doc._id
+				//console.log(doc.started + "\n<\n" + today + "\n<\n" + doc.ends + "\n\n");
+				if (!doc.started || today >= doc.started)
+				{
+					if (today < doc.ends)
+					{
+						return {
+							_id: doc._id,
+							name: doc.name,
+							category: doc.category,
+							location: doc.location,
+							country: doc.country,
+							currently: doc.currently,
+							first_bid: doc.first_bid,
+							no_bids: doc.no_bids,
+							started: doc.started,
+							ends: doc.ends,
+							description: doc.description,
+							latitude: doc.latitude,
+							longitude: doc.longitude,
+							seller: doc.seller,
+							bids: doc.bids,
+							request: {
+								type: 'GET',
+								url: 'http://localhost:3000/auctions/' + doc._id
+							}
+						}
 					}
+					else
+						length--;
 				}
+				else
+					length--;
 			})
 
-		});
+		};
+		response.count = length; 
+		res.status(200).json(response);
 	}).catch(err => {
 		res.status(500).json({
 			error: err
