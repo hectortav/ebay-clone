@@ -8,6 +8,9 @@ const User = require('../models/user');
 const Bid = require('../models/bid');
 const Category = require('../models/category');
 
+var xml2js = require('xml2js');
+var parser = new xml2js.Parser();
+
 
 router.get('/', (req, res, next) => {
 	Category.find()
@@ -58,5 +61,21 @@ router.post('/', (req, res, next) => {
 				});
 			});
 });
+
+router.delete('/:category_name', (req, res, next) => {
+	Category.remove({ name: req.params.category_name})
+	.exec()
+	.then(result => {
+		res.status(200).json({
+			message: 'Category Deleted'
+		})
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(500).json({
+			error: err
+		});
+	});
+})
 
 module.exports = router;
