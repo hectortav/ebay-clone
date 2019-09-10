@@ -3,6 +3,9 @@ import { Auction, Bid } from '../_models';
 import { AuctionService, BidService, AuctionsService } from '../_services';
 import { AlertService } from '../_alert';
 import { first } from 'rxjs/operators';
+import { MessagesService } from '../_services';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import * as jwt_decode from "jwt-decode";
 
 @Component({
   selector: 'app-auction-info',
@@ -14,12 +17,16 @@ export class AuctionInfoComponent implements OnChanges {
   bidsArray: Bid[];
   loading = false;
   categories: string[];
+  messageForm: FormGroup;
+  submitted: boolean = false;
 
   constructor(
     private auctionService: AuctionService,
     private alertService: AlertService,
     private bidService: BidService,
-    private auctionsService: AuctionsService
+    private auctionsService: AuctionsService,
+    private messagesService: MessagesService,
+    private formBuilder: FormBuilder,
   ) { }
 
   ngOnChanges() {
@@ -28,6 +35,14 @@ export class AuctionInfoComponent implements OnChanges {
     }
 
     this.loadAllCategories();
+
+    this.messageForm = this.formBuilder.group({
+      text: ['', Validators.required],
+      subject: [''],
+      sender: [''],
+      receiver: [''],
+      time: []
+    });
   }
 
   delete(): void {
@@ -83,6 +98,50 @@ export class AuctionInfoComponent implements OnChanges {
       let newObj: any = res;
       this.categories = newObj.categories;
     });
+  }
+
+  enableMessaging(auction: Auction): boolean {
+    let state: boolean = false;
+    let now = new Date();
+    let ends = new Date(auction.ends);
+
+    if (now > ends && auction.no_bids != 0) {
+      state = true;
+    }
+
+    return state;
+  }
+
+  // convenience getter for easy access to form fields
+  get f() { return this.messageForm.controls; }
+
+  sendMessage() {
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.messageForm.invalid) {
+      return;
+    }
+
+    this.messageForm.value.subject = "Congratulations, you won the auction: " + this.auction.name;
+
+    let currentUserJSON = JSON.parse(localStorage.getItem('currentUser'));
+    let tokenInfo = jwt_decode(currentUserJSON.token);
+    this.messageForm.value.sender = tokenInfo.userId;
+    this.messageForm.value.receiver = this.bidsArray[0].bidder;
+    this.messageForm.value.time = new Date();
+
+    this.loading = true;
+    this.messagesService.newMessage(this.messageForm.value)
+      .pipe(first())
+      .subscribe(
+        data => {
+          window.location.reload();
+        },
+        error => {
+          this.alertService.error(error);
+          this.loading = false;
+        });
   }
 
 }
