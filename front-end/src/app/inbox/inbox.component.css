@@ -4,11 +4,12 @@
     display: flex;
 }
 
-.email-header {
-    font-weight: bold;
+.subject {
+    position: absolute;
+    left: 340px;
 }
 
-.email-header span {
+.time {
     font-weight: normal;
     font-size: 0.85rem;
     float: right;

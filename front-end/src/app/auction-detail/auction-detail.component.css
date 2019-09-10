@@ -79,7 +79,7 @@
 }
 
 .location {
-    border: 10px solid #CCCCCC;
+    border: 1px solid #CCCCCC;
     width: 700px;
     display: block;
     margin-left: auto;
@@ -97,7 +97,7 @@
 }
 
 .no-location {
-    border: 10px solid #CCCCCC;
+    border: 1px solid #CCCCCC;
     width: 700px;
     display: block;
     margin-left: auto;

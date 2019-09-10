@@ -1,14 +1,27 @@
 .seen {
     float: right;
     font-size: 0.8rem;
+    position: relative;
+    top: 38px;
 }
 
 .seen img {
     width: 20px;
 }
 
-.email-header span {
+.subject {
+    position: absolute;
+    left: 340px;
+}
+
+.time {
     font-weight: normal;
     font-size: 0.85rem;
     float: right;
+}
+
+.buttons-container {
+    margin-top: 35px;
+    float: left;
+    display: flex;
 }

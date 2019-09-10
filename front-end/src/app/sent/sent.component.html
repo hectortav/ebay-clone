@@ -3,17 +3,48 @@
     <li *ngFor="let message of messages" (click)="onSelect(message)"
         class="list-group-item list-group-item-action list-group-item-dark border-left-0 border-right-0 rounded-0"
         style="width: 1200px;">
-        <div class="email-header">
-            {{ message.subject }}
-            <span>{{ message.time | date:'short' }}</span>
+        <div>
+            <span>To: {{ message.receiver_username }}</span>
+            <span class="subject">{{ message.subject }}</span>
+            <span class="time">{{ message.time | date:'short' }}</span>
         </div>
         <div *ngIf="message === selectedMessage">
             <p>{{ message.text }}</p>
             <div *ngIf="message.read" class="seen">
                 Seen <img src="../../assets/seen.png" alt="Seen">
             </div>
-            <div title="Delete the message" (click)="delete(message)" style="flex: 1;">
-                <img src="../../assets/delete_icon.png" alt="Delete" style="width: 22px;">
+            <div class="buttons-container">
+                <div title="Reply to the message" (click)="reply()" style="flex: 0 0 65%;">
+                    <img src="../../assets/reply_icon.png" alt="Reply" style="width: 22px;">
+                </div>
+                <div title="Delete the message" (click)="delete(message)" style="flex: 1;">
+                    <img src="../../assets/delete_icon.png" alt="Delete" style="width: 22px;">
+                </div>
+            </div>
+
+            <div *ngIf="replyBox">
+                <form [formGroup]="messageForm" (ngSubmit)="sendMessage()" style="margin-top: 100px;">
+                    <div class="form-group">
+                        <input style="width: 900px;" placeholder="Subject" type="text" formControlName="subject"
+                            class="form-control" [ngClass]="{ 'is-invalid': submitted && f.subject.errors }" />
+                        <div *ngIf="submitted && f.subject.errors" class="invalid-feedback">
+                            <div *ngIf="f.subject.errors.required">Subject is required</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <textarea style="width: 900px;" cols="30" rows="5" formControlName="text" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.text.errors }"></textarea>
+                        <div *ngIf="submitted && f.text.errors" class="invalid-feedback">
+                            <div *ngIf="f.text.errors.required">Body is required</div>
+                        </div>
+                    </div>
+
+                    <button [disabled]="loading" class="btn btn-outline-dark btn-sm" style="float: right;">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                        Reply
+                    </button>
+                </form>
             </div>
         </div>
     </li>

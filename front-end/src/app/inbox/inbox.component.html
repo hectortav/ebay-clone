@@ -3,9 +3,10 @@
     <li *ngFor="let message of messages" (click)="onSelect(message)"
         class="list-group-item border-left-0 border-right-0 rounded-0" style="width: 1200px;"
         [ngClass]="{'list-group-item-action list-group-item-dark': message.read}">
-        <div class="email-header">
-            {{ message.subject }}
-            <span>{{ message.time | date:'short' }}</span>
+        <div>
+            <span>{{ message.sender_username }}</span>
+            <span class="subject">{{ message.subject }}</span>
+            <span class="time">{{ message.time | date:'short' }}</span>
         </div>
         <div *ngIf="message === selectedMessage">
             <p>{{ message.text }}</p>

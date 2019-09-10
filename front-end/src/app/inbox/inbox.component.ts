@@ -88,4 +88,5 @@ export class InboxComponent implements OnInit {
           this.loading = false;
         });
   }
+
 }
