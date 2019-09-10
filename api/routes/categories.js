@@ -36,8 +36,6 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-	var data;
-	console.log(req.body);
 	Category.find({ name: req.body.name})
 	.exec()
 	.then( category => {
