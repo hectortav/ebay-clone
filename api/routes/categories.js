@@ -44,7 +44,7 @@ router.post('/', (req, res, next) => {
 				message: 'Category Exists'
 			});
 		}
-		});
+		else {
 			const category = new Category({
 			    name: req.body.name
 			});
@@ -60,9 +60,38 @@ router.post('/', (req, res, next) => {
 					error: err
 				});
 			});
+		}
+		});
 });
 
 router.delete('/:category_name', (req, res, next) => {
+	/*Category.find()
+	.select('name')
+	.exec()
+	.then(docs => {
+		docs.map(doc => {
+		Category.remove({ name: doc.name})
+			.exec()
+			.then(result => {
+				res.status(200).json({
+					message: 'Category Deleted'
+				})
+			})
+			.catch(err => {
+				console.log(err);
+				res.status(500).json({
+					error: err
+				});
+			})
+		});
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(500).json({
+			error: err
+		});
+	})*/
+
 	Category.remove({ name: req.params.category_name})
 	.exec()
 	.then(result => {
