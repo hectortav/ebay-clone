@@ -2,7 +2,6 @@
 import { first } from 'rxjs/operators';
 import { Auction, User } from '../_models';
 import { AuctionsService, AuthenticationService, MessagesService } from '../_services';
-import { Subscription, interval } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -17,7 +16,6 @@ export class HomeComponent implements OnInit {
     currentUser: User;
     unreadCount: number = 0;
     unread: boolean = false;
-    subscription: Subscription;
     pageN: any;
     selectedCategory: any = "Shop by category";
     categories: any[];
@@ -32,14 +30,12 @@ export class HomeComponent implements OnInit {
     ) {
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
         this.currRouter = router.url;
+        this.unreadMessages()
     }
 
     ngOnInit() {
         this.route.queryParams.subscribe(x => this.loadPage(x));
         this.loadAllCategories();
-
-        const source = interval(10000);
-        this.subscription = source.subscribe(val => this.unreadMessages());
     }
 
     private loadPage(params: any) {
@@ -70,14 +66,14 @@ export class HomeComponent implements OnInit {
         if (this.currentUser) {
             this.messagesService.getUnread().pipe(first()).subscribe(res => {
                 this.unreadCount = res.unread;
-            });
 
-            if (this.unreadCount == 0) {
-                this.unread = false;
-            }
-            else {
-                this.unread = true;
-            }
+                if (this.unreadCount == 0) {
+                    this.unread = false;
+                }
+                else {
+                    this.unread = true;
+                }
+            });
         }
     }
 
@@ -120,9 +116,5 @@ export class HomeComponent implements OnInit {
             let newObj: any = res;
             this.categories = newObj.categories;
         });
-    }
-
-    ngOnDestroy() {
-        this.subscription.unsubscribe();
     }
 }

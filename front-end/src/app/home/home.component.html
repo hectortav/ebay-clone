@@ -1,10 +1,6 @@
 ﻿<!-- Unread Mail Notif -->
-<div *ngIf="router == './home' && unread" routerLink="/email" class="email-notif">
+<div *ngIf="unread" routerLink="/email" class="email-notif">
     <p>You've got mail. {{ unreadCount }} unread messages.</p>
-</div>
-
-<div class="pgn">
-    <app-auction-search></app-auction-search>
 </div>
 
 <section class="search-sec">
