@@ -23,6 +23,10 @@ export class AuctionsService {
         return this.http.get<Auction[]>(`${environment.apiUrl}/auctions`);
     }
 
+    getPageAuctions(page: any) {
+        return this.http.get<any>(`${environment.apiUrl}/auctions?page=${page}`);
+    }
+
     getAuction(id) {
         return this.http.get<Auction>(`${environment.apiUrl}/auctions/${id}`);
     }

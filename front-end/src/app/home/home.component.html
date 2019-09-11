@@ -1,4 +1,5 @@
-﻿<div *ngIf="unread" routerLink="/email" class="email-notif">
+﻿<!-- Unread Mail Notif -->
+<div *ngIf="unread" routerLink="/email" class="email-notif">
     <p>You've got mail. {{ unreadCount }} unread messages.</p>
 </div>
 
@@ -6,6 +7,7 @@
     <app-auction-search></app-auction-search>
 </div>
 
+<!-- Auctions Table -->
 <table class="table-fill">
     <thead>
         <tr>
@@ -17,7 +19,7 @@
     </thead>
     <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
     <tbody *ngIf="auctions" class="table-hover">
-        <tr *ngFor="let auction of auctions | paginate: config">
+        <tr *ngFor="let auction of auctions">
             <td *ngIf=auction>
                 <a [routerLink]="['/auction-detail', auction._id]">
                     {{auction.name}}
@@ -28,7 +30,27 @@
             <td *ngIf=auction class="text-right">{{auction.country}}</td>
     </tbody>
 </table>
+<div *ngIf="count === 0" class="no-more">
+    You reached the end of the auctions. For more results try altering your criteria.
+</div>
 
-<div class="pgn">
-    <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+<!-- Pagination -->
+<div class="pgn pb-0 pt-3">
+    <ul class="pagination">
+        <li [ngClass]="{disabled:pageN === 1}" class="page-item previous-item">
+            <a routerLink="/home" [queryParams]="{ page: pageN - 1 }" class="page-link">Previous</a>
+        </li>
+        <li class="page-item number-item disabled">
+            <a class="page-link">...</a>
+        </li>
+        <li [ngClass]="{active:pageN === pageN}" class="page-item number-item">
+            <a routerLink="/home" [queryParams]="{ page: pageN }" class="page-link">{{pageN}}</a>
+        </li>
+        <li class="page-item number-item disabled">
+            <a class="page-link">...</a>
+        </li>
+        <li *ngIf="count" class="page-item next-item">
+            <a routerLink="/home" [queryParams]="{ page: pageN + 1 }" class="page-link">Next</a>
+        </li>
+    </ul>
 </div>

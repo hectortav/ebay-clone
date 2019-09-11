@@ -150,3 +150,12 @@ td.text-right {
   top: 50%;
   transform: translateY(-50%);
 }
+
+.no-more {
+  padding-top: 80px;
+  padding-bottom: 30px; 
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  font-size: 1.8rem;
+}

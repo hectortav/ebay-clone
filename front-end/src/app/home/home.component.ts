@@ -3,6 +3,7 @@ import { first } from 'rxjs/operators';
 import { Auction, User } from '../_models';
 import { AuctionsService, AuthenticationService, MessagesService } from '../_services';
 import { Subscription, interval } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-home',
@@ -12,32 +13,37 @@ import { Subscription, interval } from 'rxjs';
 export class HomeComponent implements OnInit {
     auctions: Auction[];
     loading: boolean = false;
-    config: any;
     count: any;
     currentUser: User;
     unreadCount: number = 0;
     unread: boolean = false;
     subscription: Subscription;
+    pageN: any;
 
     constructor(
         private auctionsService: AuctionsService,
         private authenticationService: AuthenticationService,
-        private messagesService: MessagesService
+        private messagesService: MessagesService,
+        private route: ActivatedRoute
     ) {
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     }
 
     ngOnInit() {
-        this.loadAllAuctions();
-
-        this.config = {
-            itemsPerPage: 25,
-            currentPage: 1,
-            totalItems: this.count
-        };
+        this.route.queryParams.subscribe(x => this.loadPage(x.page || 1));
 
         const source = interval(10000);
         this.subscription = source.subscribe(val => this.unreadMessages());
+    }
+
+    private loadPage(page: any) {
+        this.loading = true;
+        this.auctionsService.getPageAuctions(page).pipe(first()).subscribe(newObj => {
+            this.loading = false;
+            this.auctions = newObj.auctions;
+            this.count = newObj.count;
+            this.pageN = newObj.pageN;
+        });
     }
 
     unreadMessages() {
@@ -61,14 +67,8 @@ export class HomeComponent implements OnInit {
             this.loading = false;
             let newObj: any = res;
             this.auctions = newObj.auctions;
-            console.log(this.auctions);
             this.count = newObj.count;
         });
-    }
-
-    // Pagination credits: https://www.freakyjolly.com/angular-7-6-pagination-implement-local-or-server-pagination-in-3-steps/
-    pageChanged(event) {
-        this.config.currentPage = event;
     }
 
     ngOnDestroy() {
