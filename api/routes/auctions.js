@@ -13,7 +13,24 @@ router.get('/', (req, res, next) => {
 	const page = parseInt(req.query.page) || 1;
 	const pageSize = 2;
 
-	Auction.find({ "started": { "$ne": undefined, "$lt": today }, "ends": { "$ne": undefined, "$gte": today } })
+	var query = {
+		started: {
+			"$ne": undefined,
+			"$lt": today
+		},
+		ends: {
+			"$ne": undefined,
+			"$gte": today
+		}
+	};
+
+	console.log(req.query)
+
+	if (req.query.category) {
+		query.category = req.query.category;
+	}
+
+	Auction.find(query)
 		.skip((pageSize * page) - pageSize)
 		.limit(pageSize)
 		.select('_id name category location country currently first_bid no_bids started ends description latitude longitude seller bids')
