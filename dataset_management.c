@@ -98,6 +98,10 @@ int main(int argc, char **argv)
             temp = replaceWord(line, "$", "");
             fputs(temp, fp2);
         }
+        else if (strstr(line, "<Item ") != NULL)
+        {
+            fputs("<Item>\n", fp2);
+        }
         else if (strstr(line, "<Started>") != NULL)
         {
             //temp = replaceWord(line, "<Started>", "<started>");

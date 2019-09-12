@@ -75,9 +75,6 @@ router.post('/', (req, res, next) => {
                         .then(result => {
                             console.log(result);
                             auction.currently = req.body.amount;
-                            if (!auction.first_bid) {
-                                auction.first_bid = bid._id;
-                            }
                             auction.no_bids++;
                             auction.bids = auction.bids || [];
                             auction.bids.push(bid._id);

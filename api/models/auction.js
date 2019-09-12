@@ -8,7 +8,7 @@ const auctionSchema = mongoose.Schema({
 	location: { type: String, required: true },
 	country: { type: String, required: true },
 	currently: { type: Number, required: true },
-	first_bid: { type: mongoose.Schema.Types.ObjectId, red: 'Bid' },
+	first_bid: { type: Number, required: true },
 	no_bids: { type: Number, default: 0 },
 	started: { type: Date },
 	ends: { type: Date, required: true },
