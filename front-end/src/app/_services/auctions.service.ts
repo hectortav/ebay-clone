@@ -35,14 +35,10 @@ export class AuctionsService {
         return this.http.get<string[]>(`${environment.apiUrl}/categories`);
     }
 
-    searchAuctions(term: string) {
-        if (!term.trim()) {
-            // if not search term, return empty array.
-            return of([]);
-        }
-        return this.http.get<Auction[]>(`${environment.apiUrl}/?name=${term}`).pipe(
-            tap(_ => console.log(`found auctions matching "${term}"`)),
-            catchError(this.handleError<Auction[]>('searchAuctions', []))
+    searchAuctions(category: string, text: string, price: any, location: string, page: any) {
+        return this.http.get<any>(`${environment.apiUrl}/auctions?page=${page}&category=${category}&text=${text}&price=${price}&location=${location}`).pipe(
+            tap(_ => console.log(`found matching auctions`)),
+            catchError(this.handleError<any>('searchAuctions', []))
         );
     }
 
@@ -54,7 +50,7 @@ export class AuctionsService {
 
         return this.http.get<any>(`${environment.apiUrl}/auctions?page=${page}&category=${term}`).pipe(
             tap(_ => console.log(`found auctions matching "${term}"`)),
-            catchError(this.handleError<Auction[]>('searchAuctions', []))
+            catchError(this.handleError<any>('searchAuctions', []))
         );
     }
 }
