@@ -34,7 +34,7 @@ router.get('/', (req, res, next) => {
 
 	if (req.query.location) {
 		query.$or = [
-			{ loaction: { "$regex": req.query.location, "$options": "i" } },
+			{ location: { "$regex": req.query.location, "$options": "i" } },
 			{ country: { "$regex": req.query.location, "$options": "i" } }
 		]
 	}

@@ -144,4 +144,8 @@ export class AuctionInfoComponent implements OnChanges {
         });
   }
 
+  public onChange(event) {
+    this.auction.currently = event.target.value;
+  }
+
 }
