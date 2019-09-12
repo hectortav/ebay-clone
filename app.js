@@ -14,6 +14,8 @@ const auctionRoutes = require('./api/routes/auctions');
 const bidRoutes = require('./api/routes/bids');
 const categoryRoutes = require('./api/routes/categories');
 const messageRoutes = require('./api/routes/messages');
+const itemRoutes = require('./api/routes/items');
+
 
 
 
@@ -50,6 +52,7 @@ app.use('/users', userRoutes);
 app.use('/bids', bidRoutes);
 app.use('/categories', categoryRoutes);
 app.use('/messages', messageRoutes);
+app.use('/items', itemRoutes);
 
 app.use((req, res, next) => {
 	const error = new Error('Not Found');
