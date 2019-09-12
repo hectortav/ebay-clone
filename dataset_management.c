@@ -64,36 +64,30 @@ int main(int argc, char **argv)
 
     i = 0;
     flag = 0;
-    while((c = fgetc(fp)) != EOF)
-	{
-        printf("%c", c);
-		if(c == ' ' || c == '\n' || c == '<' || c == '>')
-		{
-            for (j = i; j < 50; j++)
-                buf[j] = '\0';
-            if (strcmp(buf, "Description") == 0)
-                if (flag == 0)
-                    flag=1;
-                else
-                    flag=0;
-            j = 0;
-            while(j < i && flag == 0)
-            {
-                putc(buf[j], fptemp);
-                j++;
-            }
-            if (flag == 0)
-                putc(c, fptemp);
-            i = 0;
-
-		}
-		else
-		{
-            buf[i] = c;
+    while (getline(&line, &len, fp) != -1)
+    {
+        i = 0;
+        while(line[i] == ' ')
             i++;
-		}
-	}
-
+        if ((c = line[0+i]) == '<')  {
+            if ((c = line[1+i]) == 'D')  {
+                if ((c = line[2+i]) == 'e')  {
+                    if ((c = line[3+i]) == 's')  {
+                        if ((c = line[4+i]) == 'c')  {
+                            if ((c = line[5+i]) == 'r')  {
+                                if ((c = line[6+i]) == 'i')  {
+                                    if ((c = line[7+i]) == 'p')  {
+                                        if ((c = line[8+i]) == 't')  {
+                                            if ((c = line[9+i]) == 'i')  {
+                                                if ((c = line[10+i]) == 'o')  {
+                                                    if ((c = line[11+i]) == 'n')  {
+                                                        if ((c = line[12+i]) == '>')
+                                                        {
+                                                            fputs("<Description></Description>\n", fptemp);
+                                                            continue;
+                                                        }}}}}}}}}}}}}
+        fputs(line, fptemp);
+    }
     fclose(fp);
     fclose(fptemp);
     return 0;
