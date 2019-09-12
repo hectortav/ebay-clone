@@ -23,6 +23,10 @@ export class AuctionsService {
         return this.http.get<Auction[]>(`${environment.apiUrl}/auctions`);
     }
 
+    getPageAuctions(page: any) {
+        return this.http.get<any>(`${environment.apiUrl}/auctions?page=${page}`);
+    }
+
     getAuction(id) {
         return this.http.get<Auction>(`${environment.apiUrl}/auctions/${id}`);
     }
@@ -42,11 +46,15 @@ export class AuctionsService {
         );
     }
 
-    searchCategory(term: string) {
+    searchCategory(term: string, page: any) {
         if (!term.trim()) {
             // if not search term, return empty array.
             return of([]);
         }
-        return this.http.get<Auction[]>(`${environment.apiUrl}/?name=${term}`).pipe();
+
+        return this.http.get<any>(`${environment.apiUrl}/auctions?page=${page}&category=${term}`).pipe(
+            tap(_ => console.log(`found auctions matching "${term}"`)),
+            catchError(this.handleError<Auction[]>('searchAuctions', []))
+        );
     }
 }

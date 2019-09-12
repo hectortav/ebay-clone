@@ -150,3 +150,45 @@ td.text-right {
   top: 50%;
   transform: translateY(-50%);
 }
+
+.no-more {
+  padding-top: 80px;
+  padding-bottom: 30px; 
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  font-size: 1.8rem;
+}
+
+/*search box css start here*/
+.search-sec{
+  padding: 1.5rem;
+}
+
+.border-line {
+  border-bottom: 1px solid #1A1E24;
+  width: 1100px;
+  margin-left: 367px;
+  margin-bottom: 37px;
+}
+
+.search-slt{
+  display: block;
+  width: 100%;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #55595c;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  height: calc(3rem + 2px) !important;
+  border-radius:0;
+}
+.wrn-btn{
+  width: 100%;
+  font-size: 16px;
+  font-weight: 400;
+  text-transform: capitalize;
+  height: calc(3rem + 2px) !important;
+  border-radius:0;
+}

@@ -1,66 +1,75 @@
 <div *ngIf="auction">
-    <div class="center-title">
-        <h3>{{auction.name}}</h3>
-    </div>
+    <main class="container">
 
-    <div class="center">
-        <label for="time">Auction ends</label>
-        <p name="time">{{ corrEnds | date:'medium' }}</p>
-    </div>
-
-    <div class="center-price">
-        <p id="price-label">Current price:</p>
-        <p id="price">{{ auction.currently }} €</p>
-        <p id="bids">[{{ auction.no_bids }} bids]</p>
-    </div>
-
-    <div class="info">
-        <ul>
-            <label for="li">Categories</label>
-            <li *ngFor="let cat of categories">{{ cat }}</li>
-        </ul>
-        <h5>About this product</h5>
-        <p>{{ auction.description }}</p>
-    </div>
-
-    <!-- If else block to show the map -->
-    <div *ngIf="coords; then thenBlock else elseBlock"></div>
-    <ng-template #thenBlock>
-        <div class="location">
-            <p>Location: {{ auction.location }}
-            </p>
-            <p>Country: {{ auction.country }}
-            </p>
-            <app-map-details [auction]="auction"></app-map-details>
+        <!-- Left Column / Headphones Image -->
+        <div class="left-column">
+            <img class="active" src="../../assets/800px-EBay_logo.png" alt="">
         </div>
-    </ng-template>
-    <ng-template #elseBlock>
-        <div class="no-location">
-            <p>Location: {{ auction.location }}
-            </p>
-            <p>Country: {{ auction.country }}
-            </p>
-            <p>Unfortunately the user has not provided us with their exact coordinates.</p>
-        </div>
-    </ng-template>
 
-    <div class="centerbid" *ngIf="currentUser">
-        <form [formGroup]="bidForm" (ngSubmit)="formSubmit()">
-            <div class="input-group" style="width: 340px;">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">€</span>
-                </div>
-                <input type="text" formControlName="amount" class="form-control"
-                    [ngClass]="{ 'is-invalid': submitted && f.amount.errors }" />
-                <div class="input-group-append">
-                    <button class="btn btn-outline-dark">
-                        Place Bid
-                    </button>
-                </div>
-                <div *ngIf="submitted && f.amount.errors" class="invalid-feedback">
-                    <div *ngIf="f.amount.errors.required">A value is required</div>
-                </div>
+
+        <!-- Right Column -->
+        <div class="right-column">
+
+            <!-- Product Description -->
+            <div class="product-description">
+                <span *ngFor="let cat of categories">{{ cat }}</span>
+                <h1>{{ auction.name }}</h1>
+                <p>{{ auction.description }}</p>
             </div>
-        </form>
-    </div>
+
+            <!-- Product Configuration -->
+            <div class="product-configuration">
+
+                <!-- If else block to show the map -->
+                <div *ngIf="coords; then thenBlock else elseBlock"></div>
+                <ng-template #thenBlock>
+                    <div class="product-color">
+                        <span style="font-size: 1.1rem;">Location: {{ auction.location }},
+                            {{ auction.country }}
+                        </span>
+                        <div style="padding-top: 15px;">
+                            <app-map-details [auction]="auction"></app-map-details>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template #elseBlock>
+                    <div class="product-color">
+                        <span style="font-size: 1.1rem;">Location: {{ auction.location }},
+                            {{ auction.country }}
+                        </span>
+                        <p style="padding-top: 15px;">Unfortunately the user has not provided us with their exact
+                            coordinates.</p>
+                    </div>
+                </ng-template>
+            </div>
+
+            <!-- Product Pricing -->
+            <p>Auction ends: {{ corrEnds | date:'medium' }}</p>
+
+            <div class="product-price">
+                <span>{{ auction.currently }} €</span>
+                <span style="font-size: 1rem;">[{{ auction.no_bids }} bids]</span>
+            </div>
+
+            <div *ngIf="currentUser">
+                <form [formGroup]="bidForm" (ngSubmit)="formSubmit()">
+                    <div class="input-group" style="width: 340px;">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">€</span>
+                        </div>
+                        <input type="text" formControlName="amount" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.amount.errors }" />
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-dark">
+                                Place Bid
+                            </button>
+                        </div>
+                        <div *ngIf="submitted && f.amount.errors" class="invalid-feedback">
+                            <div *ngIf="f.amount.errors.required">A value is required</div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
 </div>

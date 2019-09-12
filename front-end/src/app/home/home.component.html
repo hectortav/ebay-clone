@@ -1,11 +1,55 @@
-﻿<div *ngIf="unread" routerLink="/email" class="email-notif">
+﻿<!-- Unread Mail Notif -->
+<div *ngIf="unread" routerLink="/email" class="email-notif">
     <p>You've got mail. {{ unreadCount }} unread messages.</p>
 </div>
 
-<div class="pgn">
-    <app-auction-search></app-auction-search>
+<section class="search-sec">
+    <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+        <select [(ngModel)]="selectedCategory" (change)="searchByCategory()" class="form-control search-slt"
+            id="exampleFormControlSelect1">
+            <option disabled hidden>Shop by category</option>
+            <option *ngFor="let cat of categories" [ngValue]="cat">{{cat.name}}</option>
+        </select>
+    </div>
+
+    <div class="container">
+        <form action="#" method="post" novalidate="novalidate">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                            <input type="text" class="form-control search-slt" placeholder="Search for anything">
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                            <input type="text" class="form-control search-slt" placeholder="Maximum price">
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                            <input type="text" class="form-control search-slt" placeholder="Location">
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                            <select class="form-control search-slt" id="exampleFormControlSelect1">
+                                <option>Select Vehicle</option>
+                                <option>Example one</option>
+                                <option>Example one</option>
+                                <option>Example one</option>
+                                <option>Example one</option>
+                                <option>Example one</option>
+                                <option>Example one</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                            <button type="button" class="btn btn-danger wrn-btn">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<div class="border-line">
 </div>
 
+<!-- Auctions Table -->
 <table class="table-fill">
     <thead>
         <tr>
@@ -17,7 +61,7 @@
     </thead>
     <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
     <tbody *ngIf="auctions" class="table-hover">
-        <tr *ngFor="let auction of auctions | paginate: config">
+        <tr *ngFor="let auction of auctions">
             <td *ngIf=auction>
                 <a [routerLink]="['/auction-detail', auction._id]">
                     {{auction.name}}
@@ -28,7 +72,29 @@
             <td *ngIf=auction class="text-right">{{auction.country}}</td>
     </tbody>
 </table>
+<div *ngIf="count === 0" class="no-more">
+    You reached the end of the auctions. For more results try altering your criteria.
+</div>
 
-<div class="pgn">
-    <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+<!-- Pagination -->
+<div class="pgn pb-0 pt-3">
+    <ul class="pagination">
+        <li [ngClass]="{disabled:pageN === 1}" class="page-item previous-item">
+            <button class="page-link" (click)="previousPage()">Previous</button>
+            <!-- <a routerLink="/home" [queryParams]="{ page: pageN - 1 }" class="page-link">Previous</a> -->
+        </li>
+        <li class="page-item number-item disabled">
+            <a class="page-link">...</a>
+        </li>
+        <li [ngClass]="{active:pageN === pageN}" class="page-item number-item">
+            <a class="page-link">{{pageN}}</a>
+        </li>
+        <li class="page-item number-item disabled">
+            <a class="page-link">...</a>
+        </li>
+        <li *ngIf="count" class="page-item next-item">
+            <button class="page-link" (click)="nextPage()">Next</button>
+            <!-- <a routerLink="/home" [queryParams]="{ page: pageN + 1 }" class="page-link">Next</a> -->
+        </li>
+    </ul>
 </div>
