@@ -83,102 +83,32 @@ int main(int argc, char **argv)
                                                     if ((c = line[11+i]) == 'n')  {
                                                         if ((c = line[12+i]) == '>')
                                                         {
-                                                            fputs("<Description></Description>\n", fptemp);
+                                                            fputs("    <Description></Description>\n", fptemp);
                                                             continue;
                                                         }}}}}}}}}}}}}
         fputs(line, fptemp);
     }
     fclose(fp);
     fclose(fptemp);
-    return 0;
-    fp = fopen("./file.xml", "w");
-
-    while ((sz = getline(&line, &len, fp)) != -1)
+    fp = fopen("./file.xml", "r");
+    while (getline(&line, &len, fp) != -1)
     {   
-        if (strstr(line, "<Category>") != NULL)
-        {
-            temp = replaceWord(line, "<Category>", "<name>");
-            temp = replaceWord(temp, "</Category>", "</name>");
-            fputs(temp, catfp);
-        }
-        if (strstr(line, "<Category>") != NULL)
-        {
-            temp = replaceWord(line, "<Category>", "<category>");
-            temp = replaceWord(temp, "</Category>", "</category>");
-            fputs(temp, fp2);
-        }
-        else if (strstr(line, "<Name>") != NULL)
-        {
-            temp = replaceWord(line, "<Name>", "<name>");
-            temp = replaceWord(temp, "</Name>", "</name>");
-            fputs(temp, fp2);
-        }
-        else if (strstr(line, "<Currently>") != NULL)
-        {
-            temp = replaceWord(line, "<Currently>", "<currently>");
-            temp = replaceWord(temp, "</Currently>", "</currently>");
-            fputs(temp, fp2);
-        }
-        else if (strstr(line, "<First_Bid>") != NULL)
-        {
-            temp = replaceWord(line, "<First_Bid>", "<first_bid>");
-            temp = replaceWord(temp, "</First_Bid>", "</first_bid>");
-            fputs(temp, fp2);
-        }
-        else if (strstr(line, "<Number_of_Bids>") != NULL)
-        {
-            temp = replaceWord(line, "<Number_of_Bids>", "<no_bids>");
-            temp = replaceWord(temp, "</Number_of_Bids>", "</no_bids>");
-            fputs(temp, fp2);
-        }
-        else if (strstr(line, "<Bids>") != NULL)
-        {
-            temp = replaceWord(line, "<Bids>", "<bids>");
-            temp = replaceWord(temp, "</Bids>", "</bids>");
-            fputs(temp, fp2);
-        }
-        else if (strstr(line, "<Location>") != NULL)
-        {
-            temp = replaceWord(line, "<Location>", "<location>");
-            temp = replaceWord(temp, "</Location>", "</location>");
-            fputs(temp, fp2);
-        }
-        else if (strstr(line, "<Country>") != NULL)
-        {
-            temp = replaceWord(line, "<Country>", "<country>");
-            temp = replaceWord(temp, "</Country>", "</country>");
-            fputs(temp, fp2);
-        }
-        else if (strstr(line, "<Started>") != NULL)
+        if (strstr(line, "<Started>") != NULL)
         {
             //temp = replaceWord(line, "<Started>", "<started>");
             //temp = replaceWord(temp, "</Started>", "</started>");
-            strcpy(temp, "<started>2019-08-25T10:10:18.652Z</started>\n");
-            fputs(temp, fp2);
+            fputs("    <started>2019-08-25T10:10:18.652Z</started>\n", fp2);
         }
         else if (strstr(line, "<Ends>") != NULL)
         {
             //temp = replaceWord(line, "<Ends>", "<ends>");
             //temp = replaceWord(temp, "</Ends>", "</ends>");
-            strcpy(temp, "<ends>2019-11-25T10:10:18.652Z</ends>\n");
-            fputs(temp, fp2);
-        }
-        else if (strstr(line, "<Description>") != NULL)
-        {
-            temp = replaceWord(line, "<Description>", "<description>");
-            temp = replaceWord(temp, "</Description>", "</description>");
-            fputs(temp, fp2);
-        }
-        else if (strstr(line, "<Buy_Price>") != NULL)
-        {
-            temp = replaceWord(line, "<Buy_Price>", "<buy_price>");
-            temp = replaceWord(temp, "</Buy_Price>", "</buy_price>");
-            fputs(temp, fp2);
+            fputs("    <ends>2019-11-25T10:10:18.652Z</ends>\n", fp2);
         }
         else if (strstr(line, "<Location ") != NULL)
         {
             tmp[0] = '<';
-            tmp[1] = 'l';
+            tmp[1] = 'L';
             tmp[2] = 'o';
             tmp[3] = 'c';
             tmp[4] = 'a';
@@ -192,7 +122,7 @@ int main(int argc, char **argv)
                 i++;
             i++;
             j = 10;
-            while (line[i+1] != '<')
+            while (line[i] != '<')
             {
                 tmp[j] = line[i];
                 i++;
@@ -201,7 +131,7 @@ int main(int argc, char **argv)
             i = j;
             tmp[i] = '<';i++;
             tmp[i] = '/';i++;
-            tmp[i] = 'l';i++;
+            tmp[i] = 'L';i++;
             tmp[i] = 'o';i++;
             tmp[i] = 'c';i++;
             tmp[i] = 'a';i++;
@@ -212,7 +142,7 @@ int main(int argc, char **argv)
             tmp[i] = '>';i++;
             tmp[i] = '\n';i++;
             tmp[i] = '<';i++;
-            tmp[i] = 'l';i++;
+            tmp[i] = 'L';i++;
             tmp[i] = 'a';i++;
             tmp[i] = 't';i++;
             tmp[i] = 'i';i++;
@@ -227,7 +157,7 @@ int main(int argc, char **argv)
             while (line[i] != '"')
                 i++;
             i++;
-            while (line[i+1] != '"')
+            while (line[i] != '"')
             {
                 tmp[j] = line[i];
                 i++;
@@ -236,7 +166,7 @@ int main(int argc, char **argv)
             i = j;
             tmp[i] = '<';i++;
             tmp[i] = '/';i++;
-            tmp[i] = 'l';i++;
+            tmp[i] = 'L';i++;
             tmp[i] = 'a';i++;
             tmp[i] = 't';i++;
             tmp[i] = 'i';i++;
@@ -247,7 +177,7 @@ int main(int argc, char **argv)
             tmp[i] = '>';i++;
             tmp[i] = '\n';i++;
             tmp[i] = '<';i++;
-            tmp[i] = 'l';i++;
+            tmp[i] = 'L';i++;
             tmp[i] = 'o';i++;
             tmp[i] = 'n';i++;
             tmp[i] = 'g';i++;
@@ -269,7 +199,7 @@ int main(int argc, char **argv)
              while (line[i] != '"')
                 i++;
             i++;
-            while (line[i+1] != '"')
+            while (line[i] != '"')
             {
                 tmp[j] = line[i];
                 i++;
@@ -278,7 +208,7 @@ int main(int argc, char **argv)
             i = j;
             tmp[i] = '<';i++;
             tmp[i] = '/';i++;
-            tmp[i] = 'l';i++;
+            tmp[i] = 'L';i++;
             tmp[i] = 'o';i++;
             tmp[i] = 'n';i++;
             tmp[i] = 'g';i++;
@@ -289,8 +219,8 @@ int main(int argc, char **argv)
             tmp[i] = 'e';i++;
             tmp[i] = '>';i++;
             tmp[i] = '\n';i++;
-
-
+            tmp[i] = '\0';i++;
+            
             fputs(tmp, fp2);
         }
         else
