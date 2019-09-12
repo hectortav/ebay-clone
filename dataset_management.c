@@ -64,7 +64,7 @@ int main(int argc, char **argv)
 
     i = 0;
     flag = 0;
-    while (getline(&line, &len, fp) != -1)
+    /*while (getline(&line, &len, fp) != -1)
     {
         i = 0;
         while(line[i] == ' ')
@@ -90,20 +90,203 @@ int main(int argc, char **argv)
     }
     fclose(fp);
     fclose(fptemp);
-    fp = fopen("./file.xml", "r");
+    fp = fopen("./file.xml", "r");*/
     while (getline(&line, &len, fp) != -1)
     {   
-        if (strstr(line, "<Started>") != NULL)
+        if (strstr(line, "$") != NULL)
+        {
+            temp = replaceWord(line, "$", "");
+            fputs(temp, fp2);
+        }
+        else if (strstr(line, "<Started>") != NULL)
         {
             //temp = replaceWord(line, "<Started>", "<started>");
             //temp = replaceWord(temp, "</Started>", "</started>");
-            fputs("    <started>2019-08-25T10:10:18.652Z</started>\n", fp2);
+            fputs("    <Started>2019-08-25T10:10:18.652Z</Started>\n", fp2);
         }
         else if (strstr(line, "<Ends>") != NULL)
         {
             //temp = replaceWord(line, "<Ends>", "<ends>");
             //temp = replaceWord(temp, "</Ends>", "</ends>");
-            fputs("    <ends>2019-11-25T10:10:18.652Z</ends>\n", fp2);
+            fputs("    <Ends>2019-11-25T10:10:18.652Z</Ends>\n", fp2);
+        }
+        else if (strstr(line, "<Time>") != NULL)
+        {
+            //temp = replaceWord(line, "<Ends>", "<ends>");
+            //temp = replaceWord(temp, "</Ends>", "</ends>");
+            fputs("    <Time>2019-9-25T10:10:18.652Z</Time>\n", fp2);
+        }
+        else if (strstr(line, "<Bidder ") != NULL)
+        {
+            tmp[0] = '<';
+            tmp[1] = 'B';
+            tmp[2] = 'i';
+            tmp[3] = 'd';
+            tmp[4] = 'd';
+            tmp[5] = 'e';
+            tmp[6] = 'r';
+            tmp[7] = '>';
+            tmp[8] = '<';
+            tmp[9] = 'U';
+            tmp[10] = 's';
+            tmp[11] = 'e';
+            tmp[12] = 'r';
+            tmp[13] = 'I';
+            tmp[14] = 'D';
+            tmp[15] = '>';
+            i = 15;
+            while (line[i] != '"')
+                i++;
+            i++;
+            while (line[i] != '"')
+                i++;
+            i++;
+            while (line[i] != '"')
+                i++;
+            i++;
+            j = 16;
+            while (line[i] != '"')
+            {
+                tmp[j] = line[i];
+                i++;
+                j++;
+            }
+            i = j;
+            tmp[i] = '<';i++;
+            tmp[i] = '/';i++;
+            tmp[i] = 'U';i++;
+            tmp[i] = 's';i++;
+            tmp[i] = 'e';i++;
+            tmp[i] = 'r';i++;
+            tmp[i] = 'I';i++;
+            tmp[i] = 'D';i++;
+            tmp[i] = '>';i++;
+            tmp[i] = '\n';i++;
+            tmp[i] = '<';i++;
+            tmp[i] = 'R';i++;
+            tmp[i] = 'a';i++;
+            tmp[i] = 't';i++;
+            tmp[i] = 'i';i++;
+            tmp[i] = 'n';i++;
+            tmp[i] = 'g';i++;
+            tmp[i] = '>';i++;
+            
+            j = i;
+            i = 15;
+            while (line[i] != '"')
+                i++;
+            i++;
+            while (line[i] != '"')
+            {
+                tmp[j] = line[i];
+                i++;
+                j++;
+            }
+            i = j;
+            tmp[i] = '<';i++;
+            tmp[i] = '/';i++;
+            tmp[i] = 'R';i++;
+            tmp[i] = 'a';i++;
+            tmp[i] = 't';i++;
+            tmp[i] = 'i';i++;
+            tmp[i] = 'n';i++;
+            tmp[i] = 'g';i++;
+            tmp[i] = '>';i++;
+            tmp[i] = '\n';i++;
+            tmp[i] = '\0';i++;
+            
+            fputs(tmp, fp2);
+        }
+        else if (strstr(line, "<Seller ") != NULL)
+        {
+            tmp[0] = '<';
+            tmp[1] = 'S';
+            tmp[2] = 'e';
+            tmp[3] = 'l';
+            tmp[4] = 'l';
+            tmp[5] = 'e';
+            tmp[6] = 'r';
+            tmp[7] = '>';
+            tmp[8] = '<';
+            tmp[9] = 'U';
+            tmp[10] = 's';
+            tmp[11] = 'e';
+            tmp[12] = 'r';
+            tmp[13] = 'I';
+            tmp[14] = 'D';
+            tmp[15] = '>';
+            i = 15;
+            while (line[i] != '"')
+                i++;
+            i++;
+            while (line[i] != '"')
+                i++;
+            i++;
+            while (line[i] != '"')
+                i++;
+            i++;
+            j = 16;
+            while (line[i] != '"')
+            {
+                tmp[j] = line[i];
+                i++;
+                j++;
+            }
+            i = j;
+            tmp[i] = '<';i++;
+            tmp[i] = '/';i++;
+            tmp[i] = 'U';i++;
+            tmp[i] = 's';i++;
+            tmp[i] = 'e';i++;
+            tmp[i] = 'r';i++;
+            tmp[i] = 'I';i++;
+            tmp[i] = 'D';i++;
+            tmp[i] = '>';i++;
+            tmp[i] = '\n';i++;
+            tmp[i] = '<';i++;
+            tmp[i] = 'R';i++;
+            tmp[i] = 'a';i++;
+            tmp[i] = 't';i++;
+            tmp[i] = 'i';i++;
+            tmp[i] = 'n';i++;
+            tmp[i] = 'g';i++;
+            tmp[i] = '>';i++;
+            
+            j = i;
+            i = 15;
+            while (line[i] != '"')
+                i++;
+            i++;
+            while (line[i] != '"')
+            {
+                tmp[j] = line[i];
+                i++;
+                j++;
+            }
+            i = j;
+            tmp[i] = '<';i++;
+            tmp[i] = '/';i++;
+            tmp[i] = 'R';i++;
+            tmp[i] = 'a';i++;
+            tmp[i] = 't';i++;
+            tmp[i] = 'i';i++;
+            tmp[i] = 'n';i++;
+            tmp[i] = 'g';i++;
+            tmp[i] = '>';i++;
+            tmp[i] = '\n';i++;
+            tmp[i] = '<';i++;
+            tmp[i] = '/';i++;
+            tmp[i] = 'S';i++;
+            tmp[i] = 'e';i++;
+            tmp[i] = 'l';i++;
+            tmp[i] = 'l';i++;
+            tmp[i] = 'e';i++;
+            tmp[i] = 'r';i++;
+            tmp[i] = '>';i++;
+            tmp[i] = '\n';i++;
+            tmp[i] = '\0';i++;
+            
+            fputs(tmp, fp2);
         }
         else if (strstr(line, "<Location ") != NULL)
         {
