@@ -33,7 +33,10 @@ router.get('/', (req, res, next) => {
 	}
 
 	if (req.query.location) {
-		query.location = { "$regex": req.query.location, "$options": "i" };
+		query.$or = [
+			{ loaction: { "$regex": req.query.location, "$options": "i" } },
+			{ country: { "$regex": req.query.location, "$options": "i" } }
+		]
 	}
 
 	if (req.query.text) {
