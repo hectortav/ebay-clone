@@ -167,7 +167,7 @@ td.text-right {
 
 .border-line {
   border-bottom: 1px solid #1A1E24;
-  width: 1100px;
+  width: 1200px;
   margin-left: 367px;
   margin-bottom: 37px;
 }
@@ -191,4 +191,10 @@ td.text-right {
   text-transform: capitalize;
   height: calc(3rem + 2px) !important;
   border-radius:0;
+}
+
+.advanced-search {
+  width: 80%;
+  position: relative;
+  margin-left: 265px;
 }

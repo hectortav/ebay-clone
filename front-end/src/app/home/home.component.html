@@ -3,49 +3,48 @@
     <p>You've got mail. {{ unreadCount }} unread messages.</p>
 </div>
 
-<section class="search-sec">
-    <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-        <select [(ngModel)]="selectedCategory" (change)="searchByCategory()" class="form-control search-slt"
-            id="exampleFormControlSelect1">
-            <option disabled hidden>Shop by category</option>
-            <option *ngFor="let cat of categories" [ngValue]="cat">{{cat.name}}</option>
-        </select>
-    </div>
-
-    <div class="container">
-        <form action="#" method="post" novalidate="novalidate">
+<div class="search-sec">
+    <div class="advanced-search">
+        <div style="float: left !important; padding-right: 160px !important;" class="col-lg-3 col-md-3 col-sm-20 p-0">
+            <select [(ngModel)]="selectedCategory" (change)="searchByCategory()" class="form-control search-slt"
+                id="exampleFormControlSelect1">
+                <option disabled hidden>Shop by category</option>
+                <option *ngFor="let cat of categories" [ngValue]="cat">{{cat.name}}</option>
+            </select>
+        </div>
+        <form [formGroup]="searchForm" (ngSubmit)="searchSubmit()">
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="row">
-                        <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                            <input type="text" class="form-control search-slt" placeholder="Search for anything">
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                            <input type="text" class="form-control search-slt" placeholder="Maximum price">
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                            <input type="text" class="form-control search-slt" placeholder="Location">
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                            <select class="form-control search-slt" id="exampleFormControlSelect1">
-                                <option>Select Vehicle</option>
-                                <option>Example one</option>
-                                <option>Example one</option>
-                                <option>Example one</option>
-                                <option>Example one</option>
-                                <option>Example one</option>
-                                <option>Example one</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                            <button type="button" class="btn btn-danger wrn-btn">Search</button>
-                        </div>
-                    </div>
+                <div class="col-lg-2 col-md-2 col-sm-12 p-0">
+                    <input formControlName="text" type="text" class="form-control search-slt"
+                        placeholder="Search for anything">
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-12 p-0">
+                    <input formControlName="price" type="text" class="form-control search-slt"
+                        placeholder="Maximum price">
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-12 p-0">
+                    <input formControlName="location" type="text" class="form-control search-slt"
+                        placeholder="Location">
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-12 p-0">
+                    <select formControlName="category" class="form-control search-slt" id="exampleFormControlSelect1">
+                        <option value="" disabled selected hidden>Category</option>
+                        <option></option>
+                        <option *ngFor="let cat of categories">
+                            {{ cat.name }}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                    <button [disabled]="loading" class="btn btn-danger wrn-btn">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                        Search
+                    </button>
                 </div>
             </div>
         </form>
     </div>
-</section>
+</div>
 <div class="border-line">
 </div>
 
@@ -81,7 +80,6 @@
     <ul class="pagination">
         <li [ngClass]="{disabled:pageN === 1}" class="page-item previous-item">
             <button class="page-link" (click)="previousPage()">Previous</button>
-            <!-- <a routerLink="/home" [queryParams]="{ page: pageN - 1 }" class="page-link">Previous</a> -->
         </li>
         <li class="page-item number-item disabled">
             <a class="page-link">...</a>
@@ -94,7 +92,6 @@
         </li>
         <li *ngIf="count" class="page-item next-item">
             <button class="page-link" (click)="nextPage()">Next</button>
-            <!-- <a routerLink="/home" [queryParams]="{ page: pageN + 1 }" class="page-link">Next</a> -->
         </li>
     </ul>
 </div>

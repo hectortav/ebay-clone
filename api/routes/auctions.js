@@ -24,10 +24,23 @@ router.get('/', (req, res, next) => {
 		}
 	};
 
-	console.log(req.query)
-
 	if (req.query.category) {
 		query.category = req.query.category;
+	}
+
+	if (req.query.price) {
+		query.currently = { "$lt": parseInt(req.query.price) };
+	}
+
+	if (req.query.location) {
+		query.$or = [
+			{ loaction: { "$regex": req.query.location, "$options": "i" } },
+			{ country: { "$regex": req.query.location, "$options": "i" } }
+		]
+	}
+
+	if (req.query.text) {
+		query.$text = { $search: req.query.text };
 	}
 
 	Auction.find(query)
