@@ -31,9 +31,9 @@
                 [disabled]="disableEdit(auction)" />
         </div>
         <div>
-            <label>Current Price</label>
-            <input class="form-control rounded-0" [(ngModel)]="auction.currently" placeholder="Currently"
-                [disabled]="disableEdit(auction)" />
+            <label>Starting Price</label>
+            <input class="form-control rounded-0" [(ngModel)]="auction.first_bid" placeholder="Starting Price"
+                [disabled]="disableEdit(auction)" (change)="onChange($event)" />
         </div>
         <div>
             <label>Ending Date</label>

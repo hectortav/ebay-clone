@@ -44,12 +44,12 @@
             </div>
 
             <div class="form-group">
-                <label for="currently">Current Price</label>
-                <input type="text" formControlName="currently" class="form-control rounded-0"
-                    [ngClass]="{ 'is-invalid': submitted && f.currently.errors }"
+                <label for="first_bid">Starting Price</label>
+                <input type="text" formControlName="first_bid" class="form-control rounded-0"
+                    [ngClass]="{ 'is-invalid': submitted && f.first_bid.errors }"
                     placeholder="Enter a number in Euros" />
-                <div *ngIf="submitted && f.currently.errors" class="invalid-feedback">
-                    <div *ngIf="f.currently.errors.required">Current Price is required</div>
+                <div *ngIf="submitted && f.first_bid.errors" class="invalid-feedback">
+                    <div *ngIf="f.first_bid.errors.required">Starting Price is required</div>
                 </div>
             </div>
 

@@ -42,7 +42,8 @@ export class AuctionformComponent implements OnInit {
       category: [[], Validators.required],
       location: ['', Validators.required],
       country: ['', Validators.required],
-      currently: ['', Validators.required],
+      currently: [''],
+      first_bid: ['', Validators.required],
       ends: ['', Validators.required],
       description: ['', Validators.required],
       seller: [this.userId],
@@ -73,6 +74,8 @@ export class AuctionformComponent implements OnInit {
     if (this.auctionForm.invalid) {
       return;
     }
+
+    this.auctionForm.value.currently = this.auctionForm.value.first_bid;
 
     this.loading = true;
     this.auctionService.newForm(this.auctionForm.value)

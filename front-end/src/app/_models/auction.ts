@@ -5,6 +5,7 @@ export class Auction {
     location: string;
     country: string;
     currently: string;
+    first_bid: Number;
     no_bids?: number;
     started: Date;
     ends: Date;
@@ -12,6 +13,5 @@ export class Auction {
     latitude?: number;
     longitude?: number;
     seller: string;
-    first_bid: string;
     bids?: string[];
 }
