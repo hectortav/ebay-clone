@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 char *replaceWord(const char *s, const char *oldW, const char *newW) //https://www.geeksforgeeks.org/c-program-replace-word-text-another-given-word/
 { 
@@ -101,6 +102,17 @@ int main(int argc, char **argv)
         else if (strstr(line, "<Item ") != NULL)
         {
             fputs("<Item>\n", fp2);
+        }
+        else if (strstr(line, "</Item>") != NULL)
+        {
+            fputs("</Item>\n</Items>\n", fp2);
+
+            fclose(fp2);
+            system("node ./post_categories.js");
+            printf("sleep for 10...\n");
+            sleep(10);
+            fp2 =fopen("./new.xml", "w");
+            fputs("<Items>\n", fp2);
         }
         else if (strstr(line, "<Started>") != NULL)
         {
@@ -417,6 +429,7 @@ int main(int argc, char **argv)
     fclose(fp);
     fclose(fp2);
     fclose(catfp);
+
     if (line)
         free(line);
     if (temp)
