@@ -18,8 +18,7 @@ export class AuctionformComponent implements OnInit {
   public lat: any;
   public lng: any;
   categories: string[];
-  img1: any;
-  img2: any;
+  images = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -49,8 +48,7 @@ export class AuctionformComponent implements OnInit {
       seller: [this.userId],
       latitude: [-1],
       longitude: [-1],
-      img1: [],
-      img2: []
+      images: [[]]
     });
   }
 
@@ -77,6 +75,8 @@ export class AuctionformComponent implements OnInit {
 
     this.auctionForm.value.currently = this.auctionForm.value.first_bid;
 
+    console.log(this.auctionForm.value)
+
     this.loading = true;
     this.auctionService.newForm(this.auctionForm.value)
       .pipe(first())
@@ -90,15 +90,20 @@ export class AuctionformComponent implements OnInit {
         });
   }
 
-  addImg1(event) {
-    this.img1 = <File>event.target.files[0];
-    this.auctionForm.value.img1 = this.img1;
-    console.log(this.img1);
+  addImages(event: any) {
+    const file = event.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = this.handleReaderLoaded.bind(this);
+      reader.readAsBinaryString(file);
+    }
   }
 
-  addImg2(event) {
-    this.img2 = <File>event.target.files[0];
-    this.auctionForm.value.img2 = this.img2;
+  handleReaderLoaded(e) {
+    this.auctionForm.value.images.push('data:image/png;base64,' + btoa(e.target.result));
+    this.images.push('data:image/png;base64,' + btoa(e.target.result));
   }
 
   getLocation() {
