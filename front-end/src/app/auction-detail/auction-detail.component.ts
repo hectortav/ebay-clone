@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Auction, User } from '../_models';
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-import { AuctionsService, AuthenticationService, BidService } from '../_services';
+import { AuctionsService, AuthenticationService, BidService, UserService } from '../_services';
 import { first } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from '../_alert';
@@ -27,11 +26,11 @@ export class AuctionDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private auctionsService: AuctionsService,
-    private location: Location,
     private authenticationService: AuthenticationService,
     private formBuilder: FormBuilder,
     private bidService: BidService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private userService: UserService
   ) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
@@ -45,6 +44,8 @@ export class AuctionDetailComponent implements OnInit {
       time: [],
       amount: ['', Validators.required]
     });
+
+    this.seenAuction();
   }
 
   // convenience getter for easy access to form fields
@@ -96,6 +97,23 @@ export class AuctionDetailComponent implements OnInit {
           error => {
             this.alertService.error(error);
             this.loading = false;
+          });
+    }
+  }
+
+  seenAuction() {
+    if (this.currentUser) {
+      let currentUserJSON = JSON.parse(localStorage.getItem('currentUser'));
+      let tokenInfo = jwt_decode(currentUserJSON.token);
+
+      this.userService.seenAuction(tokenInfo.userId, this.id)
+        .pipe(first())
+        .subscribe(
+          data => {
+            console.log(this.id);
+          },
+          error => {
+            this.alertService.error(error);
           });
     }
   }

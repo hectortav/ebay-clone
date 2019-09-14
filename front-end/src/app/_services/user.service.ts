@@ -8,6 +8,14 @@ import { Observable } from 'rxjs';
 export class UserService {
     constructor(private http: HttpClient) { }
 
+    seenAuction(_id: string, seen: string) {
+        return this.http.post(`${environment.apiUrl}/users/seen`, { _id, seen });
+    }
+
+    getRecentAuctions(id: string) {
+        return this.http.get<any>(`${environment.apiUrl}/users/seen/${id}`);
+    }
+
     getAll() {
         return this.http.get<User[]>(`${environment.apiUrl}/users`);
     }

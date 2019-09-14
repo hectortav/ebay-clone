@@ -24,4 +24,15 @@
             </li>
         </ul>
     </div>
+
+    <div class="auctions">
+        <h5>Your recently viewed auctions</h5>
+        <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
+        <ul *ngIf="recentAuctions" class="list-group shadow-sm p-3 mb-5 bg-white rounded">
+            <li *ngFor="let recentAuction of recentAuctions"
+                class="list-group-item border-left-0 border-right-0 rounded-0">
+                {{ recentAuction.name }}
+            </li>
+        </ul>
+    </div>
 </div>
