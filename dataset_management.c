@@ -109,8 +109,8 @@ int main(int argc, char **argv)
 
             fclose(fp2);
             system("node ./post_categories.js");
-            printf("sleep for 10...\n");
-            sleep(10);
+            //printf("sleep for 0.5...\n");
+            //sleep(0.5);
             fp2 =fopen("./new.xml", "w");
             fputs("<Items>\n", fp2);
         }

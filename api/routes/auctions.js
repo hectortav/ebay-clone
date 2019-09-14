@@ -11,7 +11,7 @@ const Category = require('../models/category');
 router.get('/', (req, res, next) => {
 	var today = new Date();
 	const page = parseInt(req.query.page) || 1;
-	const pageSize = 2;
+	const pageSize = 5;
 
 	var query = {
 		started: {
@@ -470,5 +470,37 @@ router.put('/:auctionId', (req, res, next) => {
 				});
 		});
 });
+
+//delete all
+/*
+router.delete('/', (req, res, next) => {
+	Auction.find()
+		.select('_id')
+		.exec()
+		.then(docs => {
+			docs.map(doc => {
+				Auction.remove({ _id: doc._id})
+				.exec()
+				.then(result => {
+					res.status(200).json({
+						message: 'Auction Deleted'
+					})
+				})
+				.catch(err => {
+					console.log(err);
+					res.status(500).json({
+						error: err
+					});
+				})
+			});
+		})
+		.catch(err => {
+			console.log(err);
+			res.status(500).json({
+				error: err
+			});
+		})
+});
+*/
 
 module.exports = router;

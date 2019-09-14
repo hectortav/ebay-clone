@@ -97,5 +97,35 @@ router.post('/', (req, res, next) => {
 			});
 		});
 });
-
+//delete all
+/*
+router.delete('/', (req, res, next) => {
+	Bid.find()
+		.select('_id')
+		.exec()
+		.then(docs => {
+			docs.map(doc => {
+				Bid.remove({ _id: doc._id})
+				.exec()
+				.then(result => {
+					res.status(200).json({
+						message: 'Bid Deleted'
+					})
+				})
+				.catch(err => {
+					console.log(err);
+					res.status(500).json({
+						error: err
+					});
+				})
+			});
+		})
+		.catch(err => {
+			console.log(err);
+			res.status(500).json({
+				error: err
+			});
+		})
+});
+*/
 module.exports = router;

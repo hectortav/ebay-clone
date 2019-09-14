@@ -182,12 +182,16 @@ function makeAuct(item, req, res, next) {
                                 started: item.Started,
                                 ends: item.Ends,
                                 description: String(item.Description),
-                                latitude: Number(item.Latitude),
-                                longitude: Number(item.Longitude),
+                                
                                 buy_price: item.Buy_Price,
                                 seller: seller_id
                     
                             });
+                            if (item.Latitude && item.Longitude)
+                            {
+                                auction.latitude = Number(item.Latitude);
+                                auction.longitude = Number(item.Longitude);
+                            }
                             auction_id = auction._id;
                             auction.save()
                                 .then(result => {
@@ -218,8 +222,9 @@ router.post('/', (req, res, next) => {
     var item;
     var num;
 
-    /*return res.status(200).json({
-        message: req.body.Items.Item[0].Number_of_Bids//req.body.Items.Item[0].Bids[0].Bid[0].Bidder[0].UserID
+    /*console.log(req.body.Items.Item[0].Latitude);    
+    return res.status(200).json({
+        message: req.body.Items.Item[0]//req.body.Items.Item[0].Bids[0].Bid[0].Bidder[0].UserID
     });*/
     var arrayLength = req.body.Items.Item.length;
     var bidsLength;
