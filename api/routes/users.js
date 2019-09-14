@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const nn = require('nearest-neighbor');
 
 const User = require('../models/user');
 
@@ -278,31 +279,6 @@ router.put('/:userId', (req, res, next) => {
 					});
 				});
 	});
-/*
-	const updateOps = {};
-	for (const ops of req.body) {
-		updateOps[ops.property] = ops.value;
-	}
-	Auction.update({ _id: id }, { $set: updateOps })
-*/
-	/*const id = req.params.userId;
-	const updateOps = {};
-	for (const ops of req.body) {
-		updateOps[ops.property] = ops.value;
-	}
-	User.update({ _id: id }, { $set: updateOps })
-	.exec()
-	.then(result => {
-		res.status(200).json({
-			message: 'User updated'
-		});
-	})
-	.catch(err => {
-		console.log(err);
-		res.status(500).json({
-			error: err
-		});
-	});*/
 });
 
 router.post('/seen', (req, res, next) => {
@@ -414,6 +390,117 @@ router.get('/seen/:userId', (req, res, next) => {
                 return res.status(201).json({
 					_id: user._id,
 					seen: user.seen
+                });
+			}
+		})
+		.catch(err => {
+			console.log(err);
+			res.status(500).json({
+				error: err
+			});
+		});
+});
+
+router.post('/recommendations/:userId', (req, res, next) => {
+	//https://www.npmjs.com/package/nearest-neighbor
+	var items = [];
+	var query;
+	nn.comparisonMethods.custom = function(a, b) {
+		var i, similarity;
+	
+		i = 0;
+		similarity = 0;
+		while (i < a.length) {
+			if (b.includes(a[i]))
+				similarity += 1;
+			i++;
+		}
+		//console.log(a.length);
+		return a.length;
+	  };
+	
+	  var fields = [
+		  { name: "array", measure: nn.comparisonMethods.custom }
+	  ];
+	
+	User.findById(req.params.userId)
+	.exec()
+		.then(user => {
+			if (!user) {
+				return res.status(404).json({
+					message: 'User Not Found'
+				});
+			}
+			else {
+				if (user.bid.length >= 1)
+				{
+					query = { _id: user._id, array: user.bid };
+				}
+				else if (user.seen.length >= 1)
+				{
+					query = { _id: user._id, array: user.seen };
+				}
+				else
+				{
+					return res.status(200).json({
+						message: "No Recommendations For New Users"
+					});
+				}
+				console.log(query);
+				User.find()
+					.exec()
+					.then(docs => {
+						docs.map(other => {
+							//console.log(other);
+							if (other != user)
+							{
+								items.push({ _id: other._id, array: other.bid});
+								//console.log(items);
+							}
+							if (docs.length == items.length)
+							{
+								console.log("findMostSimilar:");
+								nn.findMostSimilar(query, items, fields, function(nearestNeighbor, probability) {
+									console.log(query._id + "\n");
+									console.log(nearestNeighbor._id + "\n");
+									console.log(probability + "\n");
+								  });
+							}
+						})
+						.catch(err => {
+							res.status(500).json({
+								error: err
+							});
+						});
+					})
+					.catch(err => {
+						res.status(500).json({
+							error: err
+						});
+					});
+			}
+		})
+		.catch(err => {
+			console.log(err);
+			res.status(500).json({
+				error: err
+			});
+		});
+});
+
+router.get('/recommendations/:userId', (req, res, next) => {
+	User.findById(req.params.userId)
+	.exec()
+		.then(user => {
+			if (!user) {
+				return res.status(404).json({
+					message: 'User Not Found'
+				});
+			}
+			else {
+                return res.status(201).json({
+					_id: user._id,
+					recommendations: user.recommendations
                 });
 			}
 		})
