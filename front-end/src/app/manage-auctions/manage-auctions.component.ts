@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
-import { AuctionService } from '../_services';
+import { AuctionService, UserService } from '../_services';
 import { Auction } from '../_models';
+import * as jwt_decode from "jwt-decode";
 
 @Component({
   selector: 'app-manage-auctions',
@@ -11,17 +12,21 @@ import { Auction } from '../_models';
 export class ManageAuctionsComponent implements OnInit {
   openform: boolean;
   myAuctions: Auction[];
+  recentAuctions: Auction[];
   selectedAuction: Auction;
   loading = false;
 
   constructor(
-    private auctionService: AuctionService
+    private auctionService: AuctionService,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
     this.openform = false;
 
     this.loadAllAuctions();
+
+    this.loadRecent();
   }
 
   // Toggles the new auction form on click
@@ -63,5 +68,16 @@ export class ManageAuctionsComponent implements OnInit {
       'list-group-item-success': state === true,
       'list-group-item-danger': state === false
     }
+  }
+
+  loadRecent() {
+    let currentUserJSON = JSON.parse(localStorage.getItem('currentUser'));
+    let tokenInfo = jwt_decode(currentUserJSON.token);
+
+    this.loading = true;
+    this.userService.getRecentAuctions(tokenInfo.userId).pipe(first()).subscribe(res => {
+      this.loading = false;
+      this.recentAuctions = res.seen;
+    });
   }
 }
