@@ -12,7 +12,10 @@ const userSchema = mongoose.Schema({
   city: { type: String, required: true },
   afm: { type: String, required: true , unique: true},
   rating: { type: Number, default: 0 },
-  role: { type: String, emum: ["user","admin"] , required: true }
+  role: { type: String, emum: ["user","admin"] , required: true },
+  seen: [{ type: mongoose.Schema.Types.ObjectId, red: 'Auctions' }],
+  bid: [{ type: mongoose.Schema.Types.ObjectId, red: 'Auctions' }],
+	recommendations: [{ type: mongoose.Schema.Types.ObjectId, red: 'Auctions' }]
 });
 
 module.exports = mongoose.model('User', userSchema);

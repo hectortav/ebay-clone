@@ -79,6 +79,11 @@ router.post('/', (req, res, next) => {
                             auction.bids = auction.bids || [];
                             auction.bids.push(bid._id);
                             auction.save();
+                            //not tested
+                            user.bid = user.bid || [];
+                            user.bid.push(bid._id);
+                            user.save();
+
                             res.status(201).json({
                                 message: 'Bid Created'
                             });
@@ -128,4 +133,38 @@ router.delete('/', (req, res, next) => {
 		})
 });
 */
+
+//update all user bids
+router.post('/update', (req, res, next) => {
+	Bid.find()
+		.select('_id bidder auction')
+		.exec()
+		.then(docs => {
+			docs.map(doc => {
+				User.findById(doc.bidder)
+				.exec()
+				.then(user => {
+                    user.bid = user.bid || [];
+                    if (!user.bid.includes(doc.auction))
+				    {
+                        user.bid.push(doc.auction);
+                        user.save();
+                    }
+                    else
+                    {
+                        console.log(user);
+                    }
+				});
+			});
+		})
+		.catch(err => {
+			res.status(500).json({
+				error: err
+			});
+        });
+        return res.status(200).json({
+            message: 'Complete'
+        });
+});
+
 module.exports = router;

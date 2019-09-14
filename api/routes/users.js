@@ -305,6 +305,126 @@ router.put('/:userId', (req, res, next) => {
 	});*/
 });
 
+router.post('/seen', (req, res, next) => {
+	auction = req.body.seen;
+	User.findById(req.body._id)
+	.exec()
+		.then(user => {
+			if (!user) {
+				return res.status(404).json({
+					message: 'User Not Found'
+				});
+			}
+			else {
+				user.seen = user.seen || [];
+				if (!user.seen.includes(auction))
+				{
+					user.seen.push(auction);
+					user.save();
+					return res.status(201).json({
+						message: 'Seen Updated'
+					});
+				}
+				else
+				{
+					return res.status(201).json({
+						message: 'Exists'
+					});
+				}
+			}
+		})
+		.catch(err => {
+			console.log(err);
+			res.status(500).json({
+				error: err
+			});
+		});
+});
+
+router.post('/bid', (req, res, next) => {
+	auction = req.body.bid;
+	User.findById(req.body._id)
+	.exec()
+		.then(user => {
+			if (!user) {
+				return res.status(404).json({
+					message: 'User Not Found'
+				});
+			}
+			else {
+				user.bid = user.bid || [];
+				if (!user.bid.includes(auction))
+				{
+					user.bid.push(auction);
+					user.save();
+					return res.status(201).json({
+						message: 'Bid Updated'
+					});
+				}
+				else
+				{
+					return res.status(201).json({
+						message: 'Exists'
+					});
+				}
+			}
+		})
+		.catch(err => {
+			console.log(err);
+			res.status(500).json({
+				error: err
+			});
+		});
+});
+
+router.get('/bid/:userId', (req, res, next) => {
+	User.findById(req.params.userId)
+	.exec()
+		.then(user => {
+			if (!user) {
+				return res.status(404).json({
+					message: 'User Not Found'
+				});
+			}
+			else {
+                return res.status(201).json({
+					_id: user._id,
+					bid: user.bid
+                });
+			}
+		})
+		.catch(err => {
+			console.log(err);
+			res.status(500).json({
+				error: err
+			});
+		});
+});
+
+router.get('/seen/:userId', (req, res, next) => {
+	User.findById(req.params.userId)
+	.exec()
+		.then(user => {
+			if (!user) {
+				return res.status(404).json({
+					message: 'User Not Found'
+				});
+			}
+			else {
+                return res.status(201).json({
+					_id: user._id,
+					seen: user.seen
+                });
+			}
+		})
+		.catch(err => {
+			console.log(err);
+			res.status(500).json({
+				error: err
+			});
+		});
+});
+
 router.delete('/:userId', (req, res, next) => {
 	User.remove({ _id: req.params.userId})
 	.exec()
