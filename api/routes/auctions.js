@@ -46,7 +46,7 @@ router.get('/', (req, res, next) => {
 	Auction.find(query)
 		.skip((pageSize * page) - pageSize)
 		.limit(pageSize)
-		.select('_id name category location country currently first_bid no_bids started ends description latitude longitude seller bids')
+		.select('_id name category location country currently first_bid no_bids started ends description latitude longitude seller bids images')
 		.exec().then(docs => {
 			res.status(200).json({
 				count: docs.length,
@@ -68,6 +68,7 @@ router.get('/', (req, res, next) => {
 						longitude: doc.longitude,
 						seller: doc.seller,
 						bids: doc.bids,
+						images: doc.images,
 						request: {
 							type: 'GET',
 							url: 'https://localhost:3000/auctions/' + doc._id
@@ -164,6 +165,7 @@ router.get('/user/:userId', (req, res, next) => {
 						longitude: doc.longitude,
 						seller: doc.seller,
 						bids: doc.bids,
+						images: doc.images,
 						request: {
 							type: 'GET',
 							url: 'http://localhost:3000/auctions/' + doc._id
@@ -212,7 +214,8 @@ router.post('/', (req, res, next) => {
 		latitude: req.body.latitude,
 		longitude: req.body.longitude,
 		seller: req.body.seller,
-		bids: req.body.bids
+		bids: req.body.bids,
+		images: req.body.images
 	});
 	auction.save()
 		.then(result => {
@@ -234,7 +237,8 @@ router.post('/', (req, res, next) => {
 					latitude: result.latitude,
 					longitude: result.longitude,
 					seller: result.seller,
-					bids: result.bids
+					bids: result.bids,
+					images: result.images
 				},
 				request: {
 					type: 'GET',
@@ -383,7 +387,8 @@ router.put('/:auctionId', (req, res, next) => {
 				latitude: auction.latitude,
 				longitude: auction.longitude,
 				seller: auction.seller,
-				bids: auction.bids
+				bids: auction.bids,
+				images: auction.images
 			});
 
 			if (req.body.name)
@@ -433,6 +438,8 @@ router.put('/:auctionId', (req, res, next) => {
 				temp_auction.seller = req.body.seller;
 			if (req.body.bids)
 				temp_auction.bids = req.body.bids;
+			if (req.body.images)
+				temp_auction.images = req.body.images;
 
 			Auction.update({ _id: id }, {
 				$set: {
@@ -449,7 +456,8 @@ router.put('/:auctionId', (req, res, next) => {
 					latitude: temp_auction.latitude,
 					longitude: temp_auction.longitude,
 					seller: temp_auction.seller,
-					bids: temp_auction.bids
+					bids: temp_auction.bids,
+					images: temp_auction.images
 				}
 			})
 				.exec()

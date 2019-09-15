@@ -3,7 +3,17 @@
 
         <!-- Left Column / Headphones Image -->
         <div class="left-column">
-            <img class="active" src="../../assets/800px-EBay_logo.png" alt="">
+            <div *ngIf="images; else defaultImage">
+                <ul>
+                    <li *ngFor="let item of auction.images">
+                        <img src={{item}} alt="image">
+                    </li>
+                </ul>
+            </div>
+
+            <ng-template #defaultImage>
+                <img src="../../assets/800px-EBay_logo.png" alt="">
+            </ng-template>
         </div>
 
 

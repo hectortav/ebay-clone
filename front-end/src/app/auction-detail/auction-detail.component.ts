@@ -22,6 +22,7 @@ export class AuctionDetailComponent implements OnInit {
   submitted = false;
   id: string;
   categories: string[];
+  images: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -61,6 +62,10 @@ export class AuctionDetailComponent implements OnInit {
       this.categories = this.auction.category;
       if ((this.auction.longitude != -1) && (this.auction.latitude != -1)) {
         this.coords = true
+      }
+      for (var img in this.auction.images) {
+        this.images = true;
+        this.auction.images[img] = 'data:image/png;base64,' + this.auction.images[img]
       }
 
       this.corrEnds = new Date(this.auction.ends);

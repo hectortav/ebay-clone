@@ -20,15 +20,15 @@ const itemRoutes = require('./api/routes/items');
 
 
 mongoose.connect('mongodb+srv://admin:' + process.env.MONGO_ATLAS_PW + '@cluster0-9xgg4.mongodb.net/test?retryWrites=true&w=majority',
-{
-	useNewUrlParser: true,
-	useCreateIndex: true
-});
+	{
+		useNewUrlParser: true,
+		useCreateIndex: true
+	});
 mongoose.Promise = global.Promise;
 
 app.use(morgan('dev'));
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false, limit: '10mb' }));
+app.use(bodyParser.json({ limit: '10mb' }));
 app.use(bodyParser.xml());
 
 
@@ -38,8 +38,7 @@ app.use((req, res, next) => {
 		"Access-Controll-Allow-Headers",
 		"Origin, X-Requested-Woth, Content-Type, Accept, Authorization"
 	);
-	if (req.method === 'OPTIONS')
-	{
+	if (req.method === 'OPTIONS') {
 		res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
 		return res.status(200).json({});
 	}
