@@ -15,7 +15,8 @@ const userSchema = mongoose.Schema({
   role: { type: String, emum: ["user","admin"] , required: true },
   seen: [{ type: mongoose.Schema.Types.ObjectId, red: 'Auctions' }],
   bid: [{ type: mongoose.Schema.Types.ObjectId, red: 'Auctions' }],
-	recommendations: [{ type: mongoose.Schema.Types.ObjectId, red: 'Auctions' }]
+  recommendations: [{ type: mongoose.Schema.Types.ObjectId, red: 'Auctions' }],
+  verified: { type: Boolean, default: false }
 });
 
 module.exports = mongoose.model('User', userSchema);

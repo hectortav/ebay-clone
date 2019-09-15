@@ -26,7 +26,8 @@ router.get('/', (req, res, next) => {
 					city: doc.city,
 					afm: doc.afm,
 					rating: doc.rating,
-					role: doc.role
+					role: doc.role,
+					verified: doc.verified
 				}
 			})
 		};
@@ -130,20 +131,29 @@ router.post('/login', (req, res, next) => {
 				});
 			}
 				if (result) {
-					const token = jwt.sign(
+					if (user[0].verified) 
 					{
-						email: user[0].email,
-						userId: user[0]._id,
-						role: user[0].role
-					},
-					process.env.JWT_KEY,
+						const token = jwt.sign(
+						{
+							email: user[0].email,
+							userId: user[0]._id,
+							role: user[0].role
+						},
+						process.env.JWT_KEY,
+						{
+							expiresIn: "1h"
+						});
+						return res.status(200).json({
+							message: 'Auth Successful',
+							token: token
+						});
+					}
+					else
 					{
-						expiresIn: "1h"
-					});
-					return res.status(200).json({
-						message: 'Auth Successful',
-						token: token
-					});
+						return res.status(401).json({
+							message: 'Not Yet Verified'
+						});
+					}
 				}
 				res.status(401).json({
 					message: 'Auth Failed'
@@ -499,29 +509,21 @@ router.post('/recommendations/:userId', (req, res, next) => {
 		});
 });
 
-router.get('/recommendations/:userId', (req, res, next) => {
-	User.findById(req.params.userId)
+router.put('/:userId', (req, res, next) => {
+	User.find({ _id: req.params.userId})
 	.exec()
-		.then(user => {
-			if (!user) {
-				return res.status(404).json({
-					message: 'User Not Found'
-				});
-			}
-			else {
-                return res.status(201).json({
-					_id: user._id,
-					recommendations: user.recommendations
-                });
-			}
+	.then(result => {
+		res.status(200).json({
+			message: 'User Deleted'
 		})
-		.catch(err => {
-			console.log(err);
-			res.status(500).json({
-				error: err
-			});
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(500).json({
+			error: err
 		});
-});
+	});
+})
 
 router.delete('/:userId', (req, res, next) => {
 	User.remove({ _id: req.params.userId})
