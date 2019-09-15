@@ -545,6 +545,48 @@ router.post('/unverify/:userId', (req, res, next) => {
 	});
 })
 
+router.get('/unverified/', (req, res, next) => {
+	var real_count = 0;
+	var unverified = [];
+	User.find()
+	.select('_id username firstname lastname email phone address city afm rating role verified')
+	.exec()
+	.then(docs => {
+		const response = {
+			count: docs.length,
+			users: docs.map(doc => {
+				if (!doc.verified)
+				{	
+					real_count++;
+					unverified.push({
+						_id: doc._id,
+						username: doc.username,
+						firstname: doc.firstname,
+						lastname: doc.lastname,
+						email: doc.email,
+						phone: doc.phone,
+						address: doc.address,
+						city: doc.city,
+						afm: doc.afm,
+						rating: doc.rating,
+						role: doc.role,
+						verified: doc.verified
+					});
+				}
+			})
+		};
+		response.count = real_count;
+		response.users = unverified;
+		res.status(200).json(response);
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(500).json({
+			error: err
+		});
+	})
+});
+
 router.delete('/:userId', (req, res, next) => {
 	User.remove({ _id: req.params.userId})
 	.exec()
