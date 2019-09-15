@@ -405,18 +405,25 @@ router.post('/recommendations/:userId', (req, res, next) => {
 	//https://www.npmjs.com/package/nearest-neighbor
 	var items = [];
 	var query;
-	nn.comparisonMethods.custom = function(a, b) {
+	var value;
+	nn.comparisonMethods.custom = function(b, a) {
 		var i, similarity;
 	
 		i = 0;
 		similarity = 0;
+		//console.log(b);
+
 		while (i < a.length) {
 			if (b.includes(a[i]))
+			{
+				//console.log(a[i] + " included");
 				similarity += 1;
+				//console.log(b);
+			}
 			i++;
 		}
 		//console.log(a.length);
-		return a.length;
+		return similarity;
 	  };
 	
 	  var fields = [
@@ -428,7 +435,7 @@ router.post('/recommendations/:userId', (req, res, next) => {
 		.then(user => {
 			if (!user) {
 				return res.status(404).json({
-					message: 'User Not Found'
+					message: 'User Not Found'.length
 				});
 			}
 			else {
@@ -446,31 +453,35 @@ router.post('/recommendations/:userId', (req, res, next) => {
 						message: "No Recommendations For New Users"
 					});
 				}
-				console.log(query);
 				User.find()
 					.exec()
 					.then(docs => {
 						docs.map(other => {
-							//console.log(other);
 							if (other != user)
 							{
-								items.push({ _id: other._id, array: other.bid});
+								items.push({ _id: other._id, array: other.bid });
 								//console.log(items);
 							}
 							if (docs.length == items.length)
 							{
-								console.log("findMostSimilar:");
 								nn.findMostSimilar(query, items, fields, function(nearestNeighbor, probability) {
-									console.log(query._id + "\n");
-									console.log(nearestNeighbor._id + "\n");
-									console.log(probability + "\n");
-								  });
+									console.log(query._id);
+									console.log(nearestNeighbor._id);
+									console.log(probability);
+									var index;
+									for (var i = 0; i < query.array.length; i++)
+									{
+										index = nearestNeighbor.array.indexOf(query.array[i]);
+										if (index > -1) {
+											nearestNeighbor.array.splice(index, 1);
+										}
+									}
+									return res.status(200).json({
+										nearestNeighbor: nearestNeighbor._id,
+										recommendations: nearestNeighbor.array
+									});
+								});
 							}
-						})
-						.catch(err => {
-							res.status(500).json({
-								error: err
-							});
 						});
 					})
 					.catch(err => {
