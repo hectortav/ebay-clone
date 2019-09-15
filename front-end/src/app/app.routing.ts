@@ -12,6 +12,7 @@ import { AdminComponent } from './admin/admin.component';
 import { EmailComponent } from './email/email.component';
 import { InboxComponent } from './inbox/inbox.component';
 import { SentComponent } from './sent/sent.component';
+import { UserInfoComponent } from './user-info/user-info.component'
 
 const routes: Routes = [
     { path: '', component: LandingComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
     { path: 'manage-auctions', component: ManageAuctionsComponent, canActivate: [AuthGuard] },
     { path: 'auction-detail/:id', component: AuctionDetailComponent },
     { path: 'admin', component: AdminComponent, canActivate: [RoleGuard], data: { role: 'admin' } },
+    { path: 'admin/users/:id', component: UserInfoComponent, canActivate: [RoleGuard], data: { role: 'admin' } },
     {
         path: 'email', component: EmailComponent, canActivate: [AuthGuard],
         children: [

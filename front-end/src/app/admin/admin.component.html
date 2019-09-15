@@ -22,74 +22,57 @@
 
 <div class="container-fluid pt-4">
     <div class="row">
+        <!-- Sidebar -->
         <div class="col-md-3 ">
             <div class="list-group ">
-                <a href="#" class="list-group-item list-group-item-action active">Dashboard</a>
-                <a href="#" class="list-group-item list-group-item-action">User Management</a>
-                <a href="#" class="list-group-item list-group-item-action">Used</a>
-                <a href="#" class="list-group-item list-group-item-action">Enquiry</a>
-                <a href="#" class="list-group-item list-group-item-action">Dealer</a>
-                <a href="#" class="list-group-item list-group-item-action">Media</a>
-                <a href="#" class="list-group-item list-group-item-action">Post</a>
-                <a href="#" class="list-group-item list-group-item-action">Category</a>
-                <a href="#" class="list-group-item list-group-item-action">New</a>
-                <a href="#" class="list-group-item list-group-item-action">Comments</a>
-                <a href="#" class="list-group-item list-group-item-action">Appearance</a>
-                <a href="#" class="list-group-item list-group-item-action">Reports</a>
-                <a href="#" class="list-group-item list-group-item-action">Settings</a>
-
-
+                <a class="list-group-item list-group-item-action active" style="color: white !important;">Dashboard</a>
+                <a routerLink="/admin" class="list-group-item list-group-item-action">All Users</a>
+                <a routerLink="/admin" [queryParams]="{ load: 'unverified' }"
+                    class="list-group-item list-group-item-action">Unverfied Users</a>
             </div>
         </div>
         <div class="col-md-9">
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-2">
-                            <h4>Users</h4>
+                        <div class="col-md-3 border-right">
+                            <h4>{{ current }}</h4>
                         </div>
-
+                        <div class="col-md-6">
+                            <span class="btn btn-sm btn-primary">{{ count }}</span>
+                        </div>
                     </div>
+
+                    <!-- Users -->
                     <div class="row">
                         <div class="col-md-12">
                             <table class="table table-hover ">
                                 <thead class="bg-light ">
                                     <tr>
                                         <th>Username</th>
-                                        <th>Name</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
                                         <th>Email</th>
-                                        <th>Role</th>
-                                        <th>Posts</th>
                                         <th>Edit</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><a href="#"><small>Johnyahua</small></a></td>
-                                        <td><small>Doe</small></td>
-                                        <td><small>john@example.com</small></td>
-                                        <td><small>Admin</small></td>
-                                        <td><a href="#"><small>5</small></a></td>
+                                <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
+                                <tbody *ngIf="users">
+                                    <tr *ngFor="let user of users; let i = index">
                                         <td>
-                                            <a href="#"><i class="fa fa-pencil-square-o"></i></a>
-                                            <a href="#"><i class="fa fa-eye"></i></a>
-                                            <a href="#"><i class="fa fa-trash"></i></a>
+                                            <a [routerLink]="['users', user._id]">
+                                                <small>{{user.username}}</small>
+                                            </a>
+                                        </td>
+                                        <td><small>{{user.firstname}}</small></td>
+                                        <td><small>{{user.lastname}}</small></td>
+                                        <td><small>{{user.email}}</small></td>
+                                        <td>
+                                            <a (click)="verifyUser(user, i)"><i class="pr-1 fa fa-thumbs-up"></i></a>
+                                            <a (click)="unverifyUser(user)"><i class="pr-2 fa fa-thumbs-down"></i></a>
+                                            <a (click)="deleteUser(user, i)"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td><a href="#"><small>Johnyahua</small></a></td>
-                                        <td><small>Doe</small></td>
-                                        <td><small>john@example.com</small></td>
-                                        <td><small>Admin</small></td>
-                                        <td><a href="#"><small>5</small></a></td>
-                                        <td>
-                                            <a href="#"><i class="fa fa-pencil-square-o"></i></a>
-                                            <a href="#"><i class="fa fa-eye"></i></a>
-                                            <a href="#"><i class="fa fa-trash"></i></a>
-                                        </td>
-                                    </tr>
-
-
                                 </tbody>
                             </table>
                         </div>

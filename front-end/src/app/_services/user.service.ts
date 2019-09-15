@@ -21,7 +21,7 @@ export class UserService {
     }
 
     getById(id: string) {
-        return this.http.get<User>(`${environment.apiUrl}/users/${id}`);
+        return this.http.get<any>(`${environment.apiUrl}/users/id/${id}`);
     }
 
     getUnverified() {

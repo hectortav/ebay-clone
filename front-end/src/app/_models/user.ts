@@ -12,4 +12,6 @@ export class User {
     afm: string;
     role: Role;
     token?: string;
+    verified?: any;
+    rating?: any;
 }
