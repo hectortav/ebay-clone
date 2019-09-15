@@ -102,7 +102,7 @@ export class AuctionformComponent implements OnInit {
   }
 
   handleReaderLoaded(e) {
-    this.auctionForm.value.images.push('data:image/png;base64,' + btoa(e.target.result));
+    this.auctionForm.value.images.push(btoa(e.target.result));
     this.images.push('data:image/png;base64,' + btoa(e.target.result));
   }
 

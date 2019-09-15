@@ -14,4 +14,5 @@ export class Auction {
     longitude?: number;
     seller: string;
     bids?: string[];
+    images?: string[];
 }
