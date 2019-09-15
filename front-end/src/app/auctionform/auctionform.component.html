@@ -76,7 +76,9 @@
                 Upload Images (optional)
             </label>
 
-            <img width="150" *ngFor="let item of images" src={{item}} alt="image">
+            <div>
+                <img width="150" *ngFor="let item of images" src={{item}} alt="image">
+            </div>
 
             <div class="form-group">
                 <button [disabled]="loading" class="btn btn-outline-dark">

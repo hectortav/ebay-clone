@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <div class="auctions">
+    <div *ngIf="myAuctions" class="auctions">
         <h5>My auctions</h5>
         <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
         <ul *ngIf="myAuctions" class="list-group shadow-sm p-3 mb-5 bg-white rounded">
@@ -21,17 +21,6 @@
                 <div *ngIf="myAuction === selectedAuction">
                     <app-auction-info [auction]="selectedAuction"></app-auction-info>
                 </div>
-            </li>
-        </ul>
-    </div>
-
-    <div class="auctions">
-        <h5>Your recently viewed auctions</h5>
-        <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
-        <ul *ngIf="recentAuctions" class="list-group shadow-sm p-3 mb-5 bg-white rounded">
-            <li *ngFor="let recentAuction of recentAuctions | slice:0:4"
-                class="list-group-item border-left-0 border-right-0 rounded-0">
-                {{ recentAuction }}
             </li>
         </ul>
     </div>

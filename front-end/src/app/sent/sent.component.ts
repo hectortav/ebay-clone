@@ -46,7 +46,6 @@ export class SentComponent implements OnInit {
   }
 
   onSelect(message: Message): void {
-    console.log(message);
     this.selectedMessage = message;
   }
 
@@ -63,7 +62,6 @@ export class SentComponent implements OnInit {
   get f() { return this.messageForm.controls; }
 
   sendMessage() {
-    console.log(this.messageForm);
     this.submitted = true;
 
     // stop here if form is invalid

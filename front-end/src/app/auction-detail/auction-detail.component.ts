@@ -60,7 +60,7 @@ export class AuctionDetailComponent implements OnInit {
       let newObj: any = res;
       this.auction = newObj.auction;
       this.categories = this.auction.category;
-      if ((this.auction.longitude != -1) && (this.auction.latitude != -1)) {
+      if ((this.auction.longitude != -1) && (this.auction.latitude != -1) && this.auction.longitude && this.auction.latitude) {
         this.coords = true
       }
       for (var img in this.auction.images) {

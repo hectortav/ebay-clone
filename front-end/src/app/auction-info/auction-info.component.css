@@ -64,3 +64,14 @@ textarea {
     box-sizing: border-box;
     background-color: #7EC9D2;
 }
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}

@@ -12,10 +12,6 @@ export class UserService {
         return this.http.post(`${environment.apiUrl}/users/seen`, { _id, seen });
     }
 
-    getRecentAuctions(id: string) {
-        return this.http.get<any>(`${environment.apiUrl}/users/seen/${id}`);
-    }
-
     getAll() {
         return this.http.get<User[]>(`${environment.apiUrl}/users`);
     }
@@ -26,6 +22,18 @@ export class UserService {
 
     getById(id: string) {
         return this.http.get<User>(`${environment.apiUrl}/users/${id}`);
+    }
+
+    getUnverified() {
+        return this.http.get<any>(`${environment.apiUrl}/users/unverified`);
+    }
+
+    verifyUser(id: string) {
+        return this.http.post(`${environment.apiUrl}/users/verify/${id}`, null);
+    }
+
+    unverifyUser(id: string) {
+        return this.http.post(`${environment.apiUrl}/users/unverify/${id}`, null);
     }
 
     deleteUser(user: User | number): Observable<User> {

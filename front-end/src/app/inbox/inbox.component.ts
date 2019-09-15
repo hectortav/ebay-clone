@@ -64,7 +64,6 @@ export class InboxComponent implements OnInit {
   get f() { return this.messageForm.controls; }
 
   sendMessage() {
-    console.log(this.messageForm);
     this.submitted = true;
 
     // stop here if form is invalid

@@ -75,8 +75,6 @@ export class AuctionformComponent implements OnInit {
 
     this.auctionForm.value.currently = this.auctionForm.value.first_bid;
 
-    console.log(this.auctionForm.value)
-
     this.loading = true;
     this.auctionService.newForm(this.auctionForm.value)
       .pipe(first())

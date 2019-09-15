@@ -148,4 +148,19 @@ export class AuctionInfoComponent implements OnChanges {
     this.auction.currently = event.target.value;
   }
 
+  addImages(event: any) {
+    const file = event.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = this.handleReaderLoaded.bind(this);
+      reader.readAsBinaryString(file);
+    }
+  }
+
+  handleReaderLoaded(e) {
+    this.auction.images.push(btoa(e.target.result));
+  }
+
 }

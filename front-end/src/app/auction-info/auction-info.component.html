@@ -45,6 +45,16 @@
             <input class="form-control rounded-0" [(ngModel)]="auction.description" placeholder="Description"
                 [disabled]="disableEdit(auction)" />
         </div>
+        <div>
+            <label>Images</label>
+            <div>
+                <img width="150" *ngFor="let item of auction.images" [src]="'data:image/png;base64,'+item" alt="image">
+            </div>
+            <label class="custom-file-upload">
+                <input type="file" (change)="addImages($event)" accept="image/*" [disabled]="disableEdit(auction)" />
+                Upload Images (optional)
+            </label>
+        </div>
 
         <!-- Buttons -->
         <div class="buttons-container">

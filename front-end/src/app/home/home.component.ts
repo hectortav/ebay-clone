@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
 
         if (params.text || params.price || params.location) {
             this.loading = true;
-            this.auctionsService.searchAuctions(params.category, params.text, params.price, params.location, page).pipe(first()).subscribe(newObj => {
+            this.auctionsService.searchAuctions(encodeURIComponent(params.category), params.text, params.price, params.location, page).pipe(first()).subscribe(newObj => {
                 this.loading = false;
                 this.auctions = newObj.auctions;
                 this.count = newObj.count;
@@ -65,7 +65,7 @@ export class HomeComponent implements OnInit {
 
         if (params.category) {
             this.loading = true;
-            this.auctionsService.searchCategory(params.category, page).pipe(first()).subscribe(newObj => {
+            this.auctionsService.searchCategory(encodeURIComponent(params.category), page).pipe(first()).subscribe(newObj => {
                 this.loading = false;
                 this.auctions = newObj.auctions;
                 this.count = newObj.count;
