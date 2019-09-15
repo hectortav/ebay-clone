@@ -9,7 +9,7 @@ const User = require('../models/user');
 
 router.get('/', (req, res, next) => {
 	User.find()
-	.select('_id username firstname lastname email phone address city afm rating role')
+	.select('_id username firstname lastname email phone address city afm rating role verified')
 	.exec()
 	.then(docs => {
 		const response = {
@@ -445,7 +445,7 @@ router.post('/recommendations/:userId', (req, res, next) => {
 		.then(user => {
 			if (!user) {
 				return res.status(404).json({
-					message: 'User Not Found'.length
+					message: 'User Not Found'
 				});
 			}
 			else {
@@ -509,12 +509,32 @@ router.post('/recommendations/:userId', (req, res, next) => {
 		});
 });
 
-router.put('/:userId', (req, res, next) => {
-	User.find({ _id: req.params.userId})
+router.post('/verify/:userId', (req, res, next) => {
+	User.findById(req.params.userId)
 	.exec()
-	.then(result => {
-		res.status(200).json({
-			message: 'User Deleted'
+	.then(user => {
+		user.verified = true;
+		user.save();
+		return res.status(200).json({
+			message: 'User Verified'
+		})
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(500).json({
+			error: err
+		});
+	});
+})
+
+router.post('/unverify/:userId', (req, res, next) => {
+	User.findById(req.params.userId)
+	.exec()
+	.then(user => {
+		user.verified = false;
+		user.save();
+		return res.status(200).json({
+			message: 'User Unverified'
 		})
 	})
 	.catch(err => {
@@ -540,4 +560,24 @@ router.delete('/:userId', (req, res, next) => {
 		});
 	});
 })
+/*
+router.post('/update', (req, res, next) => {
+	User.find()
+		.exec()
+		.then(docs => {
+			docs.map(doc => {
+				doc.verified = true;
+				doc.save();
+			});
+		})
+		.catch(err => {
+			res.status(500).json({
+				error: err
+			});
+        });
+        return res.status(200).json({
+            message: 'Complete'
+        });
+});
+*/
 module.exports = router;
