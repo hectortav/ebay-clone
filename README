@@ -105,6 +105,10 @@ to update:
 npm install xml2js
 npm install --save express body-parser body-parser-xml
 
+!!!
+Enable:
+
+chrome://flags/#allow-insecure-localhost 
 
 
 

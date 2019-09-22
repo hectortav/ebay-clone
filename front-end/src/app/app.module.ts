@@ -23,7 +23,8 @@ import { AuctionInfoComponent } from './auction-info/auction-info.component';
 import { EmailComponent } from './email/email.component';
 import { InboxComponent } from './inbox/inbox.component';
 import { SentComponent } from './sent/sent.component';
-import { UserInfoComponent } from './user-info/user-info.component'
+import { UserInfoComponent } from './user-info/user-info.component';
+import { RecommendationsComponent } from './recommendations/recommendations.component'
 
 @NgModule({
     imports: [
@@ -52,7 +53,8 @@ import { UserInfoComponent } from './user-info/user-info.component'
         EmailComponent,
         InboxComponent,
         SentComponent,
-        UserInfoComponent
+        UserInfoComponent,
+        RecommendationsComponent
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

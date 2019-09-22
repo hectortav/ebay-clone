@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../_models';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
@@ -41,5 +41,9 @@ export class UserService {
         const url = `${environment.apiUrl}/users/${id}`;
 
         return this.http.delete<User>(url);
+    }
+
+    recommendations(id: string) {
+        return this.http.post(`${environment.apiUrl}/users/recommendations/${id}`, null);
     }
 }

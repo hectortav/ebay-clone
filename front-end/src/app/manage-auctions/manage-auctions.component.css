@@ -33,3 +33,11 @@
     font-weight: bold;
     letter-spacing: 1px;
 }
+
+.recs {
+    padding-top: 40px;
+}
+
+.recs button {
+    font-weight: bold;
+}

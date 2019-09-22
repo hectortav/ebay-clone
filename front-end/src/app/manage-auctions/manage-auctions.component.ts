@@ -10,6 +10,7 @@ import { Auction } from '../_models';
 })
 export class ManageAuctionsComponent implements OnInit {
   openform: boolean;
+  openRecs: boolean = false;
   myAuctions: Auction[];
   recentAuctions: Auction[];
   selectedAuction: Auction;
@@ -64,5 +65,10 @@ export class ManageAuctionsComponent implements OnInit {
       'list-group-item-success': state === true,
       'list-group-item-danger': state === false
     }
+  }
+
+  getRecs() {
+    this.openRecs = true;
+    return this.openRecs;
   }
 }

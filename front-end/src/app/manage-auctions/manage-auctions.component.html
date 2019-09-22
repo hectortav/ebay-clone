@@ -24,4 +24,14 @@
             </li>
         </ul>
     </div>
+
+    <div class="recs">
+        <button (click)="getRecs()" class="btn btn-outline-secondary">
+            <span>Get Recommendations</span>
+        </button>
+
+        <div *ngIf=openRecs>
+            <app-recommendations></app-recommendations>
+        </div>
+    </div>
 </div>
