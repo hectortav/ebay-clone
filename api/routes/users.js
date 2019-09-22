@@ -28,6 +28,7 @@ router.get('/', (req, res, next) => {
 						rating: doc.rating,
 						role: doc.role,
 						verified: doc.verified
+
 					}
 				})
 			};
@@ -181,6 +182,7 @@ router.post('/login', (req, res, next) => {
 				res.status(401).json({
 					message: 'Auth Failed'
 				});
+				
 			});
 		})
 		.catch(err => {
@@ -432,6 +434,19 @@ router.get('/seen/:userId', (req, res, next) => {
 });
 
 router.post('/recommendations/:userId', (req, res, next) => {
+	function unique(array) {
+		var a = array.slice(0);
+		for(var i=0; i<a.length; ++i) {
+			for(var j=i+1; j<a.length; ++j) {
+				if(String(a[i]) == String(a[j]))
+				{
+					a.splice(j--, 1);
+				}
+			}
+		}
+	
+		return a;
+	};
 	//https://www.npmjs.com/package/nearest-neighbor
 	var items = [];
 	var query;
@@ -469,16 +484,23 @@ router.post('/recommendations/:userId', (req, res, next) => {
 			}
 			else {
 				if (user.bid.length >= 1) {
-					query = { _id: user._id, array: user.bid };
+					var temp = user.bid.slice(0);
+					var temp_2 = user.seen.slice(0);
+					temp = [].concat(temp, temp_2);
+					temp = unique(temp).slice(0);
+					query = { _id: user._id, array: temp };
 				}
 				else if (user.seen.length >= 1) {
-					query = { _id: user._id, array: user.seen };
+					var temp = user.seen.slice(0);
+					temp = unique(temp).slice(0);
+					query = { _id: user._id, array: user.temp };
 				}
 				else {
 					return res.status(200).json({
 						message: "No Recommendations For New Users"
 					});
 				}
+				console.log(query.array);
 				User.find()
 					.exec()
 					.then(docs => {
