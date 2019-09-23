@@ -11,6 +11,7 @@ import { AlertService } from '../_alert';
   styleUrls: ['./recommendations.component.css']
 })
 export class RecommendationsComponent implements OnInit {
+  auctions: Auction[];
 
   constructor(
     private userService: UserService,
@@ -27,6 +28,8 @@ export class RecommendationsComponent implements OnInit {
       .subscribe(
         data => {
           console.log(data);
+          var newObj: any = data;
+          this.auctions = newObj.recommendations;
         },
         error => {
           this.alertService.error(error);

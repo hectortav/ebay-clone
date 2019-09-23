@@ -29,7 +29,7 @@ router.get('/', (req, res, next) => {
 	}
 
 	if (req.query.price) {
-		query.currently = { "$lt": parseInt(req.query.price) };
+		query.currently = { "$lte": parseFloat(req.query.price) };
 	}
 
 	if (req.query.location) {

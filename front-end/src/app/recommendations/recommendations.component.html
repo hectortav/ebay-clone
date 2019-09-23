@@ -1,1 +1,9 @@
-<p>recommendations works!</p>
+<div *ngIf="auctions" class="auctions">
+    <ul *ngIf="auctions" style="width: 280px;" class="list-group shadow-sm p-3 mb-5 bg-white rounded">
+        <li *ngFor="let auction of auctions" class="list-group-item border-left-0 border-right-0 rounded-0">
+            <a [routerLink]="['/auction-detail', auction]">
+                Link to recommendation
+            </a>
+        </li>
+    </ul>
+</div>
