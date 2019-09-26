@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const nn = require('nearest-neighbor');
 
 const User = require('../models/user');
+const Auction = require('../models/auction');
 
 router.get('/', (req, res, next) => {
 	User.find()
@@ -533,10 +534,32 @@ router.post('/recommendations/:userId', (req, res, next) => {
 											nearestNeighbor.array.splice(index, 1);
 										}
 									}
-									return res.status(200).json({
-										nearestNeighbor: nearestNeighbor._id,
-										recommendations: nearestNeighbor.array
-									});
+									var return_array = [];
+									var removed = 0;
+									var max_length = nearestNeighbor.array.length;
+									for (var i = 0; i < max_length; i++)
+									{
+										Auction.findById(nearestNeighbor.array[i])
+										.exec()
+										.then(auction => {
+											if (auction)
+											{
+												return_array.push(auction._id);
+											}
+											else
+											{
+												removed++;
+											}
+											//console.log(return_array.length + " " + removed + " " + max_length);
+											if (return_array.length + removed == max_length)
+											{
+												return res.status(200).json({
+													nearestNeighbor: nearestNeighbor._id,
+													recommendations: return_array
+												});
+											}
+										});
+									}
 								});
 							}
 						});

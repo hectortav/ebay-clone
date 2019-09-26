@@ -1,114 +1,26 @@
-Download GlassFish:
-https://idroot.us/install-glassfish-ubuntu-18-04-lts/
+# Ebay Clone (Restful API)
 
-To install GlassFish you need Java 8:
-sudo add-apt-repository ppa:webupd8team/java
-sudo apt-get update
-sudo apt-get install oracle-java8-installer
+Auction website with a Restful API.
+Made using MongoDB, Express.js, AngularJS and Node.js.
 
-To switch between java versions:
-update-java-alternatives --list
-sudo update-java-alternatives --set /path/to/java/version
-(change /path/to/java/version to the java 8 path)
+## Usage
 
-Start glassfish:
-sudo ./asadmin start-domain
-(asadmin is in /glassfish5/bin)
+```bash
+npm update
+npm start
+cd ./front-end
+npm update
+ng serve –o
+```
 
-Website will be on: localhost:8080
-Admin page will be on: localhost:4848
+## Contributors
+Front-End: 
+https://github.com/KonstantinosPaschopoulos
+Back-End: 
+https://github.com/hectortav
 
-To install Intellij IDEA:
-sudo apt install snapd
-sudo snap install intellij-idea-community --classic
-
-https://www.jetbrains.com/help/idea/creating-and-running-your-first-java-ee-application.html
-
-////////////
-NEW PLAN LOL
-////////////
-Install Tomcat:
-https://linuxize.com/post/how-to-install-tomcat-9-on-ubuntu-18-04/#step-4-create-a-systemd-unit-file
-
-Install Eclipse:
-sudo apt install snapd
-sudo snap install eclipse --classic
-
-In Eclipse:
-Help->Install New Software
-Work with: https://projects.eclipse.org/releases/2019-03
-In "Web, XML, Java EE and OSGi Enterprise Development" install:
-Eclipse Java EE Developer Tools
-Eclipse Java Web Developer Tools
-Eclipse Web Developer Tools
-Eclipse XML Editors and Tools
-JST Server Adapters
-JST Server Adapters
-
-Youtube tutorial:
-https://www.youtube.com/watch?v=5jQSat1cKMo&t=841s
-
-MongoDB Atlas:
-email: di.secret.project@gmail.com
-password: RMxNfD&7~3x"^*HY$3A'?R/uP4cgq~^?
-
-user: admin
-password: admin
-
-to add new user send POST request under /users/signup:
-{
-	"username": "username",
-	"password": "password",
-	"firstname": "firstname",
-	"lastname": "lastname",
-	"email": "email",
-	"phone": "phone",
-	"address": "address",
-	"city": "city",
-	"afm": "afm"
-}
-
-to see web token contents:
-https://jwt.io/
-
-Front-end prerequisites:
-node.js (run node -v to check version)
-npm install -g @angular/cli
-npm install ngx-pagination --save
-npm install jwt-decode --save
-
-To run front-end:
-cd frontend
-ng serve -o (it should open the app in a new window in the browser)
-
-to post an auction: 
-{
-	"name": "blue bike",
-	"category": "vehicle",
-	"location": "Athens",
-	"country": "Greece",
-	"currently": "120",
-	"started": "3/4/19",
-	"ends": "3/6/19",
-	"description": "the bike is actually red",
-	"seller": "5d4a788e729c8410124f98de"
-}
-
-to update:
-[
-	{"property": "name",
-	"value": "red bike"},
-	{"property": "currently",
-	"value": "213"}
-]
-
-npm install xml2js
-npm install --save express body-parser body-parser-xml
-
-!!!
-Enable:
-
-chrome://flags/#allow-insecure-localhost 
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
 
 
 
