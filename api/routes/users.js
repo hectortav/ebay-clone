@@ -450,19 +450,19 @@ router.post('/recommendations/:userId', (req, res, next) => {
 	//https://www.npmjs.com/package/nearest-neighbor
 	var items = [];
 	var query;
-	var value;
+	var value=0;
 	nn.comparisonMethods.custom = function (b, a) {
 		var i, similarity;
 
 		i = 0;
 		similarity = 0;
 		//console.log(b);
-
 		while (i < a.length) {
+			//console.log(a[i] + " in " + b + "\n");
 			if (b.includes(a[i])) {
 				//console.log(a[i] + " included");
 				similarity += 1;
-				//console.log(b);
+				console.log("yes");
 			}
 			i++;
 		}
@@ -505,11 +505,14 @@ router.post('/recommendations/:userId', (req, res, next) => {
 					.exec()
 					.then(docs => {
 						docs.map(other => {
-							if (other != user) {
+							if (String(other._id) != String(user._id)) {
 								items.push({ _id: other._id, array: other.bid });
-								//console.log(items);
+								//console.log(other._id);
 							}
-							if (docs.length == items.length) {
+							//console.log(items.length);
+								//console.log("docs.length = " + docs.length + "\nitems.length = " + items.length);
+							if (docs.length == items.length + 1) {
+								//console.log(docs.length);
 								nn.findMostSimilar(query, items, fields, function (nearestNeighbor, probability) {
 									console.log(query._id);
 									console.log(nearestNeighbor._id);
