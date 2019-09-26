@@ -466,7 +466,16 @@ router.post('/recommendations/:userId', (req, res, next) => {
 			}
 			i++;
 		}
-		//console.log(a.length);
+		if (similarity>0)
+			console.log("\n");
+		if (similarity == b.length)
+		{
+			if (similarity == a.length)
+			{
+				return 0;
+			}
+
+		}
 		return similarity;
 	};
 
@@ -493,7 +502,7 @@ router.post('/recommendations/:userId', (req, res, next) => {
 				else if (user.seen.length >= 1) {
 					var temp = user.seen.slice(0);
 					temp = unique(temp).slice(0);
-					query = { _id: user._id, array: user.temp };
+					query = { _id: user._id, array: temp };
 				}
 				else {
 					return res.status(200).json({
