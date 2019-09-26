@@ -14,10 +14,9 @@ ng serve –o
 ```
 
 ## Contributors
-Front-End: 
-[KonstantinosPaschopoulos](https://github.com/KonstantinosPaschopoulos)
-Back-End: 
-[hectortav](https://github.com/hectortav)
+Front-End: [KonstantinosPaschopoulos](https://github.com/KonstantinosPaschopoulos)
+
+Back-End: [hectortav](https://github.com/hectortav)
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
