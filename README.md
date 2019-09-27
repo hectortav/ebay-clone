@@ -1,6 +1,6 @@
-# Ebay Clone (Restful API)
+# Ebay Clone (REST API)
 
-Auction website with a Restful API.
+Auction website with a REST API.
 Made using MongoDB, Express.js, AngularJS and Node.js.
 
 ## Usage
