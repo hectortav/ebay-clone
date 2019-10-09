@@ -20,7 +20,10 @@ Back-End: [hectortav](https://github.com/hectortav)
 
 ## Screenshots
 Login Page
-![Alt text](./Screenshots/login_page.png?raw=true "Login Page")
+![alt text](https://raw.githubusercontent.com/hectortav/Ebay_Clone/master/Screenshots/long_page.png)
+
+Register Page
+![alt text](https://raw.githubusercontent.com/hectortav/Ebay_Clone/master/Screenshots/register_page.png)
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
