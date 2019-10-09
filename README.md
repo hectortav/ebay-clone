@@ -1,7 +1,7 @@
 # Ebay Clone (REST API)
 
 Auction website with a REST API.
-Made using MongoDB, Express.js, AngularJS and Node.js.
+Made using MongoDB, Express.js, Angular 8 and Node.js.
 
 ## Usage
 
@@ -17,6 +17,10 @@ ng serve –o
 Front-End: [KonstantinosPaschopoulos](https://github.com/KonstantinosPaschopoulos)
 
 Back-End: [hectortav](https://github.com/hectortav)
+
+## Screenshots
+Login Page
+![Alt text](./Screenshots/login_page.png?raw=true "Login Page")
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
