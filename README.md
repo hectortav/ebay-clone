@@ -28,11 +28,8 @@ Login Page
 Register Page
 ![alt text](https://raw.githubusercontent.com/hectortav/Ebay_Clone/master/Screenshots/register_page.png)
 
-Register Page
-![alt text](https://raw.githubusercontent.com/hectortav/Ebay_Clone/master/Screenshots/register_page.png)
-
 Front Page
-![alt text](https://raw.githubusercontent.com/hectortav/Ebay_Clone/master/Screenshots/front_page.png)
+![alt text](https://raw.githubusercontent.com/hectortav/Ebay_Clone/master/Screenshots/front-page.png)
 
 Auction Page
 ![alt text](https://raw.githubusercontent.com/hectortav/Ebay_Clone/master/Screenshots/auction_page.png)
