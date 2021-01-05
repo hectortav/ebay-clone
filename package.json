@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/hectortav/Ebay_Clone#readme",
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "bcrypt": "^3.0.6",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
